@@ -1,0 +1,7 @@
+{
+  "prefix": "name",
+  "killOthers": ["failure", "success"],
+  "restartTries": 3,
+  "prefixColors": ["blue", "green"],
+  "raw": true
+}
