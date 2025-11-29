@@ -61,6 +61,16 @@ const WorkflowNodeTemplateComponent = memo(
             <Collapsible.Content>
               <div className={styles['collapsible']}>{children}</div>
             </Collapsible.Content>
+            {selected && (
+              <div className={styles['expanded-container']}>
+                <div className={styles['expanded-content']}>
+                  <span className="ax-public-h10">Expanded Details</span>
+                  <p className="ax-public-p11">
+                    This is a placeholder for the expanded content that appears when the node is selected.
+                  </p>
+                </div>
+              </div>
+            )}
           </NodePanel.Content>
           <NodePanel.Handles isVisible={showHandles} alignment={handlesAlignment}>
             <Handle id={handleTargetId} position={handleTargetPosition} type="target" />

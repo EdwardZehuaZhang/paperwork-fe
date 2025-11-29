@@ -6,5 +6,6 @@ import { notification } from './nodes/notification/notification';
 import { delay } from './nodes/delay/delay';
 import { decision } from './nodes/decision/decision';
 import { aiAgent } from './nodes/ai-agent/ai-agent';
+import { form } from './nodes/form/form';
 
-export const paletteData: PaletteItem[] = [triggerNode, action, delay, conditional, decision, notification, aiAgent];
+export const paletteData: PaletteItem[] = [triggerNode, action, delay, conditional, decision, notification, aiAgent, form];
