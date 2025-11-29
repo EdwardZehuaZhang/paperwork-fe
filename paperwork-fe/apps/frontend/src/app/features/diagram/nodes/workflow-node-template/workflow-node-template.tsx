@@ -9,6 +9,7 @@ import { getHandlePosition } from '../../handles/get-handle-position';
 import styles from './workflow-node-template.module.css';
 import { withOptionalComponentPlugins } from '@/features/plugins-core/adapters/adapter-components';
 import { NodeData } from '@workflow-builder/types/node-data';
+import { BlockNoteEditor } from '../components/block-note-editor/block-note-editor';
 
 export type WorkflowNodeTemplateProps = {
   id: string;
@@ -64,10 +65,13 @@ const WorkflowNodeTemplateComponent = memo(
             {selected && (
               <div className={styles['expanded-container']}>
                 <div className={styles['expanded-content']}>
-                  <span className="ax-public-h10">Expanded Details</span>
-                  <p className="ax-public-p11">
-                    This is a placeholder for the expanded content that appears when the node is selected.
-                  </p>
+                  <div>
+                    <span className="ax-public-h10">Form Content</span>
+                    <p className="ax-public-p11">
+                      Use the editor below to create rich form content with a Notion-like experience.
+                    </p>
+                  </div>
+                  <BlockNoteEditor nodeId={id} />
                 </div>
               </div>
             )}
