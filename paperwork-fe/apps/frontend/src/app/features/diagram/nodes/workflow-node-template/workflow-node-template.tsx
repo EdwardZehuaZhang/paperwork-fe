@@ -1,6 +1,6 @@
 import { Handle } from '@xyflow/react';
 import { IconType, LayoutDirection } from '@workflow-builder/types/common';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, lazy, Suspense, useCallback } from 'react';
 import { Collapsible, NodeDescription, NodeIcon, NodePanel, Status } from '@synergycodes/overflow-ui';
 import { Icon } from '@workflow-builder/icons';
 import { getHandleId } from '../../handles/get-handle-id';
@@ -9,7 +9,14 @@ import { getHandlePosition } from '../../handles/get-handle-position';
 import styles from './workflow-node-template.module.css';
 import { withOptionalComponentPlugins } from '@/features/plugins-core/adapters/adapter-components';
 import { NodeData } from '@workflow-builder/types/node-data';
-import { BlockNoteEditor } from '../components/block-note-editor/block-note-editor';
+import useStore from '@/store/store';
+
+// Lazy load BlockNote editor to improve performance
+const BlockNoteEditor = lazy(() =>
+  import('../components/block-note-editor/block-note-editor').then((module) => ({
+    default: module.BlockNoteEditor,
+  })),
+);
 
 export type WorkflowNodeTemplateProps = {
   id: string;
@@ -31,12 +38,15 @@ const WorkflowNodeTemplateComponent = memo(
     icon,
     label,
     description,
+    data,
     layoutDirection = 'RIGHT',
     selected = false,
     showHandles = true,
     isValid,
     children,
   }: WorkflowNodeTemplateProps) => {
+    const setNodeData = useStore((store) => store.setNodeData);
+    
     const handleTargetId = getHandleId({ nodeId: id, handleType: 'target' });
     const handleSourceId = getHandleId({ nodeId: id, handleType: 'source' });
 
@@ -49,9 +59,21 @@ const WorkflowNodeTemplateComponent = memo(
 
     const handlesAlignment = hasContent && layoutDirection === 'RIGHT' ? 'header' : 'center';
 
+    const handleEditorChange = useCallback(
+      (content: any) => {
+        setNodeData(id, { editorContent: content });
+      },
+      [id, setNodeData],
+    );
+
     return (
       <Collapsible>
-        <NodePanel.Root selected={selected} className={styles['content']}>
+        <NodePanel.Root
+          selected={selected}
+          className={styles['content']}
+          style={selected ? { width: '500px', minWidth: '500px', maxWidth: '500px' } : undefined}
+          data-expanded={selected ? 'true' : 'false'}
+        >
           <NodePanel.Header>
             <NodeIcon icon={iconElement} />
             <NodeDescription label={label} description={description} />
@@ -65,13 +87,23 @@ const WorkflowNodeTemplateComponent = memo(
             {selected && (
               <div className={styles['expanded-container']}>
                 <div className={styles['expanded-content']}>
-                  <div>
-                    <span className="ax-public-h10">Form Content</span>
-                    <p className="ax-public-p11">
-                      Use the editor below to create rich form content with a Notion-like experience.
-                    </p>
+                  <div className={styles['preview-section']}>
+                    <span className="ax-public-h10">Preview</span>
+                    <Suspense
+                      fallback={
+                        <div className={styles['editor-loading']}>
+                          <span className="ax-public-p11">Loading editor...</span>
+                        </div>
+                      }
+                    >
+                      <BlockNoteEditor 
+                        nodeId={id} 
+                        initialContent={data?.editorContent}
+                        onChange={handleEditorChange}
+                        selected={selected}
+                      />
+                    </Suspense>
                   </div>
-                  <BlockNoteEditor nodeId={id} />
                 </div>
               </div>
             )}

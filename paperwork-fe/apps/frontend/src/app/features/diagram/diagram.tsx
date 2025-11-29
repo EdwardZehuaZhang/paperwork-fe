@@ -52,6 +52,12 @@ function DiagramContainerComponent({ edgeTypes = {} }: { edgeTypes?: EdgeTypes }
   const nodeTypes = useMemo(getNodeTypesObject, []);
 
   const onDragOver = useCallback((event: DragEvent) => {
+    // Allow BlockNote's internal drag-and-drop to work
+    const target = event.target as HTMLElement;
+    if (target.closest('.bn-editor') || target.closest('.bn-container')) {
+      return;
+    }
+    
     event.preventDefault();
     event.dataTransfer.dropEffect = 'copy';
   }, []);
@@ -179,6 +185,7 @@ function DiagramContainerComponent({ edgeTypes = {} }: { edgeTypes?: EdgeTypes }
         selectionOnDrag
         panOnDrag={panOnDrag}
         selectionMode={SelectionMode.Partial}
+        noDragClassName="noDrag"
       >
         <Background />
       </ReactFlow>

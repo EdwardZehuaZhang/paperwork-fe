@@ -2,6 +2,55 @@
   --ax-public-node-gap: 0;
 }
 
+/* Override node width when expanded - make it wrap around content */
+.content:has(.expanded-container),
+.content[data-expanded='true'] {
+  width: auto !important;
+  min-width: 400px !important;
+  max-width: 800px !important;
+}
+
+/* Force all overflow-ui internal components to expand to full width ONLY when expanded */
+.content:has(.expanded-container) > :global(*),
+.content[data-expanded='true'] > :global(*) {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+}
+
+.content:has(.expanded-container) :global([class*='NodePanel']),
+.content[data-expanded='true'] :global([class*='NodePanel']) {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+}
+
+.content:has(.expanded-container) :global([class*='node-panel']),
+.content[data-expanded='true'] :global([class*='node-panel']) {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Force content wrapper and header to expand */
+.content:has(.expanded-container) :global([class*='content']),
+.content:has(.expanded-container) :global([class*='header']),
+.content[data-expanded='true'] :global([class*='content']),
+.content[data-expanded='true'] :global([class*='header']) {
+  width: 100% !important;
+}
+
+.content:has(.expanded-container) :global(div),
+.content[data-expanded='true'] :global(div) {
+  max-width: 100%;
+}
+
+/* Ensure all child elements respect the container width */
+.content:has(.expanded-container) :global(*),
+.content[data-expanded='true'] :global(*) {
+  box-sizing: border-box;
+}
+
 .collapsible {
   padding-top: 0.5rem;
 }
@@ -11,6 +60,10 @@
   padding-top: 1rem;
   border-top: 0.0625rem solid var(--ax-ui-stroke-primary-default);
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  box-sizing: border-box;
 }
 
 .expanded-content {
@@ -18,17 +71,34 @@
   flex-direction: column;
   gap: 1rem;
   padding: 1.25rem;
-  background-color: var(--ax-ui-surface-primary-hover);
+  background-color: #f5f5f5;
   border-radius: 0.5rem;
   color: var(--ax-txt-primary-default);
-  min-width: 500px;
-  min-height: 350px;
   width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .expanded-content > div:first-child {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+}
+
+.editor-loading {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--ax-ui-surface-primary-default);
+  border-radius: 0.375rem;
+  color: var(--ax-txt-tertiary-default);
+}
+
+.preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
 }
 

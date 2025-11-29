@@ -23,6 +23,7 @@ export type NodeData<T = BaseNodeProperties & Record<string, unknown>> = {
   properties: T;
   icon: IconType;
   type: string;
+  editorContent?: any; // BlockNote editor content
 };
 
 export type EdgeData = {

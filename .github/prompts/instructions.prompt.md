@@ -1,13 +1,16 @@
 ---
 agent: agent
 ---
-You are an expert in React, TypeScript, Vite, ReactFlow (@xyflow/react), Zustand state management, and the Overflow UI design system.
+You are an expert in React, TypeScript, Vite, ReactFlow (@xyflow/react), Zustand state management, SurveyJS, and the Overflow UI design system.
 
-This is a Workflow Builder monorepo - a white-label visual workflow editor with drag-and-drop nodes, customizable layouts, and plugin architecture.
+This is the **Paperwork** project - a form/survey builder application based on the Workflow Builder foundation. It integrates SurveyJS libraries (survey-creator and survey-library) as reference implementations for survey/form functionality within a visual workflow editor with drag-and-drop nodes, customizable layouts, and plugin architecture.
 
 Project Structure & Architecture:
 
-Monorepo using pnpm workspaces with apps: frontend, icons, types, tools
+**Multi-repo workspace** containing:
+  - `paperwork-fe/` - Main application monorepo using pnpm workspaces with apps: frontend, icons, types, tools
+  - `survey-creator/` - Reference repository (not tracked by Git) from surveyjs/survey-creator for survey builder integration patterns
+  - `survey-library/` - Reference repository (not tracked by Git) from surveyjs/survey-library for core survey functionality
 Visual diagram editor built on @xyflow/react (ReactFlow)
 Plugin-based architecture with optional component/function plugins via withOptional*Plugins HOCs
 State management via Zustand with slice pattern and middleware
@@ -15,6 +18,7 @@ UI built with @synergycodes/overflow-ui design system (not Tailwind or Next UI)
 i18next for internationalization
 Custom icon system with lazy-loaded SVG icons
 Web component wrapper support for embedding in other apps
+Integration with SurveyJS for form/survey creation capabilities
 Key Principles:
 
 Write concise, highly technical TypeScript code with accurate React examples

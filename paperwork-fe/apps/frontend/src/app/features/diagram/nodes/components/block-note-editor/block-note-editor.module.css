@@ -2,24 +2,57 @@
   border-radius: 0.375rem;
   overflow: hidden;
   background-color: var(--ax-ui-surface-primary-default);
-  min-height: 200px;
-  width: 100%;
+  width: 650px;
+  aspect-ratio: 1 / 1.414; /* A4 ratio (1:√2) */
+  flex-shrink: 0;
+  box-sizing: border-box;
+  cursor: text;
+  user-select: text;
+  display: flex;
+  position: relative;
+}
+
+.editor-container.selected {
+  outline: 3px solid var(--ax-ui-stroke-brand-default, #0066ff);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+.scale-wrapper {
+  flex: 1;
+  transform: scale(0.7);
+  transform-origin: 0 0;
+  width: 142.857%; /* 1 / 0.7 = 1.42857 */
+  height: 142.857%;
 }
 
 /* Override BlockNote styles to match our design system */
 .editor-container :global(.bn-container) {
   border: 0.0625rem solid var(--ax-ui-stroke-primary-default);
   border-radius: 0.375rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  cursor: text;
 }
 
 .editor-container :global(.bn-editor) {
   font-family: inherit;
   color: var(--ax-txt-primary-default);
+  flex: 1;
+  overflow-y: auto;
+  box-sizing: border-box;
+  cursor: text;
+  user-select: text;
 }
 
 .editor-container :global(.ProseMirror) {
-  padding: 1rem;
-  min-height: 200px;
+  padding: 2rem 2rem 2rem 3.5rem;
+  height: 100%;
+  box-sizing: border-box;
+  cursor: text;
+  user-select: text;
 }
 
 .editor-container :global(.ProseMirror:focus) {
@@ -29,4 +62,54 @@
 /* Match placeholder color to design system */
 .editor-container :global(.bn-block-outer .is-empty::before) {
   color: var(--ax-txt-tertiary-default);
+}
+
+/* FIX: Target the exact Mantine Flex that wraps the toolbar */
+:global(.bn-formatting-toolbar.mantine-Flex-root),
+:global(.bn-toolbar.mantine-Flex-root) {
+  max-width: none !important;
+  width: max-content !important;
+  overflow: visible !important;
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+  flex-wrap: nowrap !important;
+}
+
+/* Enable drag functionality for BlockNote's side menu and drag handle */
+.editor-container :global(.bn-side-menu),
+.editor-container :global(.bn-drag-handle-menu),
+.editor-container :global(.bn-block-outer[data-node-type]),
+.editor-container :global([data-drag-handle]) {
+  pointer-events: auto !important;
+}
+
+/* Remove noDrag class effect for drag handles to allow HTML5 drag-and-drop */
+.editor-container :global(.bn-side-menu),
+.editor-container :global(.bn-drag-handle-menu),
+.editor-container :global(.bn-side-menu *),
+.editor-container :global(.bn-drag-handle-menu *) {
+  -webkit-user-drag: element !important;
+}
+
+/* Override ReactFlow's noDrag class for BlockNote drag handles */
+.scale-wrapper :global(.bn-side-menu),
+.scale-wrapper :global(.bn-side-menu *),
+.scale-wrapper :global(.bn-drag-handle-menu),
+.scale-wrapper :global(.bn-drag-handle-menu *),
+.scale-wrapper :global([data-drag-handle]),
+.scale-wrapper :global([data-drag-handle] *) {
+  -webkit-app-region: no-drag !important;
+  user-select: none !important;
+}
+
+/* Ensure the drag handle button is interactive */
+.editor-container :global(.bn-side-menu button),
+.editor-container :global(.bn-drag-handle-menu button) {
+  pointer-events: auto !important;
+  cursor: grab !important;
+}
+
+.editor-container :global(.bn-side-menu button:active),
+.editor-container :global(.bn-drag-handle-menu button:active) {
+  cursor: grabbing !important;
 }
