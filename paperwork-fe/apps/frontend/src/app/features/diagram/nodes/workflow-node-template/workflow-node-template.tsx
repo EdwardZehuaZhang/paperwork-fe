@@ -10,6 +10,7 @@ import styles from './workflow-node-template.module.css';
 import { withOptionalComponentPlugins } from '@/features/plugins-core/adapters/adapter-components';
 import { NodeData } from '@workflow-builder/types/node-data';
 import useStore from '@/store/store';
+import { extractQuestionsFromNodeData } from '../components/block-note-editor/extract-questions';
 
 // Lazy load BlockNote editor to improve performance
 const BlockNoteEditor = lazy(() =>
@@ -66,6 +67,9 @@ const WorkflowNodeTemplateComponent = memo(
       [id, setNodeData],
     );
 
+    // Extract questions from node data for answer placeholders
+    const questions = useMemo(() => extractQuestionsFromNodeData(data), [data]);
+
     return (
       <Collapsible>
         <NodePanel.Root
@@ -101,6 +105,7 @@ const WorkflowNodeTemplateComponent = memo(
                         initialContent={data?.editorContent}
                         onChange={handleEditorChange}
                         selected={selected}
+                        questions={questions}
                       />
                     </Suspense>
                   </div>

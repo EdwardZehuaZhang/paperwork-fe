@@ -7,8 +7,8 @@ export const defaultPropertiesData: NodeDataProperties<FormNodeSchema> = {
   type: 'form',
   status: 'active',
   formBody: {
-    question1: '',
-    question2: '',
+    question1: 'Question 1',
+    question2: 'Question 2',
     signature: 'yes',
   },
 };

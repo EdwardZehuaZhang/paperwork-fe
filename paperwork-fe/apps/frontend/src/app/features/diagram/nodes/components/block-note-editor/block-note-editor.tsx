@@ -1,4 +1,4 @@
-import { useCreateBlockNote } from '@blocknote/react';
+import { useCreateBlockNote, SuggestionMenuController, getDefaultReactSlashMenuItems } from '@blocknote/react';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
 import '@blocknote/core/fonts/inter.css';
@@ -14,28 +14,37 @@ import {
   UnnestBlockButton,
   CreateLinkButton,
 } from '@blocknote/react';
+import { filterSuggestionItems } from '@blocknote/core';
 
 import styles from './block-note-editor.module.css';
+import { formNodeSchema, type FormNodeEditor } from './schema';
+import { getAnswerSuggestionItems, type FormQuestion } from './answer-menu';
 
 type Props = {
   nodeId: string;
   onChange?: (content: any) => void;
   initialContent?: any;
   selected?: boolean;
+  /**
+   * Optional array of questions from the Form Body.
+   * When provided, enables answer placeholder insertion in the editor.
+   */
+  questions?: FormQuestion[];
 };
 
 export const BlockNoteEditor = memo(
-  ({ nodeId, onChange, initialContent, selected = false }: Props) => {
+  ({ nodeId, onChange, initialContent, selected = false, questions = [] }: Props) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const initialContentRef = useRef(initialContent);
     const [isEditorFocused, setIsEditorFocused] = useState(false);
 
     const editor = useCreateBlockNote(
       {
+        schema: formNodeSchema,
         initialContent: initialContentRef.current,
       },
       [nodeId],
-    );
+    ) as FormNodeEditor;
 
     const handleChange = useCallback(() => {
       if (onChange) {
@@ -48,6 +57,19 @@ export const BlockNoteEditor = memo(
         setIsEditorFocused(true);
       }
     }, [selected]);
+
+    // Generate slash menu items with answer placeholders if questions exist
+    const getSlashItems = useCallback(
+      async (query: string) => {
+        const defaultItems = getDefaultReactSlashMenuItems(editor);
+        const answerItems =
+          questions.length > 0 ? getAnswerSuggestionItems(editor, questions) : [];
+        // Put answer items BEFORE default items so "Answers" section appears at the top
+        const allItems = [...answerItems, ...defaultItems];
+        return filterSuggestionItems(allItems, query);
+      },
+      [editor, questions],
+    );
 
     useEffect(() => {
       if (!selected) {
@@ -92,6 +114,7 @@ export const BlockNoteEditor = memo(
           editor={editor}
           onChange={handleChange}
           theme="light"
+          slashMenu={false}
           formattingToolbar={false}
           editable={isEditorFocused}
         >
@@ -114,6 +137,7 @@ export const BlockNoteEditor = memo(
               </FormattingToolbar>
             )}
           />
+          <SuggestionMenuController triggerCharacter="/" getItems={getSlashItems} />
         </BlockNoteView>
       </div>
     );
