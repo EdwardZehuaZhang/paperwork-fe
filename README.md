@@ -6,7 +6,8 @@ Main frontend application workspace for the Paperwork project.
 
 This workspace contains multiple integrated subprojects:
 
-- `workflowbuilder/` - Workflow builder component (from synergycodes/workflowbuilder)
+- `paperwork-fe/` - Main application (based on synergycodes/workflowbuilder)
+- `workflowbuilder/` - Original reference project
 
 ## Getting Started
 

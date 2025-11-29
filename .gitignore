@@ -32,6 +32,3 @@ lerna-debug.log*
 
 # OS
 Thumbs.db
-
-# Subprojects - tracked separately
-workflowbuilder/
