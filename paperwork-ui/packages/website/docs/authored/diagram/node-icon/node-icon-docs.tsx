@@ -1,0 +1,12 @@
+import { ComponentPage } from '@site/src/components/component-utils/component-page/component-page';
+import exampleCode from '!!raw-loader!@site/docs/code-examples/node-icon.example.tsx';
+
+export function Docs() {
+  return (
+    <ComponentPage
+      cssPaths={['components/node/node-icon/node-icon.module.css']}
+      componentPath="components/node/node-icon/node-icon.tsx"
+      exampleCode={exampleCode}
+    />
+  );
+}

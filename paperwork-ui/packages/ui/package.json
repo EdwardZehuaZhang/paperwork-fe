@@ -1,0 +1,84 @@
+{
+  "name": "@synergycodes/overflow-ui",
+  "type": "module",
+  "version": "1.0.0-beta.22",
+  "description": "A React library for creating node-based UIs and diagram-driven applications. Perfect for React Flow users, providing ready-to-use node templates and components that work seamlessly with React Flow's ecosystem.",
+  "keywords": [
+    "react",
+    "ui",
+    "diagram",
+    "node-based",
+    "components",
+    "typescript",
+    "react flow",
+    "flow",
+    "node-templates",
+    "diagram-components"
+  ],
+  "author": "Synergy Codes",
+  "license": "MIT",
+  "url": "https://github.com/synergycodes/overflow-ui",
+  "homepage": "https://github.com/synergycodes/overflow-ui",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/synergycodes/overflow-ui.git",
+    "directory": "packages/ui"
+  },
+  "bugs": {
+    "url": "https://github.com/synergycodes/overflow-ui/issues"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "preview": "vite --config preview-page/vite.preview.config.ts",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "typecheck": "tsc --noEmit --pretty"
+  },
+  "module": "./dist/overflow-ui.js",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/overflow-ui.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/overflow-ui.js"
+    },
+    "./tokens.css": "./dist/tokens.css"
+  },
+  "dependencies": {
+    "@emotion/styled": "^11.14.0",
+    "@floating-ui/react": "^0.26.28",
+    "@mantine/core": "^7.17.2",
+    "@mantine/dates": "^7.17.2",
+    "@mui/base": "5.0.0-beta.62",
+    "@mui/material": "^6.4.7",
+    "@phosphor-icons/react": "^2.1.7",
+    "clsx": "^2.0.0"
+  },
+  "devDependencies": {
+    "@emotion/react": "^11.14.0",
+    "@synergycodes/overflow-ui-tokens": "workspace:*",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.6.3",
+    "vite": "^6.2.2",
+    "vite-plugin-dts": "^4.5.3",
+    "vite-plugin-lib-inject-css": "^2.2.1",
+    "vite-plugin-static-copy": "^2.3.1"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ]
+}

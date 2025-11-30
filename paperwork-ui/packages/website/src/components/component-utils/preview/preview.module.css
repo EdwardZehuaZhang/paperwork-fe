@@ -1,0 +1,61 @@
+.dot-pattern-gradient {
+  /* --- Customizable Variables --- */
+  --dot-color: var(--ax-colors-acc7-400); /* Color of the dots */
+  --background-color: transparent; /* Background color behind the dots */
+  --dot-size: 2px; /* Diameter of each dot */
+  --dot-spacing: 1.5rem; /* Distance between the centers of adjacent dots */
+
+  /* --- Gradient Calculation (No need to edit directly) --- */
+  --dot-radius: calc(var(--dot-size) / 2);
+  --gradient-stop: var(--dot-radius);
+  --gradient-size: var(--dot-spacing);
+  --half-gradient-size: calc(var(--gradient-size) / 2);
+
+  background-image: radial-gradient(
+    circle at center,
+    var(--dot-color) var(--gradient-stop),
+    var(--background-color) var(--gradient-stop)
+  );
+
+  background-size: var(--gradient-size) var(--gradient-size);
+}
+
+.preview-container {
+  aspect-ratio: 2 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 0.5rem;
+  border: 1px solid #575b94;
+
+  composes: dot-pattern-gradient;
+
+  .inner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+
+      .background {
+        padding: 8rem 16rem;
+        margin: -8rem -16rem;
+
+        z-index: -1;
+        --color-inner: var(--ifm-background-color);
+        --color-outer: transparent;
+
+        background-image: radial-gradient(
+          closest-side,
+          var(--color-inner) 40%,
+          var(--color-outer) 100%
+        );
+      }
+    }
+  }
+}
