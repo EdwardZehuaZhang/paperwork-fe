@@ -447,7 +447,7 @@ Demonstrate end-to-end value on **one or two concrete workflows** (e.g. food cla
 
 ### 8. Non-Goals / Out of Scope (for MVP)
 
-* Full **HR suite** (leave, HR performance, etc.) — that’s Workday territory.
+* Full **HR suite** (leave, HR performance, etc.) — that's Workday territory.
 * Full **financial system** (general ledger, bank reconciliation, tax filings).
 * Deep **role-based permission matrix** with complex custom roles.
 
@@ -455,6 +455,50 @@ Demonstrate end-to-end value on **one or two concrete workflows** (e.g. food cla
 * Deep **contract redlining at sentence-level** (Google Docs-level complexity).
 * Full **mobile app** — responsive web is enough for v0.
 * Heavy **AI features** (natural language workflow creation, auto-coding, etc.).
+
+---
+
+### 8.5 Technical Foundation - UI Library
+
+**UI Component System:**
+
+Paperwork uses **Overflow UI** (by Synergy Codes) as its foundational component library:
+
+* **Why Overflow UI:**
+
+  * Professional, accessible component library
+  * Design token system for consistent theming
+  * Built for complex workflow applications
+  * Maintained and used in production by WorkflowBuilder
+
+* **Local Development Setup:**
+
+  * The UI library lives in `paperwork-ui/` alongside the main application
+  * Enables customization and rapid iteration on components
+  * Hot-reloading during development for immediate feedback
+  * Can switch between local and NPM package as needed
+
+* **Key Components Used:**
+
+  * Form components (inputs, selects, checkboxes)
+  * Layout components (cards, panels, grids)
+  * Navigation components (menus, breadcrumbs)
+  * Feedback components (notifications, progress bars)
+  * Design tokens for colors, spacing, typography
+
+* **Customization Strategy:**
+
+  * Core components remain unchanged when possible
+  * Custom variants built on top of base components
+  * Design tokens customized for Paperwork branding
+  * Workflow-specific components added to extend library
+
+This approach ensures:
+- Consistency across the application
+- Accessibility out of the box
+- Faster development with pre-built components
+- Professional UI without building from scratch
+- Ability to customize when needed for specific workflows
 
 ---
 

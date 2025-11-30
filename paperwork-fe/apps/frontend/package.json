@@ -23,7 +23,7 @@
     "@jsonforms/core": "^3.4.1",
     "@jsonforms/react": "^3.4.1",
     "@phosphor-icons/react": "^2.1.7",
-    "@synergycodes/overflow-ui": "^1.0.0-beta.22",
+    "@synergycodes/overflow-ui": "link:../../../paperwork-ui/packages/ui",
     "@workflow-builder/icons": "workspace:*",
     "@xyflow/react": "catalog:",
     "ace-builds": "^1.43.4",

@@ -1,6 +1,6 @@
 @layer reset, ext-lib, ui;
 
-@import '@synergycodes/overflow-ui/tokens.css';
+@import '../../../../paperwork-ui/packages/ui/dist/tokens.css';
 
 @layer ui {
   @layer base, component;

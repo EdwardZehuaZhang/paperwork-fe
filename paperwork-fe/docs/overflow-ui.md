@@ -15,4 +15,3 @@ https://github.com/synergycodes/overflow-ui
 5. In `apps/frontend/src/global.css`, replace `@import '@synergycodes/overflow-ui/tokens.css';` with `@import '../../../../overflow-ui/packages/ui/dist/tokens.css';`.
 6. If steps above are not enough you can try refreshing dependencies with `pnpm install`.
 
-Don't include changes from steps 4 - 6 in your commits.

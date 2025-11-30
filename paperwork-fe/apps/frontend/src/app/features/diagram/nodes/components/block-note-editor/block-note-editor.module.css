@@ -13,9 +13,8 @@
 }
 
 .editor-container.selected {
-  outline: 3px solid var(--ax-ui-stroke-brand-default, #0066ff);
+  outline: 2px solid rgba(0, 123, 255, 0.4);
   outline-offset: 2px;
-  border-radius: 0.5rem;
 }
 
 .scale-wrapper {
@@ -35,16 +34,20 @@
   flex-direction: column;
   box-sizing: border-box;
   cursor: text;
+  width: 100% !important;
 }
 
 .editor-container :global(.bn-editor) {
   font-family: inherit;
   color: var(--ax-txt-primary-default);
   flex: 1;
+  height: 100%;
   overflow-y: auto;
   box-sizing: border-box;
   cursor: text;
   user-select: text;
+  width: 100% !important;
+  min-width: 100% !important;
 }
 
 .editor-container :global(.ProseMirror) {
@@ -53,6 +56,37 @@
   box-sizing: border-box;
   cursor: text;
   user-select: text;
+  width: 100%;
+}
+
+/* Make all blocks take full width - CRITICAL FIX */
+.editor-container :global(.bn-block-group),
+.editor-container :global(.bn-block-outer),
+.editor-container :global(.bn-block),
+.editor-container :global(.bn-block-content),
+.editor-container :global([data-node-type]) {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  flex: 1 1 100% !important;
+}
+
+/* Ensure inline content and paragraphs stretch full width */
+.editor-container :global(.bn-inline-content),
+.editor-container :global(p.bn-inline-content) {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 100% !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  display: block !important;
+  flex: 1 1 100% !important;
+}
+
+/* Force empty paragraphs to take space */
+.editor-container :global(p.bn-inline-content:empty),
+.editor-container :global(p.bn-inline-content:has(> br:only-child)) {
+  min-height: 1.5em !important;
 }
 
 .editor-container :global(.ProseMirror:focus) {
