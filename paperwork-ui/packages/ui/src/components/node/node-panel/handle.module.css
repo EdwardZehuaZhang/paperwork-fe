@@ -41,6 +41,12 @@
     transition-timing-function: ease-in-out;
     transition-duration: 0.1s;
   }
+  
+  /* Ensure handles are NOT affected by nodrag class */
+  :global(.nodrag .react-flow__handle),
+  :global(.react-flow__handle) {
+    pointer-events: all !important;
+  }
 
   :global(.react-flow__handle::before) {
     content: '';

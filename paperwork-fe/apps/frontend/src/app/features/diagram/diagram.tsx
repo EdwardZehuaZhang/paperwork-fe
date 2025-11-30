@@ -185,7 +185,7 @@ function DiagramContainerComponent({ edgeTypes = {} }: { edgeTypes?: EdgeTypes }
         selectionOnDrag
         panOnDrag={panOnDrag}
         selectionMode={SelectionMode.Partial}
-        noDragClassName="noDrag"
+        noDragClassName="nodrag"
       >
         <Background />
       </ReactFlow>

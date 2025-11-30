@@ -56,6 +56,11 @@
     .header-wrapper {
       width: 100%;
     }
+    
+    /* Ensure header-wrapper doesn't interfere with handle dragging */
+    .header-wrapper :global(.react-flow__handle) {
+      pointer-events: all !important;
+    }
 
     .header-container {
       display: flex;

@@ -69,4 +69,15 @@
   .react-flow.is-segment-dragged * {
     cursor: copy;
   }
+  
+  /* Ensure ReactFlow handles are always interactive and on top */
+  .react-flow__handle {
+    pointer-events: all !important;
+    z-index: 1000 !important;
+    cursor: crosshair !important;
+  }
+  
+  .react-flow__handle::before {
+    pointer-events: all !important;
+  }
 }

@@ -1,4 +1,4 @@
-import { useCreateBlockNote, SuggestionMenuController, getDefaultReactSlashMenuItems } from '@blocknote/react';
+import { useCreateBlockNote, SuggestionMenuController, getDefaultReactSlashMenuItems, SideMenuController } from '@blocknote/react';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
 import '@blocknote/core/fonts/inter.css';
@@ -116,8 +116,10 @@ export const BlockNoteEditor = memo(
           theme="light"
           slashMenu={false}
           formattingToolbar={false}
+          sideMenu={false}
           editable={isEditorFocused}
         >
+          <SideMenuController />
           <FormattingToolbarController
             formattingToolbar={() => (
               <FormattingToolbar>
