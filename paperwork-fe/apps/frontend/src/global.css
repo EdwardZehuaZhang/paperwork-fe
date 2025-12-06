@@ -1,6 +1,9 @@
-@layer reset, ext-lib, ui;
-
+/* Import Tailwind and UI library CSS FIRST before layer definitions */
 @import '../../../../paperwork-ui/packages/ui/dist/tokens.css';
+@import '../../../../paperwork-ui/packages/ui/dist/index.css';
+
+/* Layer order: reset (lowest priority) < ext-lib < ui (highest priority) */
+@layer reset, ext-lib, ui;
 
 @layer ui {
   @layer base, component;
@@ -52,19 +55,19 @@
     display: none;
   }
 
-  * {
-    font-family: 'Poppins', sans-serif;
-  }
+  /* Removed global Poppins override - shadcn uses system font stack
+   * If you need Poppins for specific parts, apply it to those elements directly
+   * Example: .your-custom-class { font-family: 'Poppins', sans-serif; }
+   */
 
   body {
     margin: 0;
     background-color: var(--wb-background-color);
     overflow: hidden;
+    /* Removed Poppins - shadcn components need system font stack */
   }
 
-  button {
-    cursor: pointer;
-  }
+  /* Removed: button { cursor: pointer; } - conflicts with Tailwind */
 
   .react-flow.is-segment-dragged * {
     cursor: copy;

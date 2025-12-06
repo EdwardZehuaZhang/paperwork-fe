@@ -8,6 +8,9 @@ import dts from 'vite-plugin-dts';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  css: {
+    devSourcemap: true,
+  },
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
@@ -33,9 +36,6 @@ export default defineConfig({
       },
     },
   },
-  css: {
-    devSourcemap: true,
-  },
   resolve: {
     alias: {
       '@ui': resolve(__dirname, './src'),
@@ -47,6 +47,7 @@ export default defineConfig({
     libInjectCss(),
     dts({
       entryRoot: 'src',
+      exclude: ['src/components/shadcn/charts/**', 'src/components/shadcn/blocks/**'],
     }),
     viteStaticCopy({
       targets: [

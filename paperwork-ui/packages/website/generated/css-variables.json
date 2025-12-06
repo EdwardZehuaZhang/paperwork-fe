@@ -1606,12 +1606,9 @@
       "name": "--ax-public-list-item-outline-size"
     }
   ],
-  "styles/globals.css": [
-    {
-      "comment": "",
-      "name": "--ax-public-transition"
-    }
-  ],
+  "styles/globals.css": [],
   "styles/layers.css": [],
-  "styles/typography.css": []
+  "styles/tailwind.css": [],
+  "styles/themes.css": [],
+  "styles/typography.module.css": []
 }

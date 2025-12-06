@@ -14,6 +14,7 @@ import { ReactFlowProvider } from '@xyflow/react';
 import { DiagramWrapper } from './features/diagram/diagram-wrapper';
 import { SnackbarContainer } from './features/snackbar/snackbar-container';
 import { useDetectLanguageChange } from './features/i18n/use-detect-language-change';
+import { CoexistenceDemo } from '../coexistence-demo';
 
 import './features/i18n/index';
 import { withIntegration } from './features/integration/components/with-integration';
@@ -54,5 +55,16 @@ function AppComponent(_props: PropsWithChildren) {
 
 type AppProps = React.ComponentProps<typeof AppComponent>;
 
-// Check app/features/integration/README.md for more information
-export const App = withIntegration<AppProps>(AppComponent);
+function AppRoot() {
+  // Show demo if ?demo=true is in URL - bypass integration wrapper
+  const showDemo = new URLSearchParams(window.location.search).get('demo') === 'true';
+  if (showDemo) {
+    return <CoexistenceDemo />;
+  }
+
+  // Check app/features/integration/README.md for more information
+  const WrappedApp = withIntegration<AppProps>(AppComponent);
+  return <WrappedApp />;
+}
+
+export const App = AppRoot;

@@ -2237,6 +2237,3479 @@
       "methods": []
     }
   ],
+  "../ui/src/components/shadcn/aspect-ratio.tsx": [
+    {
+      "description": "",
+      "displayName": "AspectRatio",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/badge.tsx": [
+    {
+      "description": "",
+      "displayName": "Badge",
+      "methods": [],
+      "props": {
+        "asChild": {
+          "defaultValue": {
+            "computed": false,
+            "value": "false"
+          },
+          "description": "",
+          "required": false,
+          "tsType": {
+            "name": "boolean"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-01.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar01",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-02.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar02",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-03.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar03",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-04.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar04",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-05.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar05",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-06.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar06",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-07.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar07",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-08.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar08",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-09.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar09",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-10.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar10",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-11.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar11",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-12.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar12",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-13.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar13",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-14.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar14",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-15.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar15",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-16.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar16",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-17.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar17",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-18.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar18",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-19.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar19",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-20.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar20",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-21.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar21",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-22.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar22",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-23.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar23",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-24.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar24",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-25.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar25",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-26.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar26",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-27.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar27",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-28.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar28",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-29.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar29",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-30.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar30",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-31.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar31",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/calendar-32.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendar32",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/dashboard-01/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/dashboard-01/components/chart-area-interactive.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartAreaInteractive",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/dashboard-01/components/data-table.tsx": [
+    {
+      "description": "",
+      "displayName": "DataTable",
+      "methods": [],
+      "props": {
+        "data": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "elements": [
+                  {
+                    "name": "schema"
+                  }
+                ],
+                "name": "z.infer",
+                "raw": "z.infer<typeof schema>"
+              }
+            ],
+            "name": "Array",
+            "raw": "z.infer<typeof schema>[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/dashboard-01/components/nav-documents.tsx": [
+    {
+      "description": "",
+      "displayName": "NavDocuments",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  name: string\r\n  url: string\r\n  icon: Icon\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "Icon",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  name: string\r\n  url: string\r\n  icon: Icon\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/dashboard-01/components/nav-main.tsx": [
+    {
+      "description": "",
+      "displayName": "NavMain",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  title: string\r\n  url: string\r\n  icon?: Icon\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "Icon",
+                        "required": false
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  title: string\r\n  url: string\r\n  icon?: Icon\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/dashboard-01/components/nav-secondary.tsx": [
+    {
+      "description": "",
+      "displayName": "NavSecondary",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: Icon\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "Icon",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: Icon\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/dashboard-01/components/nav-user.tsx": [
+    {
+      "description": "",
+      "displayName": "NavUser",
+      "methods": [],
+      "props": {
+        "user": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "name": "signature",
+            "raw": "{\r\n  name: string\r\n  email: string\r\n  avatar: string\r\n}",
+            "signature": {
+              "properties": [
+                {
+                  "key": "name",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "email",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "avatar",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                }
+              ]
+            },
+            "type": "object"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/dashboard-01/components/section-cards.tsx": [
+    {
+      "description": "",
+      "displayName": "SectionCards",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/dashboard-01/components/site-header.tsx": [
+    {
+      "description": "",
+      "displayName": "SiteHeader",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/dashboard-01/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/login-01/components/login-form.tsx": [
+    {
+      "description": "",
+      "displayName": "LoginForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/login-01/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/login-02/components/login-form.tsx": [
+    {
+      "description": "",
+      "displayName": "LoginForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/login-02/page.tsx": [
+    {
+      "description": "",
+      "displayName": "LoginPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/login-03/components/login-form.tsx": [
+    {
+      "description": "",
+      "displayName": "LoginForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/login-03/page.tsx": [
+    {
+      "description": "",
+      "displayName": "LoginPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/login-04/components/login-form.tsx": [
+    {
+      "description": "",
+      "displayName": "LoginForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/login-04/page.tsx": [
+    {
+      "description": "",
+      "displayName": "LoginPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/login-05/components/login-form.tsx": [
+    {
+      "description": "",
+      "displayName": "LoginForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/login-05/page.tsx": [
+    {
+      "description": "",
+      "displayName": "LoginPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/otp-01/components/otp-form.tsx": [
+    {
+      "description": "",
+      "displayName": "OTPForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/otp-01/page.tsx": [
+    {
+      "description": "",
+      "displayName": "OTPPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/otp-02/components/otp-form.tsx": [
+    {
+      "description": "",
+      "displayName": "OTPForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/otp-02/page.tsx": [
+    {
+      "description": "",
+      "displayName": "OTPPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/otp-03/components/otp-form.tsx": [
+    {
+      "description": "",
+      "displayName": "OTPForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/otp-03/page.tsx": [
+    {
+      "description": "",
+      "displayName": "OTPPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/otp-04/components/otp-form.tsx": [
+    {
+      "description": "",
+      "displayName": "OTPForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/otp-04/page.tsx": [
+    {
+      "description": "",
+      "displayName": "OTPPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/otp-05/components/otp-form.tsx": [
+    {
+      "description": "",
+      "displayName": "OTPForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/otp-05/page.tsx": [
+    {
+      "description": "",
+      "displayName": "OTPPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/products-01/components/products-table.tsx": [
+    {
+      "description": "",
+      "displayName": "ProductsTable",
+      "methods": [],
+      "props": {
+        "products": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  id: string\r\n  name: string\r\n  price: number\r\n  stock: number\r\n  dateAdded: string\r\n  status: string\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "id",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "price",
+                      "value": {
+                        "name": "number",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "stock",
+                      "value": {
+                        "name": "number",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "dateAdded",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "status",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  id: string\r\n  name: string\r\n  price: number\r\n  stock: number\r\n  dateAdded: string\r\n  status: string\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/products-01/page.tsx": [
+    {
+      "description": "",
+      "displayName": "ProductsPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-01/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-01/components/search-form.tsx": [
+    {
+      "description": "",
+      "displayName": "SearchForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-01/components/version-switcher.tsx": [
+    {
+      "description": "",
+      "displayName": "VersionSwitcher",
+      "methods": [],
+      "props": {
+        "defaultVersion": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "name": "string"
+          }
+        },
+        "versions": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "string"
+              }
+            ],
+            "name": "Array",
+            "raw": "string[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-01/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-02/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-02/components/search-form.tsx": [
+    {
+      "description": "",
+      "displayName": "SearchForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-02/components/version-switcher.tsx": [
+    {
+      "description": "",
+      "displayName": "VersionSwitcher",
+      "methods": [],
+      "props": {
+        "defaultVersion": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "name": "string"
+          }
+        },
+        "versions": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "string"
+              }
+            ],
+            "name": "Array",
+            "raw": "string[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-02/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-03/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-03/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-04/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-04/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-05/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-05/components/search-form.tsx": [
+    {
+      "description": "",
+      "displayName": "SearchForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-05/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-06/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-06/components/nav-main.tsx": [
+    {
+      "description": "",
+      "displayName": "NavMain",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  title: string\r\n  url: string\r\n  icon?: LucideIcon\r\n  isActive?: boolean\r\n  items?: {\r\n    title: string\r\n    url: string\r\n  }[]\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "LucideIcon",
+                        "required": false
+                      }
+                    },
+                    {
+                      "key": "isActive",
+                      "value": {
+                        "name": "boolean",
+                        "required": false
+                      }
+                    },
+                    {
+                      "key": "items",
+                      "value": {
+                        "elements": [
+                          {
+                            "name": "signature",
+                            "raw": "{\r\n  title: string\r\n  url: string\r\n}",
+                            "signature": {
+                              "properties": [
+                                {
+                                  "key": "title",
+                                  "value": {
+                                    "name": "string",
+                                    "required": true
+                                  }
+                                },
+                                {
+                                  "key": "url",
+                                  "value": {
+                                    "name": "string",
+                                    "required": true
+                                  }
+                                }
+                              ]
+                            },
+                            "type": "object"
+                          }
+                        ],
+                        "name": "Array",
+                        "raw": "{\r\n  title: string\r\n  url: string\r\n}[]",
+                        "required": false
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  title: string\r\n  url: string\r\n  icon?: LucideIcon\r\n  isActive?: boolean\r\n  items?: {\r\n    title: string\r\n    url: string\r\n  }[]\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-06/components/sidebar-opt-in-form.tsx": [
+    {
+      "description": "",
+      "displayName": "SidebarOptInForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-06/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-07/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-07/components/nav-main.tsx": [
+    {
+      "description": "",
+      "displayName": "NavMain",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  title: string\r\n  url: string\r\n  icon?: LucideIcon\r\n  isActive?: boolean\r\n  items?: {\r\n    title: string\r\n    url: string\r\n  }[]\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "LucideIcon",
+                        "required": false
+                      }
+                    },
+                    {
+                      "key": "isActive",
+                      "value": {
+                        "name": "boolean",
+                        "required": false
+                      }
+                    },
+                    {
+                      "key": "items",
+                      "value": {
+                        "elements": [
+                          {
+                            "name": "signature",
+                            "raw": "{\r\n  title: string\r\n  url: string\r\n}",
+                            "signature": {
+                              "properties": [
+                                {
+                                  "key": "title",
+                                  "value": {
+                                    "name": "string",
+                                    "required": true
+                                  }
+                                },
+                                {
+                                  "key": "url",
+                                  "value": {
+                                    "name": "string",
+                                    "required": true
+                                  }
+                                }
+                              ]
+                            },
+                            "type": "object"
+                          }
+                        ],
+                        "name": "Array",
+                        "raw": "{\r\n  title: string\r\n  url: string\r\n}[]",
+                        "required": false
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  title: string\r\n  url: string\r\n  icon?: LucideIcon\r\n  isActive?: boolean\r\n  items?: {\r\n    title: string\r\n    url: string\r\n  }[]\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-07/components/nav-projects.tsx": [
+    {
+      "description": "",
+      "displayName": "NavProjects",
+      "methods": [],
+      "props": {
+        "projects": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  name: string\r\n  url: string\r\n  icon: LucideIcon\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "LucideIcon",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  name: string\r\n  url: string\r\n  icon: LucideIcon\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-07/components/nav-user.tsx": [
+    {
+      "description": "",
+      "displayName": "NavUser",
+      "methods": [],
+      "props": {
+        "user": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "name": "signature",
+            "raw": "{\r\n  name: string\r\n  email: string\r\n  avatar: string\r\n}",
+            "signature": {
+              "properties": [
+                {
+                  "key": "name",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "email",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "avatar",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                }
+              ]
+            },
+            "type": "object"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-07/components/team-switcher.tsx": [
+    {
+      "description": "",
+      "displayName": "TeamSwitcher",
+      "methods": [],
+      "props": {
+        "teams": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  name: string\r\n  logo: React.ElementType\r\n  plan: string\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "logo",
+                      "value": {
+                        "name": "ReactElementType",
+                        "raw": "React.ElementType",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "plan",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  name: string\r\n  logo: React.ElementType\r\n  plan: string\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-07/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-08/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-08/components/nav-main.tsx": [
+    {
+      "description": "",
+      "displayName": "NavMain",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n  isActive?: boolean\r\n  items?: {\r\n    title: string\r\n    url: string\r\n  }[]\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "LucideIcon",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "isActive",
+                      "value": {
+                        "name": "boolean",
+                        "required": false
+                      }
+                    },
+                    {
+                      "key": "items",
+                      "value": {
+                        "elements": [
+                          {
+                            "name": "signature",
+                            "raw": "{\r\n  title: string\r\n  url: string\r\n}",
+                            "signature": {
+                              "properties": [
+                                {
+                                  "key": "title",
+                                  "value": {
+                                    "name": "string",
+                                    "required": true
+                                  }
+                                },
+                                {
+                                  "key": "url",
+                                  "value": {
+                                    "name": "string",
+                                    "required": true
+                                  }
+                                }
+                              ]
+                            },
+                            "type": "object"
+                          }
+                        ],
+                        "name": "Array",
+                        "raw": "{\r\n  title: string\r\n  url: string\r\n}[]",
+                        "required": false
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n  isActive?: boolean\r\n  items?: {\r\n    title: string\r\n    url: string\r\n  }[]\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-08/components/nav-projects.tsx": [
+    {
+      "description": "",
+      "displayName": "NavProjects",
+      "methods": [],
+      "props": {
+        "projects": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  name: string\r\n  url: string\r\n  icon: LucideIcon\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "LucideIcon",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  name: string\r\n  url: string\r\n  icon: LucideIcon\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-08/components/nav-secondary.tsx": [
+    {
+      "description": "",
+      "displayName": "NavSecondary",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "LucideIcon",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-08/components/nav-user.tsx": [
+    {
+      "description": "",
+      "displayName": "NavUser",
+      "methods": [],
+      "props": {
+        "user": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "name": "signature",
+            "raw": "{\r\n  name: string\r\n  email: string\r\n  avatar: string\r\n}",
+            "signature": {
+              "properties": [
+                {
+                  "key": "name",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "email",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "avatar",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                }
+              ]
+            },
+            "type": "object"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-08/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-09/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-09/components/nav-user.tsx": [
+    {
+      "description": "",
+      "displayName": "NavUser",
+      "methods": [],
+      "props": {
+        "user": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "name": "signature",
+            "raw": "{\r\n  name: string\r\n  email: string\r\n  avatar: string\r\n}",
+            "signature": {
+              "properties": [
+                {
+                  "key": "name",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "email",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "avatar",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                }
+              ]
+            },
+            "type": "object"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-09/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-10/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-10/components/nav-actions.tsx": [
+    {
+      "description": "",
+      "displayName": "NavActions",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-10/components/nav-favorites.tsx": [
+    {
+      "description": "",
+      "displayName": "NavFavorites",
+      "methods": [],
+      "props": {
+        "favorites": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  name: string\r\n  url: string\r\n  emoji: string\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "emoji",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  name: string\r\n  url: string\r\n  emoji: string\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-10/components/nav-main.tsx": [
+    {
+      "description": "",
+      "displayName": "NavMain",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n  isActive?: boolean\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "LucideIcon",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "isActive",
+                      "value": {
+                        "name": "boolean",
+                        "required": false
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n  isActive?: boolean\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-10/components/nav-secondary.tsx": [
+    {
+      "description": "",
+      "displayName": "NavSecondary",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n  badge?: React.ReactNode\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "LucideIcon",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "badge",
+                      "value": {
+                        "name": "ReactReactNode",
+                        "raw": "React.ReactNode",
+                        "required": false
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n  badge?: React.ReactNode\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-10/components/nav-workspaces.tsx": [
+    {
+      "description": "",
+      "displayName": "NavWorkspaces",
+      "methods": [],
+      "props": {
+        "workspaces": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  name: string\r\n  emoji: React.ReactNode\r\n  pages: {\r\n    name: string\r\n    emoji: React.ReactNode\r\n  }[]\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "emoji",
+                      "value": {
+                        "name": "ReactReactNode",
+                        "raw": "React.ReactNode",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "pages",
+                      "value": {
+                        "elements": [
+                          {
+                            "name": "signature",
+                            "raw": "{\r\n  name: string\r\n  emoji: React.ReactNode\r\n}",
+                            "signature": {
+                              "properties": [
+                                {
+                                  "key": "name",
+                                  "value": {
+                                    "name": "string",
+                                    "required": true
+                                  }
+                                },
+                                {
+                                  "key": "emoji",
+                                  "value": {
+                                    "name": "ReactReactNode",
+                                    "raw": "React.ReactNode",
+                                    "required": true
+                                  }
+                                }
+                              ]
+                            },
+                            "type": "object"
+                          }
+                        ],
+                        "name": "Array",
+                        "raw": "{\r\n  name: string\r\n  emoji: React.ReactNode\r\n}[]",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  name: string\r\n  emoji: React.ReactNode\r\n  pages: {\r\n    name: string\r\n    emoji: React.ReactNode\r\n  }[]\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-10/components/team-switcher.tsx": [
+    {
+      "description": "",
+      "displayName": "TeamSwitcher",
+      "methods": [],
+      "props": {
+        "teams": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  name: string\r\n  logo: React.ElementType\r\n  plan: string\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "logo",
+                      "value": {
+                        "name": "ReactElementType",
+                        "raw": "React.ElementType",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "plan",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  name: string\r\n  logo: React.ElementType\r\n  plan: string\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-10/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-11/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-11/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-12/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-12/components/calendars.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendars",
+      "methods": [],
+      "props": {
+        "calendars": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  name: string\r\n  items: string[]\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "items",
+                      "value": {
+                        "elements": [
+                          {
+                            "name": "string"
+                          }
+                        ],
+                        "name": "Array",
+                        "raw": "string[]",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  name: string\r\n  items: string[]\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-12/components/date-picker.tsx": [
+    {
+      "description": "",
+      "displayName": "DatePicker",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-12/components/nav-user.tsx": [
+    {
+      "description": "",
+      "displayName": "NavUser",
+      "methods": [],
+      "props": {
+        "user": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "name": "signature",
+            "raw": "{\r\n  name: string\r\n  email: string\r\n  avatar: string\r\n}",
+            "signature": {
+              "properties": [
+                {
+                  "key": "name",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "email",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "avatar",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                }
+              ]
+            },
+            "type": "object"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-12/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-13/components/settings-dialog.tsx": [
+    {
+      "description": "",
+      "displayName": "SettingsDialog",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-13/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-14/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-14/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-15/components/calendars.tsx": [
+    {
+      "description": "",
+      "displayName": "Calendars",
+      "methods": [],
+      "props": {
+        "calendars": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  name: string\r\n  items: string[]\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "items",
+                      "value": {
+                        "elements": [
+                          {
+                            "name": "string"
+                          }
+                        ],
+                        "name": "Array",
+                        "raw": "string[]",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  name: string\r\n  items: string[]\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-15/components/date-picker.tsx": [
+    {
+      "description": "",
+      "displayName": "DatePicker",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-15/components/nav-favorites.tsx": [
+    {
+      "description": "",
+      "displayName": "NavFavorites",
+      "methods": [],
+      "props": {
+        "favorites": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  name: string\r\n  url: string\r\n  emoji: string\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "emoji",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  name: string\r\n  url: string\r\n  emoji: string\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-15/components/nav-main.tsx": [
+    {
+      "description": "",
+      "displayName": "NavMain",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n  isActive?: boolean\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "LucideIcon",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "isActive",
+                      "value": {
+                        "name": "boolean",
+                        "required": false
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n  isActive?: boolean\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-15/components/nav-secondary.tsx": [
+    {
+      "description": "",
+      "displayName": "NavSecondary",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n  badge?: React.ReactNode\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "LucideIcon",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "badge",
+                      "value": {
+                        "name": "ReactReactNode",
+                        "raw": "React.ReactNode",
+                        "required": false
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n  badge?: React.ReactNode\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-15/components/nav-user.tsx": [
+    {
+      "description": "",
+      "displayName": "NavUser",
+      "methods": [],
+      "props": {
+        "user": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "name": "signature",
+            "raw": "{\r\n  name: string\r\n  email: string\r\n  avatar: string\r\n}",
+            "signature": {
+              "properties": [
+                {
+                  "key": "name",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "email",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "avatar",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                }
+              ]
+            },
+            "type": "object"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-15/components/nav-workspaces.tsx": [
+    {
+      "description": "",
+      "displayName": "NavWorkspaces",
+      "methods": [],
+      "props": {
+        "workspaces": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  name: string\r\n  emoji: React.ReactNode\r\n  pages: {\r\n    name: string\r\n    emoji: React.ReactNode\r\n  }[]\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "emoji",
+                      "value": {
+                        "name": "ReactReactNode",
+                        "raw": "React.ReactNode",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "pages",
+                      "value": {
+                        "elements": [
+                          {
+                            "name": "signature",
+                            "raw": "{\r\n  name: string\r\n  emoji: React.ReactNode\r\n}",
+                            "signature": {
+                              "properties": [
+                                {
+                                  "key": "name",
+                                  "value": {
+                                    "name": "string",
+                                    "required": true
+                                  }
+                                },
+                                {
+                                  "key": "emoji",
+                                  "value": {
+                                    "name": "ReactReactNode",
+                                    "raw": "React.ReactNode",
+                                    "required": true
+                                  }
+                                }
+                              ]
+                            },
+                            "type": "object"
+                          }
+                        ],
+                        "name": "Array",
+                        "raw": "{\r\n  name: string\r\n  emoji: React.ReactNode\r\n}[]",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  name: string\r\n  emoji: React.ReactNode\r\n  pages: {\r\n    name: string\r\n    emoji: React.ReactNode\r\n  }[]\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-15/components/sidebar-left.tsx": [
+    {
+      "description": "",
+      "displayName": "SidebarLeft",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-15/components/sidebar-right.tsx": [
+    {
+      "description": "",
+      "displayName": "SidebarRight",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-15/components/team-switcher.tsx": [
+    {
+      "description": "",
+      "displayName": "TeamSwitcher",
+      "methods": [],
+      "props": {
+        "teams": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  name: string\r\n  logo: React.ElementType\r\n  plan: string\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "logo",
+                      "value": {
+                        "name": "ReactElementType",
+                        "raw": "React.ElementType",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "plan",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  name: string\r\n  logo: React.ElementType\r\n  plan: string\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-15/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-16/components/app-sidebar.tsx": [
+    {
+      "description": "",
+      "displayName": "AppSidebar",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-16/components/nav-main.tsx": [
+    {
+      "description": "",
+      "displayName": "NavMain",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n  isActive?: boolean\r\n  items?: {\r\n    title: string\r\n    url: string\r\n  }[]\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "LucideIcon",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "isActive",
+                      "value": {
+                        "name": "boolean",
+                        "required": false
+                      }
+                    },
+                    {
+                      "key": "items",
+                      "value": {
+                        "elements": [
+                          {
+                            "name": "signature",
+                            "raw": "{\r\n  title: string\r\n  url: string\r\n}",
+                            "signature": {
+                              "properties": [
+                                {
+                                  "key": "title",
+                                  "value": {
+                                    "name": "string",
+                                    "required": true
+                                  }
+                                },
+                                {
+                                  "key": "url",
+                                  "value": {
+                                    "name": "string",
+                                    "required": true
+                                  }
+                                }
+                              ]
+                            },
+                            "type": "object"
+                          }
+                        ],
+                        "name": "Array",
+                        "raw": "{\r\n  title: string\r\n  url: string\r\n}[]",
+                        "required": false
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n  isActive?: boolean\r\n  items?: {\r\n    title: string\r\n    url: string\r\n  }[]\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-16/components/nav-projects.tsx": [
+    {
+      "description": "",
+      "displayName": "NavProjects",
+      "methods": [],
+      "props": {
+        "projects": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  name: string\r\n  url: string\r\n  icon: LucideIcon\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "name",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "LucideIcon",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  name: string\r\n  url: string\r\n  icon: LucideIcon\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-16/components/nav-secondary.tsx": [
+    {
+      "description": "",
+      "displayName": "NavSecondary",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "url",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "LucideIcon",
+                        "required": true
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "{\r\n  title: string\r\n  url: string\r\n  icon: LucideIcon\r\n}[]"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-16/components/nav-user.tsx": [
+    {
+      "description": "",
+      "displayName": "NavUser",
+      "methods": [],
+      "props": {
+        "user": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "name": "signature",
+            "raw": "{\r\n  name: string\r\n  email: string\r\n  avatar: string\r\n}",
+            "signature": {
+              "properties": [
+                {
+                  "key": "name",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "email",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "avatar",
+                  "value": {
+                    "name": "string",
+                    "required": true
+                  }
+                }
+              ]
+            },
+            "type": "object"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-16/components/search-form.tsx": [
+    {
+      "description": "",
+      "displayName": "SearchForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-16/components/site-header.tsx": [
+    {
+      "description": "",
+      "displayName": "SiteHeader",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/sidebar-16/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/signup-01/components/signup-form.tsx": [
+    {
+      "description": "",
+      "displayName": "SignupForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/signup-01/page.tsx": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/signup-02/components/signup-form.tsx": [
+    {
+      "description": "",
+      "displayName": "SignupForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/signup-02/page.tsx": [
+    {
+      "description": "",
+      "displayName": "SignupPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/signup-03/components/signup-form.tsx": [
+    {
+      "description": "",
+      "displayName": "SignupForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/signup-03/page.tsx": [
+    {
+      "description": "",
+      "displayName": "SignupPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/signup-04/components/signup-form.tsx": [
+    {
+      "description": "",
+      "displayName": "SignupForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/signup-04/page.tsx": [
+    {
+      "description": "",
+      "displayName": "SignupPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/signup-05/components/signup-form.tsx": [
+    {
+      "description": "",
+      "displayName": "SignupForm",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/blocks/signup-05/page.tsx": [
+    {
+      "description": "",
+      "displayName": "SignupPage",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/button.tsx": [
+    {
+      "description": "",
+      "displayName": "Button",
+      "methods": [],
+      "props": {
+        "asChild": {
+          "defaultValue": {
+            "computed": false,
+            "value": "false"
+          },
+          "description": "",
+          "required": false,
+          "tsType": {
+            "name": "boolean"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/button/button.tsx": [
+    {
+      "description": "",
+      "displayName": "Button",
+      "methods": [],
+      "props": {
+        "asChild": {
+          "defaultValue": {
+            "computed": false,
+            "value": "false"
+          },
+          "description": "",
+          "required": false,
+          "tsType": {
+            "name": "boolean"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-area-axes.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartAreaAxes",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-area-default.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartAreaDefault",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-area-gradient.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartAreaGradient",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-area-icons.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartAreaIcons",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-area-interactive.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartAreaInteractive",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-area-legend.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartAreaLegend",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-area-linear.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartAreaLinear",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-area-stacked-expand.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartAreaStackedExpand",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-area-stacked.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartAreaStacked",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-area-step.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartAreaStep",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-bar-active.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartBarActive",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-bar-default.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartBarDefault",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-bar-horizontal.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartBarHorizontal",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-bar-interactive.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartBarInteractive",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-bar-label-custom.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartBarLabelCustom",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-bar-label.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartBarLabel",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-bar-mixed.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartBarMixed",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-bar-multiple.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartBarMultiple",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-bar-negative.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartBarNegative",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-bar-stacked.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartBarStacked",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-line-default.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartLineDefault",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-line-dots-colors.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartLineDotsColors",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-line-dots-custom.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartLineDotsCustom",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-line-dots.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartLineDots",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-line-interactive.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartLineInteractive",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-line-label-custom.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartLineLabelCustom",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-line-label.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartLineLabel",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-line-linear.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartLineLinear",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-line-multiple.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartLineMultiple",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-line-step.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartLineStep",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-pie-donut-active.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartPieDonutActive",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-pie-donut-text.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartPieDonutText",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-pie-donut.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartPieDonut",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-pie-interactive.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartPieInteractive",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-pie-label-custom.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartPieLabelCustom",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-pie-label-list.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartPieLabelList",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-pie-label.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartPieLabel",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-pie-legend.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartPieLegend",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-pie-separator-none.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartPieSeparatorNone",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-pie-simple.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartPieSimple",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-pie-stacked.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartPieStacked",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-default.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarDefault",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-dots.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarDots",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-grid-circle-fill.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarGridCircleFill",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-grid-circle-no-lines.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarGridCircleNoLines",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-grid-circle.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarGridCircle",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-grid-custom.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarGridCustom",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-grid-fill.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarGridFill",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-grid-none.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarGridNone",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-icons.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarIcons",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-label-custom.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarLabelCustom",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-legend.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarLegend",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-lines-only.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarLinesOnly",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-multiple.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarMultiple",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radar-radius.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadarRadius",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radial-grid.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadialGrid",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radial-label.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadialLabel",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radial-shape.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadialShape",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radial-simple.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadialSimple",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radial-stacked.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadialStacked",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-radial-text.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartRadialText",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-tooltip-advanced.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartTooltipAdvanced",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-tooltip-default.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartTooltipDefault",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-tooltip-formatter.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartTooltipFormatter",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-tooltip-icons.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartTooltipIcons",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-tooltip-indicator-line.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartTooltipIndicatorLine",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-tooltip-indicator-none.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartTooltipIndicatorNone",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-tooltip-label-custom.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartTooltipLabelCustom",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-tooltip-label-formatter.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartTooltipLabelFormatter",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/charts/chart-tooltip-label-none.tsx": [
+    {
+      "description": "",
+      "displayName": "ChartTooltipLabelNone",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/checkbox.tsx": [
+    {
+      "description": "",
+      "displayName": "Checkbox",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/checkbox/checkbox.tsx": [
+    {
+      "description": "",
+      "displayName": "Checkbox",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/dropdown-menu/dropdown-menu.tsx": [
+    {
+      "description": "",
+      "displayName": "DropdownMenu",
+      "methods": [],
+      "props": {
+        "items": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "elements": [
+              {
+                "name": "signature",
+                "raw": "{\r\n  label: string;\r\n  icon?: React.ReactNode;\r\n  onClick?: () => void;\r\n  disabled?: boolean;\r\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "label",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "icon",
+                      "value": {
+                        "name": "ReactReactNode",
+                        "raw": "React.ReactNode",
+                        "required": false
+                      }
+                    },
+                    {
+                      "key": "onClick",
+                      "value": {
+                        "name": "signature",
+                        "raw": "() => void",
+                        "required": false,
+                        "signature": {
+                          "arguments": [],
+                          "return": {
+                            "name": "void"
+                          }
+                        },
+                        "type": "function"
+                      }
+                    },
+                    {
+                      "key": "disabled",
+                      "value": {
+                        "name": "boolean",
+                        "required": false
+                      }
+                    }
+                  ]
+                },
+                "type": "object"
+              }
+            ],
+            "name": "Array",
+            "raw": "Array<{\r\n  label: string;\r\n  icon?: React.ReactNode;\r\n  onClick?: () => void;\r\n  disabled?: boolean;\r\n}>"
+          }
+        },
+        "trigger": {
+          "description": "",
+          "required": true,
+          "tsType": {
+            "name": "ReactReactNode",
+            "raw": "React.ReactNode"
+          }
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/input.tsx": [
+    {
+      "description": "",
+      "displayName": "Input",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/input/input.tsx": [
+    {
+      "description": "",
+      "displayName": "Input",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/label.tsx": [
+    {
+      "description": "",
+      "displayName": "Label",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/label/label.tsx": [
+    {
+      "description": "",
+      "displayName": "Label",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/progress.tsx": [
+    {
+      "description": "",
+      "displayName": "Progress",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/separator.tsx": [
+    {
+      "description": "",
+      "displayName": "Separator",
+      "methods": [],
+      "props": {
+        "decorative": {
+          "defaultValue": {
+            "computed": false,
+            "value": "true"
+          },
+          "required": false
+        },
+        "orientation": {
+          "defaultValue": {
+            "computed": false,
+            "value": "\"horizontal\""
+          },
+          "required": false
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/skeleton.tsx": [
+    {
+      "description": "",
+      "displayName": "Skeleton",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/slider.tsx": [
+    {
+      "description": "",
+      "displayName": "Slider",
+      "methods": [],
+      "props": {
+        "max": {
+          "defaultValue": {
+            "computed": false,
+            "value": "100"
+          },
+          "required": false
+        },
+        "min": {
+          "defaultValue": {
+            "computed": false,
+            "value": "0"
+          },
+          "required": false
+        }
+      }
+    }
+  ],
+  "../ui/src/components/shadcn/sonner.tsx": [
+    {
+      "description": "",
+      "displayName": "Toaster",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/spinner.tsx": [
+    {
+      "description": "",
+      "displayName": "Spinner",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/switch.tsx": [
+    {
+      "description": "",
+      "displayName": "Switch",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/textarea.tsx": [
+    {
+      "description": "",
+      "displayName": "Textarea",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/textarea/textarea.tsx": [
+    {
+      "description": "",
+      "displayName": "Textarea",
+      "methods": []
+    }
+  ],
+  "../ui/src/components/shadcn/toggle.tsx": [
+    {
+      "description": "",
+      "displayName": "Toggle",
+      "methods": []
+    }
+  ],
   "../ui/src/components/snackbar/components/action-buttons.tsx": [
     {
       "description": "",
