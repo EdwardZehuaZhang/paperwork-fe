@@ -1,8 +1,8 @@
 import React from 'react';
 import { Suspense } from 'react';
 
-const AppBarContainer = React.lazy(() =>
-  import('./app-bar-container').then((module) => ({ default: module.AppBarContainer })),
+const ShadcnAppBar = React.lazy(() =>
+  import('./shadcn-app-bar').then((module) => ({ default: module.ShadcnAppBar })),
 );
 
 /*
@@ -13,7 +13,7 @@ const expectedAppBarHeight = '62px';
 export function AppBarContainerLazy() {
   return (
     <Suspense fallback={<div style={{ height: expectedAppBarHeight }} />}>
-      <AppBarContainer />
+      <ShadcnAppBar />
     </Suspense>
   );
 }

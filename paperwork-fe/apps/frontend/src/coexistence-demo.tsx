@@ -33,11 +33,18 @@ import {
 } from '@synergycodes/overflow-ui';
 import { ShadcnNavbarDemo } from './shadcn-navbar-demo';
 import { AppBarContainerLazy } from './app/features/app-bar/app-bar-container-lazy';
+import { ShadcnAppBar } from './app/features/app-bar/shadcn-app-bar';
+import { IntegrationContext } from './app/features/integration/components/integration-variants/context/integration-context-wrapper';
 
 /**
  * CoexistenceDemo - Test that both old paperwork-ui components and new shadcn components work together
  */
 export function CoexistenceDemo() {
+  // Mock onSave handler for demo purposes
+  const mockOnSave = async () => {
+    console.log('Mock save triggered');
+    return 'success' as const;
+  };
   return (
     <div style={{ minHeight: '100vh', height: '100vh', overflow: 'auto', background: '#f5f5f5' }}>
       <div style={{ padding: '0', margin: '0' }}>
@@ -75,10 +82,12 @@ export function CoexistenceDemo() {
               fontWeight: 'bold',
               fontSize: '14px'
             }}>
-              New Navbar (Shadcn)
+              New Navbar (Shadcn - Full Implementation)
             </div>
             <div style={{ borderRadius: '0' }}>
-              <ShadcnNavbarDemo />
+              <IntegrationContext.Provider value={{ onSave: mockOnSave }}>
+                <ShadcnAppBar />
+              </IntegrationContext.Provider>
             </div>
           </div>
         </div>

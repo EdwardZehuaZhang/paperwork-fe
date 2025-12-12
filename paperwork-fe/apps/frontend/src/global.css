@@ -67,6 +67,11 @@
     /* Removed Poppins - shadcn components need system font stack */
   }
 
+  /* Dark mode background */
+  html[data-theme='dark'] body {
+    background-color: #1a1a1a;
+  }
+
   /* Removed: button { cursor: pointer; } - conflicts with Tailwind */
 
   .react-flow.is-segment-dragged * {

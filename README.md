@@ -1,22 +1,17 @@
 # Paperwork Frontend
 
-Main frontend application workspace for the Paperwork project.
+Main frontend application workspace for the Paperwork project with integrated shadcn/ui components and design system.
 
 ## Project Structure
 
-This workspace contains multiple integrated subprojects:
+This workspace contains two integrated projects:
 
-- `paperwork-fe/` - Main application (based on synergycodes/workflowbuilder)
-- `paperwork-ui/` - Local UI component library from [synergycodes/overflow-ui](https://github.com/synergycodes/overflow-ui)
-  - **Not tracked by Git** - Core UI library for components, tokens, and design system
+- `paperwork-fe/` - Main frontend application built with React, Vite, and shadcn/ui
+- `paperwork-ui/` - Local UI component library ([synergycodes/overflow-ui](https://github.com/synergycodes/overflow-ui))
+  - Contains shadcn/ui component collection with 50+ pre-built components
+  - Includes design tokens, themes, and charts
+  - Provides dashboard blocks, form layouts, sidebar variants, and more
   - Used for local development and customization of UI components
-  - To set up: See [Working with the UI Library](#working-with-the-ui-library) below
-- `survey-creator/` - Reference repository from [surveyjs/survey-creator](https://github.com/surveyjs/survey-creator)
-  - **Not tracked by Git** - Used as a reference for integrating survey/form builder functionality
-  - To set up: `git clone https://github.com/surveyjs/survey-creator`
-- `survey-library/` - Reference repository from [surveyjs/survey-library](https://github.com/surveyjs/survey-library)
-  - **Not tracked by Git** - Core survey library used for survey/form functionality
-  - To set up: `git clone https://github.com/surveyjs/survey-library`
 
 ## Getting Started
 
@@ -30,7 +25,6 @@ This workspace contains multiple integrated subprojects:
 1. Clone this repository
 2. Install dependencies:
    ```bash
-   cd paperwork-fe
    pnpm install
    ```
 3. Set up the UI library (see below)
@@ -39,42 +33,36 @@ This workspace contains multiple integrated subprojects:
    pnpm dev
    ```
 
-## Working with the UI Library
+## Working with the UI Library and shadcn/ui Components
 
-The `paperwork-ui` directory contains the Overflow UI library for local development. This allows you to customize and modify UI components directly.
+The `paperwork-ui` directory contains the Overflow UI library with integrated shadcn/ui components for local development.
 
 ### Initial Setup
 
-1. **Clone the UI library** (if not already present):
-   ```bash
-   cd "d:\Coding Files\GitHub\paperwork-fe"
-   git clone https://github.com/synergycodes/overflow-ui.git paperwork-ui
-   ```
-
-2. **Install UI library dependencies**:
+1. **Install UI library dependencies** (automatically done with workspace pnpm install):
    ```bash
    cd paperwork-ui
    pnpm install
    ```
 
-3. **Build the tokens package**:
+2. **Build the tokens package**:
    ```bash
    cd packages/tokens
    pnpm prepare
    ```
 
-4. **Start the UI development build** (keeps running in background):
+3. **Start the UI development build** (keeps running in background):
    ```bash
    cd ../..
    pnpm ui dev
    ```
-   This watches for file changes and automatically rebuilds the UI library.
+   This watches for file changes in the UI library and automatically rebuilds.
 
-5. **Link to paperwork-fe** (already configured):
-   - `apps/frontend/package.json` links to: `link:../../../paperwork-ui/packages/ui`
-   - `apps/frontend/src/global.css` imports from: `../../../../paperwork-ui/packages/ui/dist/tokens.css`
+4. **Link to paperwork-fe** (already configured in workspace):
+   - `paperwork-fe/apps/frontend/package.json` links to: `link:../../../paperwork-ui/packages/ui`
+   - `paperwork-fe/apps/frontend/src/global.css` imports from: `../../../../paperwork-ui/packages/ui/dist/tokens.css`
 
-6. **Reinstall paperwork-fe dependencies** to apply the local link:
+5. **Reinstall paperwork-fe dependencies** to apply the local link:
    ```bash
    cd ../paperwork-fe
    pnpm install
@@ -89,13 +77,55 @@ When working with both `paperwork-fe` and `paperwork-ui` locally:
    - This watches for changes and rebuilds automatically
 
 2. **Make changes to UI components**:
-   - Edit files in `paperwork-ui/packages/ui/src/`
+   - Edit files in `paperwork-ui/packages/ui/src/components/shadcn/`
    - Changes will automatically rebuild
    - Refresh your browser to see updates in paperwork-fe
 
 3. **Work on the main application**:
    - In another terminal: `cd paperwork-fe && pnpm dev`
    - Changes to paperwork-fe will hot-reload as usual
+
+### Available shadcn/ui Components
+
+The `paperwork-ui` library includes a comprehensive set of shadcn/ui components:
+
+**Form & Input Components:**
+- Button, Button Group
+- Input, Input Group, Input OTP, Native Select
+- Textarea, Field, Form
+- Checkbox, Radio Group
+- Toggle, Toggle Group
+- Switch, Slider
+- Dropdown Menu, Select, Menubar, Navigation Menu, Context Menu
+
+**Layout Components:**
+- Card, Accordion, Collapsible
+- Dialog, Drawer, Sheet
+- Popover, Hover Card, Tooltip
+- Pagination, Separator
+- Sidebar, Scroll Area, Resizable
+
+**Display Components:**
+- Alert, Alert Dialog
+- Badge, Skeleton
+- Spinner, Progress
+- Table, Breadcrumb, Kbd
+- Avatar, Carousel
+- Empty (empty state)
+
+**Advanced Components:**
+- Command (command palette)
+- Charts (area, bar, line, pie, radar, radial)
+- Calendar
+- Sonner (toast notifications)
+
+**Pre-built Blocks:**
+- Dashboard layouts (01)
+- Login forms (01-05 variants)
+- Signup forms (01-05 variants)
+- Calendar layouts (01-32 variants)
+- OTP forms (01-05 variants)
+- Product tables, sidebar variants (01-16 variants)
 
 ### Switching Between Local and NPM Package
 
@@ -117,11 +147,12 @@ After changing, run `pnpm install` in the `paperwork-fe` directory.
 
 - **UI changes not reflecting**: Ensure `pnpm ui dev` is running in the paperwork-ui directory
 - **Build errors**: Try rebuilding tokens with `cd paperwork-ui/packages/tokens && pnpm prepare`
-- **Dependency issues**: Run `pnpm install` again in both directories
-- **CSS not loading**: Verify the import path in `apps/frontend/src/global.css` points to `../../../../paperwork-ui/packages/ui/dist/tokens.css`
+- **Dependency issues**: Run `pnpm install` again in the root directory
+- **CSS not loading**: Verify the import path in `paperwork-fe/apps/frontend/src/global.css` points to `../../../../paperwork-ui/packages/ui/dist/tokens.css`
+- **Components not found**: Make sure paperwork-ui is properly linked as a workspace dependency
 
 ### UI Library Resources
 
-- [NPM Package](https://www.npmjs.com/package/@synergycodes/overflow-ui)
-- [GitHub Repository](https://github.com/synergycodes/overflow-ui)
-- [Documentation](https://github.com/synergycodes/overflow-ui#readme)
+- **NPM Package**: [@synergycodes/overflow-ui](https://www.npmjs.com/package/@synergycodes/overflow-ui)
+- **GitHub**: [synergycodes/overflow-ui](https://github.com/synergycodes/overflow-ui)
+- **shadcn/ui**: [shadcn/ui Documentation](https://ui.shadcn.com)

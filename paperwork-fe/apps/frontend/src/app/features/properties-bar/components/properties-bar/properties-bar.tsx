@@ -1,13 +1,13 @@
 import styles from './properties-bar.module.css';
 
-import { SegmentPicker, Button } from '@synergycodes/overflow-ui';
+import { SegmentPicker, ShadcnButton, ShadcnSeparator } from '@synergycodes/overflow-ui';
 import { withOptionalComponentPlugins } from '@/features/plugins-core/adapters/adapter-components';
 import { EdgeProperties } from '../edge-properties/edge-properties';
 import { PropertiesBarHeader } from '../header/properties-bar-header';
 import { NodeProperties } from '../node-properties/node-properties';
-import { Sidebar } from '@/components/sidebar/sidebar';
 import { renderComponent } from './render-component';
 import { PropertiesBarItem, PropertiesBarProps } from './properties-bar.types';
+import clsx from 'clsx';
 
 /**
  * PropertiesBarComponent - A configurable sidebar component for displaying and editing
@@ -64,30 +64,40 @@ function PropertiesBarComponent({
   ];
 
   return (
-    <Sidebar
-      isExpanded={isExpanded}
-      contentClassName={styles['extend-bounds']}
-      header={
+    <div className={clsx(styles.sidebar, { [styles.expanded]: isExpanded })}>
+      {/* Header */}
+      <div className={styles.header}>
+        <PropertiesBarHeader
+          isExpanded={isExpanded}
+          header={headerLabel}
+          name={name ?? ''}
+          onDotsClick={onMenuHeaderClick}
+        />
+        {isExpanded && renderComponent([segmentPicker], selection, selectedTab)}
+      </div>
+
+      {/* Content */}
+      {isExpanded && (
         <>
-          <PropertiesBarHeader
-            isExpanded={isExpanded}
-            header={headerLabel}
-            name={name ?? ''}
-            onDotsClick={onMenuHeaderClick}
-          />
-          {isExpanded && renderComponent([segmentPicker], selection, selectedTab)}
+          <ShadcnSeparator />
+          <div className={styles.content}>
+            {renderComponent(contentComponents, selection, selectedTab)}
+          </div>
+
+          {/* Footer */}
+          <ShadcnSeparator />
+          <div className={styles.footer}>
+            <ShadcnButton 
+              onClick={onDeleteClick} 
+              variant="ghost" 
+              className="w-full text-destructive hover:text-destructive hover:bg-destructive/10"
+            >
+              {selection?.node ? deleteNodeLabel : deleteEdgeLabel}
+            </ShadcnButton>
+          </div>
         </>
-      }
-      footer={
-        isExpanded && (
-          <Button onClick={onDeleteClick} variant="ghost-destructive">
-            {selection?.node ? deleteNodeLabel : deleteEdgeLabel}
-          </Button>
-        )
-      }
-    >
-      {isExpanded && renderComponent(contentComponents, selection, selectedTab)}
-    </Sidebar>
+      )}
+    </div>
   );
 }
 

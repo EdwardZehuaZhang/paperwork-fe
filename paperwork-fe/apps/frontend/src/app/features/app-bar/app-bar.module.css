@@ -1,7 +1,8 @@
 .container {
-  background: var(--wb-app-bar-background);
-  border-radius: var(--wb-app-bar-border-radius);
-  border: 0.0625rem solid var(--wb-app-bar-border-color);
+  background: hsl(var(--card));
+  border-radius: 0.75rem;
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   display: flex;
   height: auto;
   padding: 0.75rem 1rem;
@@ -9,43 +10,44 @@
   width: 100%;
   align-items: center;
   justify-content: space-between;
+}
 
-  .toolbar {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
 
-    .logo {
-      color: var(--wb-app-bar-logo-color);
-    }
+.toolbar .logo {
+  color: hsl(var(--foreground));
+}
 
-    .nav-segment {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-  }
+.toolbar .nav-segment {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
-  .project-selection {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    .title {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
+.project-selection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-  .controls {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.5rem;
-  }
+.project-selection .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .menu-container {
@@ -53,27 +55,23 @@
 }
 
 .folder-name {
-  color: var(--wb-app-bar-folder-name-color);
-  composes: ax-public-p9 from global;
+  color: hsl(var(--muted-foreground));
 }
 
 .title {
-  color: var(--wb-app-bar-diagram-title-color);
-  composes: ax-public-p9 from global;
+  color: hsl(var(--foreground));
   min-height: 1em;
   min-width: 1em;
   cursor: pointer;
+}
 
-  &:empty {
-    border-bottom: 1px dotted currentColor;
-  }
+.title:empty {
+  border-bottom: 1px dotted currentColor;
 }
 
 @media screen and (max-width: 800px) {
-  .container {
-    .project-selection {
-      display: none;
-    }
+  .project-selection {
+    display: none;
   }
   .title {
     margin-left: 0.5rem;

@@ -1,4 +1,4 @@
-import { Input } from '@synergycodes/overflow-ui';
+import { ShadcnInput } from '@synergycodes/overflow-ui';
 import { ControlWrapper } from '../control-wrapper';
 import { TextControlProps } from '../../types/controls';
 
@@ -12,7 +12,6 @@ function TextControl(props: TextControlProps) {
   const { placeholder } = uischema;
 
   const isNumberInput = type === 'number';
-  const hasErrors = errors.length > 0;
 
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -44,13 +43,12 @@ function TextControl(props: TextControlProps) {
 
   return (
     <ControlWrapper {...props}>
-      <Input
+      <ShadcnInput
         type={isNumberInput ? 'number' : 'text'}
         required={required}
         value={inputValue}
         onChange={onChange}
         onBlur={onBlur}
-        error={hasErrors}
         disabled={!enabled}
         placeholder={placeholder}
       />

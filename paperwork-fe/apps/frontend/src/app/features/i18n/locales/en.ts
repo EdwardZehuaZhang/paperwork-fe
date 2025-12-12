@@ -115,6 +115,9 @@ export const en = {
     save: 'Save',
     changeLanguage: 'Change Language',
     copy: 'Copy',
+    undo: 'Undo',
+    redo: 'Redo',
+    language: 'Change Language',
   },
   snackbar: {
     saveDiagramSuccess: 'Saving diagram successfully',

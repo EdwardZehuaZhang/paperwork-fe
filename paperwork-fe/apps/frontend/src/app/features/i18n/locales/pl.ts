@@ -88,6 +88,9 @@ export const pl = {
     save: 'Zapisz',
     changeLanguage: 'Zmień język',
     copy: 'Kopiuj',
+    undo: 'Cofnij',
+    redo: 'Ponów',
+    language: 'Zmień język',
   },
   snackbar: {
     saveDiagramSuccess: 'Diagram został pomyślnie zapisany',

@@ -1,7 +1,12 @@
 import { Handle } from '@xyflow/react';
 import { IconType, LayoutDirection } from '@workflow-builder/types/common';
 import { memo, useMemo, lazy, Suspense, useCallback } from 'react';
-import { Collapsible, NodeDescription, NodeIcon, NodePanel, Status } from '@synergycodes/overflow-ui';
+import {
+  Collapsible,
+  NodeDescription,
+  NodeIcon,
+  Status,
+} from '@synergycodes/overflow-ui';
 import { Icon } from '@workflow-builder/icons';
 import { getHandleId } from '../../handles/get-handle-id';
 import { getHandlePosition } from '../../handles/get-handle-position';
@@ -72,52 +77,55 @@ const WorkflowNodeTemplateComponent = memo(
 
     return (
       <Collapsible>
-        <NodePanel.Root
-          selected={selected}
+        <div
           className={styles['content']}
-          style={selected ? { width: '500px', minWidth: '500px', maxWidth: '500px' } : undefined}
+          style={{
+            ...(selected ? { width: '500px', minWidth: '500px', maxWidth: '500px' } : {}),
+          }}
           data-expanded={selected ? 'true' : 'false'}
         >
-          <NodePanel.Header>
+          <div className={styles['header']}>
             <NodeIcon icon={iconElement} />
             <NodeDescription label={label} description={description} />
             {hasContent && <Collapsible.Button />}
-          </NodePanel.Header>
-          <NodePanel.Content>
-            <Status status={isValid === false ? 'invalid' : undefined} />
-            <Collapsible.Content>
-              <div className={styles['collapsible']}>{children}</div>
-            </Collapsible.Content>
-            {selected && (
-              <div className={styles['expanded-container']}>
-                <div className={styles['expanded-content']}>
-                  <div className={styles['preview-section']}>
-                    <span className="ax-public-h10">Preview</span>
-                    <Suspense
-                      fallback={
-                        <div className={styles['editor-loading']}>
-                          <span className="ax-public-p11">Loading editor...</span>
-                        </div>
-                      }
-                    >
-                      <BlockNoteEditor 
-                        nodeId={id} 
-                        initialContent={data?.editorContent}
-                        onChange={handleEditorChange}
-                        selected={selected}
-                        questions={questions}
-                      />
-                    </Suspense>
+          </div>
+          {(selected || hasContent) && (
+            <div className={styles['node-content']}>
+              <Status status={isValid === false ? 'invalid' : undefined} />
+              <Collapsible.Content>
+                <div className={styles['collapsible']}>{children}</div>
+              </Collapsible.Content>
+              {selected && (
+                <div className={styles['expanded-container']}>
+                  <div className={styles['expanded-content']}>
+                    <div className={styles['preview-section']}>
+                      <span className="ax-public-h10">Preview</span>
+                      <Suspense
+                        fallback={
+                          <div className={styles['editor-loading']}>
+                            <span className="ax-public-p11">Loading editor...</span>
+                          </div>
+                        }
+                      >
+                        <BlockNoteEditor 
+                          nodeId={id} 
+                          initialContent={data?.editorContent}
+                          onChange={handleEditorChange}
+                          selected={selected}
+                          questions={questions}
+                        />
+                      </Suspense>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </NodePanel.Content>
-          <NodePanel.Handles isVisible={showHandles} alignment={handlesAlignment}>
+              )}
+            </div>
+          )}
+          <div className={styles['handles']} style={{ display: showHandles ? 'flex' : 'none' }}>
             <Handle id={handleTargetId} position={handleTargetPosition} type="target" />
             <Handle id={handleSourceId} position={handleSourcePosition} type="source" />
-          </NodePanel.Handles>
-        </NodePanel.Root>
+          </div>
+        </div>
       </Collapsible>
     );
   },

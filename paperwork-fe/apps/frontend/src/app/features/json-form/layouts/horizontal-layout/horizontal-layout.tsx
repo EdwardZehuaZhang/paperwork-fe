@@ -1,4 +1,3 @@
-import styles from './horizontal-layout.module.css';
 import { LayoutWrapper } from '../layout-wrapper';
 import { HorizontalLayoutElement, LayoutProps } from '../../types/layouts';
 import { renderElements } from '../render-elements';
@@ -13,13 +12,29 @@ function HorizontalLayout(props: LayoutProps<HorizontalLayoutElement>) {
   const { layoutColumns } = uischema;
 
   const style: CSSProperties = useMemo(
-    () => (layoutColumns ? { gridAutoColumns: layoutColumns } : {}),
+    () => {
+      const baseStyle: CSSProperties = {
+        display: 'grid',
+        gap: '1rem',
+        alignItems: 'center',
+        width: '100%',
+      };
+      
+      if (layoutColumns) {
+        baseStyle.gridTemplateColumns = layoutColumns;
+      } else {
+        baseStyle.gridAutoFlow = 'column';
+        baseStyle.gridAutoColumns = '1fr';
+      }
+      
+      return baseStyle;
+    },
     [layoutColumns],
   );
 
   return (
     <LayoutWrapper hasErrors={hasErrors} {...props}>
-      <div style={style} className={styles['horizontal-layout']}>
+      <div style={style}>
         {renderElements(props)}
       </div>
     </LayoutWrapper>
