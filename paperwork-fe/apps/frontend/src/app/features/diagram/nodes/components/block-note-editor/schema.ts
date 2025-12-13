@@ -6,10 +6,11 @@ import {
 } from '@blocknote/core';
 
 import { AnswerInline } from './answer-inline';
+import { SignatureInline } from './signature-inline';
 
 /**
  * Extended BlockNote schema for Form nodes.
- * Includes the custom "answer" inline content type for answer placeholders.
+ * Includes custom "answer" and "signature" inline content types for placeholders.
  */
 export const formNodeSchema = BlockNoteSchema.create({
   blockSpecs: {
@@ -18,6 +19,7 @@ export const formNodeSchema = BlockNoteSchema.create({
   inlineContentSpecs: {
     ...defaultInlineContentSpecs,
     answer: AnswerInline,
+    signature: SignatureInline,
   },
   styleSpecs: {
     ...defaultStyleSpecs,

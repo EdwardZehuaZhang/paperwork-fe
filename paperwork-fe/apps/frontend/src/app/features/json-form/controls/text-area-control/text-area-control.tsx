@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { TextAreaControlProps } from '../../types/controls';
 import { createControlRenderer } from '../../utils/rendering';
 import { ControlWrapper } from '../control-wrapper';
-import { ShadcnTextarea } from '@synergycodes/overflow-ui';
+import { Textarea } from '@/components/ui/textarea';
 
 function TextAreaControl(props: TextAreaControlProps) {
   const { data, handleChange, path, enabled, uischema } = props;
@@ -24,7 +24,7 @@ function TextAreaControl(props: TextAreaControlProps) {
 
   return (
     <ControlWrapper {...props}>
-      <ShadcnTextarea
+      <Textarea
         disabled={!enabled}
         value={inputValue}
         placeholder={placeholder}

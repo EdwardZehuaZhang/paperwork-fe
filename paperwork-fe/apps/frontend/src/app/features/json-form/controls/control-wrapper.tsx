@@ -1,11 +1,11 @@
 import { BaseControlProps } from '../types/controls';
 import { IndicatorDot } from '../components/indicator-dot/indicator-dot';
 import {
-  ShadcnField,
-  ShadcnFieldLabel,
-  ShadcnFieldDescription,
-  ShadcnFieldError,
-} from '@synergycodes/overflow-ui';
+  Field,
+  FieldLabel,
+  FieldDescription,
+  FieldError,
+} from '@/components/ui/field';
 
 type Props = BaseControlProps & {
   children: React.ReactNode;
@@ -32,15 +32,15 @@ export function ControlWrapper({ children, uischema, errors = '', description, .
   return (
     <>
       {hasLabel ? (
-        <ShadcnField data-invalid={hasErrors || undefined}>
-          <ShadcnFieldLabel htmlFor={fieldId}>
+        <Field data-invalid={hasErrors || undefined}>
+          <FieldLabel htmlFor={fieldId}>
             {label}
             {required && <span className="text-destructive ml-1">*</span>}
-          </ShadcnFieldLabel>
+          </FieldLabel>
           <div id={fieldId}>{childrenControl}</div>
-          {description && <ShadcnFieldDescription>{description}</ShadcnFieldDescription>}
-          {hasErrors && <ShadcnFieldError errors={errorMessages} />}
-        </ShadcnField>
+          {description && <FieldDescription>{description}</FieldDescription>}
+          {hasErrors && <FieldError errors={errorMessages} />}
+        </Field>
       ) : (
         <>{childrenControl}</>
       )}

@@ -1,6 +1,6 @@
 .editor-container {
   border-radius: 0.375rem;
-  overflow: hidden;
+  overflow: visible;
   background-color: var(--ax-ui-surface-primary-default);
   width: 650px;
   aspect-ratio: 1 / 1.414; /* A4 ratio (1:√2) */

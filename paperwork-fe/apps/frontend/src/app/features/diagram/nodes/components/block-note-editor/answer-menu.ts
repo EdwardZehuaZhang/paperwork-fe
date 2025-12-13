@@ -6,24 +6,31 @@ export interface FormQuestion {
   label: string; // display label (e.g., "Q1", "Q2", "Question 1")
 }
 
+export interface FormSignature {
+  id: string; // stable ID linking to the form body property (e.g., "signature1", "signature2")
+  label: string; // display label (e.g., "Signature 1", "Signature 2")
+}
+
 /**
- * Generates suggestion menu items for answer placeholders.
- * Each item creates an answer inline content linked to a specific question.
+ * Generates suggestion menu items for content placeholders (answers and signatures).
+ * Each item creates inline content linked to a specific question or signature.
  *
  * @param editor - The BlockNote editor instance
  * @param questions - Array of questions from the Form Body
- * @returns Array of suggestion items for the "Answers" group
+ * @param signatures - Array of signatures from the Form Body
+ * @returns Array of suggestion items for the "Content" group
  */
-export const getAnswerSuggestionItems = (
+export const getContentSuggestionItems = (
   editor: FormNodeEditor,
   questions: FormQuestion[],
+  signatures: FormSignature[],
 ): DefaultReactSuggestionItem[] => {
-  return questions.map((q, index) => {
+  const questionItems = questions.map((q, index) => {
     const label = q.label || `Q${index + 1}`;
 
     return {
       title: `${label} Answer`,
-      group: 'Answers', // Creates the "Answers" section in the menu
+      group: 'Content', // Creates the "Content" section in the menu
       aliases: [label.toLowerCase(), 'answer', q.id],
       subtext: `Insert placeholder for ${label}`,
       onItemClick: () => {
@@ -40,4 +47,29 @@ export const getAnswerSuggestionItems = (
       },
     };
   });
+
+  const signatureItems = signatures.map((s, index) => {
+    const label = s.label || `Signature ${index + 1}`;
+
+    return {
+      title: `${label}`,
+      group: 'Content', // Creates the "Content" section in the menu
+      aliases: [label.toLowerCase(), 'signature', s.id],
+      subtext: `Insert placeholder for ${label}`,
+      onItemClick: () => {
+        editor.insertInlineContent([
+          {
+            type: 'signature',
+            props: {
+              signatureId: s.id,
+              label,
+            },
+          },
+          ' ', // add trailing space for easier typing
+        ]);
+      },
+    };
+  });
+
+  return [...questionItems, ...signatureItems];
 };

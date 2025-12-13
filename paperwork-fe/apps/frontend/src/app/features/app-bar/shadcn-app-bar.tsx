@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '@synergycodes/overflow-ui';
+} from '@/components/ui/dropdown-menu';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,11 +14,11 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@synergycodes/overflow-ui';
+} from '@/components/ui/breadcrumb';
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from '@synergycodes/overflow-ui';
+} from '@/components/ui/toggle-group';
 import {
   FloppyDisk,
   FolderOpen,
@@ -124,8 +124,27 @@ export function ShadcnAppBar() {
   }, []);
 
   const handleSave = useCallback(() => {
-    onSave({ isAutoSave: false });
+    (async () => {
+      const didSave = await onSave({ isAutoSave: false });
+
+      // Also persist to the workflow collection storage (update existing workflow if possible).
+      // This prevents duplicates when returning to the workflow list.
+      if (didSave === 'success' && globalThis.__persistWorkflowToCollection) {
+        try {
+          await globalThis.__persistWorkflowToCollection();
+        } catch {
+          // Ignore: integration save already reported status to the user.
+        }
+      }
+    })();
   }, [onSave]);
+
+  const handleOpenWorkflows = useCallback(() => {
+    // Call the global navigation function
+    if (globalThis.__navigateToCollection) {
+      globalThis.__navigateToCollection();
+    }
+  }, []);
 
   return (
     <nav 
@@ -178,7 +197,7 @@ export function ShadcnAppBar() {
               }}
               onMouseEnter={handleButtonMouseEnter}
               onMouseLeave={handleButtonMouseLeave}
-              onClick={() => console.log('Open clicked')}
+              onClick={handleOpenWorkflows}
             >
               <FolderOpen size={16} style={{ color: theme === 'dark' ? '#e5e7eb' : '#334155' }} weight="regular" />
             </button>

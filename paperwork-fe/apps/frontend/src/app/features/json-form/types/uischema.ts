@@ -13,6 +13,7 @@ import {
   TextControlElement,
   AiToolsControlElement,
   DecisionBranchesControlElement,
+  FormBodyControlElement,
 } from './controls';
 import { LabelElement } from './label';
 
@@ -25,6 +26,7 @@ export type UISchemaControlElement<T extends string = string> = (
   | DynamicConditionsControlElement
   | AiToolsControlElement
   | DecisionBranchesControlElement
+  | FormBodyControlElement
 ) & { scope: T; errorIndicatorEnabled?: boolean };
 export type UISchemaControlElementType = UISchemaControlElement['type'];
 

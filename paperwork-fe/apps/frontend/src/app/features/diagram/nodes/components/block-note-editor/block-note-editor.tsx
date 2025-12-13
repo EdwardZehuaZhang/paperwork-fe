@@ -1,4 +1,13 @@
-import { useCreateBlockNote, SuggestionMenuController, getDefaultReactSlashMenuItems, SideMenuController } from '@blocknote/react';
+import {
+  useCreateBlockNote,
+  SuggestionMenuController,
+  getDefaultReactSlashMenuItems,
+  SideMenuController,
+  SideMenu,
+  DragHandleMenu,
+  RemoveBlockItem,
+  BlockColorsItem,
+} from '@blocknote/react';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
 import '@blocknote/core/fonts/inter.css';
@@ -18,7 +27,7 @@ import { filterSuggestionItems } from '@blocknote/core';
 
 import styles from './block-note-editor.module.css';
 import { formNodeSchema, type FormNodeEditor } from './schema';
-import { getAnswerSuggestionItems, type FormQuestion } from './answer-menu';
+import { getContentSuggestionItems, type FormQuestion, type FormSignature } from './answer-menu';
 
 type Props = {
   nodeId: string;
@@ -30,10 +39,26 @@ type Props = {
    * When provided, enables answer placeholder insertion in the editor.
    */
   questions?: FormQuestion[];
+  /**
+   * Optional array of signatures from the Form Body.
+   * When provided, enables signature placeholder insertion in the editor.
+   */
+  signatures?: FormSignature[];
 };
 
+type FormNodeDragHandleMenuProps = Omit<React.ComponentProps<typeof DragHandleMenu>, 'children'>;
+
+function FormNodeDragHandleMenu(props: FormNodeDragHandleMenuProps) {
+  return (
+    <DragHandleMenu {...props}>
+      <RemoveBlockItem {...(props as any)}>Delete</RemoveBlockItem>
+      <BlockColorsItem {...(props as any)}>Colors</BlockColorsItem>
+    </DragHandleMenu>
+  );
+}
+
 export const BlockNoteEditor = memo(
-  ({ nodeId, onChange, initialContent, selected = false, questions = [] }: Props) => {
+  ({ nodeId, onChange, initialContent, selected = false, questions = [], signatures = [] }: Props) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const initialContentRef = useRef(initialContent);
     const [isEditorFocused, setIsEditorFocused] = useState(false);
@@ -58,17 +83,19 @@ export const BlockNoteEditor = memo(
       }
     }, [selected]);
 
-    // Generate slash menu items with answer placeholders if questions exist
+    // Generate slash menu items with content placeholders if questions or signatures exist
     const getSlashItems = useCallback(
       async (query: string) => {
         const defaultItems = getDefaultReactSlashMenuItems(editor);
-        const answerItems =
-          questions.length > 0 ? getAnswerSuggestionItems(editor, questions) : [];
-        // Put answer items BEFORE default items so "Answers" section appears at the top
-        const allItems = [...answerItems, ...defaultItems];
+        const contentItems =
+          questions.length > 0 || signatures.length > 0
+            ? getContentSuggestionItems(editor, questions, signatures)
+            : [];
+        // Put content items BEFORE default items so "Content" section appears at the top
+        const allItems = [...contentItems, ...defaultItems];
         return filterSuggestionItems(allItems, query);
       },
-      [editor, questions],
+      [editor, questions, signatures],
     );
 
     useEffect(() => {
@@ -119,7 +146,11 @@ export const BlockNoteEditor = memo(
           sideMenu={false}
           editable={isEditorFocused}
         >
-          <SideMenuController />
+          <SideMenuController
+            sideMenu={(props) => (
+              <SideMenu {...props} dragHandleMenu={FormNodeDragHandleMenu as any} />
+            )}
+          />
           <FormattingToolbarController
             formattingToolbar={() => (
               <FormattingToolbar>
@@ -145,7 +176,46 @@ export const BlockNoteEditor = memo(
     );
   },
   (prevProps, nextProps) => {
-    return prevProps.nodeId === nextProps.nodeId;
+    // Re-render if nodeId changes
+    if (prevProps.nodeId !== nextProps.nodeId) {
+      return false;
+    }
+    
+    // Re-render if questions array changes (important for answer menu updates)
+    if (prevProps.questions?.length !== nextProps.questions?.length) {
+      return false;
+    }
+    
+    // Re-render if signatures array changes (important for signature menu updates)
+    if (prevProps.signatures?.length !== nextProps.signatures?.length) {
+      return false;
+    }
+    
+    // Check if any question content has changed
+    if (prevProps.questions && nextProps.questions) {
+      for (let i = 0; i < prevProps.questions.length; i++) {
+        if (
+          prevProps.questions[i]?.id !== nextProps.questions[i]?.id ||
+          prevProps.questions[i]?.label !== nextProps.questions[i]?.label
+        ) {
+          return false;
+        }
+      }
+    }
+    
+    // Check if any signature content has changed
+    if (prevProps.signatures && nextProps.signatures) {
+      for (let i = 0; i < prevProps.signatures.length; i++) {
+        if (
+          prevProps.signatures[i]?.id !== nextProps.signatures[i]?.id ||
+          prevProps.signatures[i]?.label !== nextProps.signatures[i]?.label
+        ) {
+          return false;
+        }
+      }
+    }
+    
+    return true;
   },
 );
 

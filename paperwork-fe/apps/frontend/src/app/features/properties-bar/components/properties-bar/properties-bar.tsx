@@ -1,6 +1,8 @@
 import styles from './properties-bar.module.css';
 
-import { SegmentPicker, ShadcnButton, ShadcnSeparator } from '@synergycodes/overflow-ui';
+import { SegmentPicker } from '@synergycodes/overflow-ui';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import { withOptionalComponentPlugins } from '@/features/plugins-core/adapters/adapter-components';
 import { EdgeProperties } from '../edge-properties/edge-properties';
 import { PropertiesBarHeader } from '../header/properties-bar-header';
@@ -79,21 +81,21 @@ function PropertiesBarComponent({
       {/* Content */}
       {isExpanded && (
         <>
-          <ShadcnSeparator />
+          <Separator />
           <div className={styles.content}>
             {renderComponent(contentComponents, selection, selectedTab)}
           </div>
 
           {/* Footer */}
-          <ShadcnSeparator />
+          <Separator />
           <div className={styles.footer}>
-            <ShadcnButton 
+            <Button 
               onClick={onDeleteClick} 
               variant="ghost" 
               className="w-full text-destructive hover:text-destructive hover:bg-destructive/10"
             >
               {selection?.node ? deleteNodeLabel : deleteEdgeLabel}
-            </ShadcnButton>
+            </Button>
           </div>
         </>
       )}

@@ -29,6 +29,9 @@
   z-index: 10;
   background: hsl(var(--card));
   padding-bottom: 1rem;
+}
+
+.sidebar.expanded .header {
   border-bottom: 1px solid hsl(var(--border));
 }
 
@@ -37,7 +40,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 1.5rem 0;
+  padding: 1rem 1.5rem 1rem;
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;

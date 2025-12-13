@@ -17,7 +17,8 @@ import { textAreaControlRenderer } from './controls/text-area-control/text-area-
 import { dynamicConditionsControlRenderer } from './controls/dynamic-conditions-control/dynamic-conditions-control';
 import { aiToolsControlRenderer } from './controls/ai-tools-control/ai-tools-control';
 import { decisionBranchesControlRenderer } from './controls/decision-branches-control/decision-branches-control';
-import { ShadcnFieldGroup } from '@synergycodes/overflow-ui';
+import { formBodyControlRenderer } from './controls/form-body-control/form-body-control';
+import { FieldGroup } from '@/components/ui/field';
 
 type Props = Pick<ComponentProps<typeof JsonForms>, 'onChange' | 'data' | 'uischema' | 'schema'> & {
   readonly?: boolean;
@@ -27,9 +28,9 @@ export function JSONForm(props: Props) {
   const { readonly, ...rest } = props;
   return (
     <div className={styles['json-form-container']}>
-      <ShadcnFieldGroup>
+      <FieldGroup>
         <JsonForms renderers={renderers} validationMode="ValidateAndShow" {...rest} config={{ readonly }} />
-      </ShadcnFieldGroup>
+      </FieldGroup>
     </div>
   );
 }
@@ -49,4 +50,5 @@ const renderers: JsonFormsRendererRegistryEntry[] = [
   dynamicConditionsControlRenderer,
   aiToolsControlRenderer,
   decisionBranchesControlRenderer,
+  formBodyControlRenderer,
 ];

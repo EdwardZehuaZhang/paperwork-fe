@@ -1,4 +1,5 @@
-import { Accordion, ShadcnFieldSet, ShadcnFieldLegend, ShadcnFieldGroup } from '@synergycodes/overflow-ui';
+import { Accordion } from '@synergycodes/overflow-ui';
+import { FieldSet, FieldGroup } from '@/components/ui/field';
 import { AccordionLayoutElement, LayoutProps } from '../../types/layouts';
 import { LayoutWrapper } from '../layout-wrapper';
 import { createLayoutRenderer } from '../../utils/rendering';
@@ -10,11 +11,11 @@ function AccordionLayout(props: LayoutProps<AccordionLayoutElement>) {
   return (
     <LayoutWrapper {...props}>
       <Accordion label={uischema.label}>
-        <ShadcnFieldSet>
-          <ShadcnFieldGroup>
+        <FieldSet>
+          <FieldGroup>
             {renderElements(props)}
-          </ShadcnFieldGroup>
-        </ShadcnFieldSet>
+          </FieldGroup>
+        </FieldSet>
       </Accordion>
     </LayoutWrapper>
   );

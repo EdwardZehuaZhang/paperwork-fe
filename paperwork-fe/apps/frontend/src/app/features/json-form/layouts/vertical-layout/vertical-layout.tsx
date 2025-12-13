@@ -2,14 +2,14 @@ import { LayoutWrapper } from '../layout-wrapper';
 import { renderElements } from '../render-elements';
 import { LayoutProps, VerticalLayoutElement } from '../../types/layouts';
 import { createLayoutRenderer } from '../../utils/rendering';
-import { ShadcnFieldGroup } from '@synergycodes/overflow-ui';
+import { FieldGroup } from '@/components/ui/field';
 
 function VerticalLayout(props: LayoutProps<VerticalLayoutElement>) {
   return (
     <LayoutWrapper {...props}>
-      <ShadcnFieldGroup>
+      <FieldGroup>
         {renderElements(props)}
-      </ShadcnFieldGroup>
+      </FieldGroup>
     </LayoutWrapper>
   );
 }

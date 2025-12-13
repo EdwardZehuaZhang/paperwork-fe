@@ -105,4 +105,12 @@ export type AiToolsControlElement = Override<
 >;
 export type AiToolsControlProps = ControlProps<AiAgentTool[], AiToolsControlElement>;
 
+export type FormBodyControlElement = Override<
+  BaseControlElement,
+  {
+    type: 'FormBody';
+  }
+>;
+export type FormBodyControlProps = ControlProps<Record<string, unknown>, FormBodyControlElement>;
+
 type BaseControlElement = Override<ControlElement, { rule?: UISchemaRule }>;

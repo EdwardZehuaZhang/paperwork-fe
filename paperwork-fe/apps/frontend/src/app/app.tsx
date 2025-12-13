@@ -15,6 +15,8 @@ import { DiagramWrapper } from './features/diagram/diagram-wrapper';
 import { SnackbarContainer } from './features/snackbar/snackbar-container';
 import { useDetectLanguageChange } from './features/i18n/use-detect-language-change';
 import { CoexistenceDemo } from '../coexistence-demo';
+import { RouterProvider } from './router/router-context';
+import { AppRouter } from './app-router';
 
 import './features/i18n/index';
 import { withIntegration } from './features/integration/components/with-integration';
@@ -27,29 +29,33 @@ function AppComponent(_props: PropsWithChildren) {
   setAutoFreeze(false);
 
   return (
-    <ReactFlowProvider>
-      <div className={styles['container']}>
-        <div className={styles['header']}>
-          <AppBarContainerLazy />
-        </div>
-        <div className={styles['content']}>
-          <div className={styles['panel']}>
-            <PaletteContainerLazy />
-          </div>
-          <div className={styles['panel']}>
-            <div className={styles['right-panel']}>
-              <PropertiesBarContainerLazy />
+    <RouterProvider>
+      <AppRouter>
+        <ReactFlowProvider>
+          <div className={styles['container']}>
+            <div className={styles['header']}>
+              <AppBarContainerLazy />
             </div>
+            <div className={styles['content']}>
+              <div className={styles['panel']}>
+                <PaletteContainerLazy />
+              </div>
+              <div className={styles['panel']}>
+                <div className={styles['right-panel']}>
+                  <PropertiesBarContainerLazy />
+                </div>
+              </div>
+            </div>
+            <DiagramWrapper>
+              <Diagram />
+            </DiagramWrapper>
+            <SnackbarContainer />
+            <AppLoaderContainer />
+            <OptionalHooks />
           </div>
-        </div>
-        <DiagramWrapper>
-          <Diagram />
-        </DiagramWrapper>
-        <SnackbarContainer />
-        <AppLoaderContainer />
-        <OptionalHooks />
-      </div>
-    </ReactFlowProvider>
+        </ReactFlowProvider>
+      </AppRouter>
+    </RouterProvider>
   );
 }
 

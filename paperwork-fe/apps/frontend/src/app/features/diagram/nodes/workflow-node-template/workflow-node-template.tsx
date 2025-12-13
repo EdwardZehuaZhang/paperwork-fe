@@ -15,7 +15,7 @@ import styles from './workflow-node-template.module.css';
 import { withOptionalComponentPlugins } from '@/features/plugins-core/adapters/adapter-components';
 import { NodeData } from '@workflow-builder/types/node-data';
 import useStore from '@/store/store';
-import { extractQuestionsFromNodeData } from '../components/block-note-editor/extract-questions';
+import { extractContentFromNodeData, extractQuestionsFromNodeData } from '../components/block-note-editor/extract-questions';
 
 // Lazy load BlockNote editor to improve performance
 const BlockNoteEditor = lazy(() =>
@@ -72,15 +72,15 @@ const WorkflowNodeTemplateComponent = memo(
       [id, setNodeData],
     );
 
-    // Extract questions from node data for answer placeholders
-    const questions = useMemo(() => extractQuestionsFromNodeData(data), [data]);
+    // Extract questions and signatures from node data for content placeholders
+    const { questions, signatures } = useMemo(() => extractContentFromNodeData(data), [data]);
 
     return (
       <Collapsible>
         <div
           className={styles['content']}
           style={{
-            ...(selected ? { width: '500px', minWidth: '500px', maxWidth: '500px' } : {}),
+            ...(selected ? { width: '600px', minWidth: '600px', maxWidth: '600px' } : {}),
           }}
           data-expanded={selected ? 'true' : 'false'}
         >
@@ -107,12 +107,13 @@ const WorkflowNodeTemplateComponent = memo(
                           </div>
                         }
                       >
-                        <BlockNoteEditor 
-                          nodeId={id} 
+                        <BlockNoteEditor
+                          nodeId={id}
                           initialContent={data?.editorContent}
                           onChange={handleEditorChange}
                           selected={selected}
                           questions={questions}
+                          signatures={signatures}
                         />
                       </Suspense>
                     </div>

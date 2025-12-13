@@ -1,6 +1,13 @@
 import { SelectControlProps } from '../../types/controls';
 import { createControlRenderer } from '../../utils/rendering';
-import { ShadcnSelect } from '@synergycodes/overflow-ui';
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+  SelectSeparator,
+} from '@/components/ui/select';
 import { ControlWrapper } from '../control-wrapper';
 import { PrimitiveFieldSchema } from '@workflow-builder/types/node-schema';
 import { Icon } from '@workflow-builder/icons';
@@ -16,26 +23,26 @@ function SelectControl(props: SelectControlProps) {
 
   return (
     <ControlWrapper {...props}>
-      <ShadcnSelect.Select value={data ?? ''} onValueChange={onChange} disabled={!enabled} modal={false}>
-        <ShadcnSelect.SelectTrigger>
-          <ShadcnSelect.SelectValue placeholder={schema.placeholder || 'Select an option'} />
-        </ShadcnSelect.SelectTrigger>
-        <ShadcnSelect.SelectContent position="item-aligned">
+      <Select value={data ?? ''} onValueChange={onChange} disabled={!enabled}>
+        <SelectTrigger>
+          <SelectValue placeholder={schema.placeholder || 'Select an option'} />
+        </SelectTrigger>
+        <SelectContent position="item-aligned">
           {options.map((option) => {
             if (option.type === 'separator') {
-              return <ShadcnSelect.SelectSeparator key={`separator-${option.label}`} />;
+              return <SelectSeparator key={`separator-${option.label}`} />;
             }
             return (
-              <ShadcnSelect.SelectItem key={option.value} value={option.value}>
+              <SelectItem key={option.value} value={option.value}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   {option.icon && <Icon name={option.icon} size="small" />}
                   <span>{option.label}</span>
                 </div>
-              </ShadcnSelect.SelectItem>
+              </SelectItem>
             );
           })}
-        </ShadcnSelect.SelectContent>
-      </ShadcnSelect.Select>
+        </SelectContent>
+      </Select>
     </ControlWrapper>
   );
 }

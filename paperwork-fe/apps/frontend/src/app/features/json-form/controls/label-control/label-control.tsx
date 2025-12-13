@@ -2,16 +2,16 @@ import { JsonFormsRendererRegistryEntry, LabelProps } from '@jsonforms/core';
 import { LabelElement } from '../../types/label';
 import { withJsonFormsLabelProps } from '@jsonforms/react';
 import { createTester } from '../../utils/rendering';
-import { ShadcnFieldLabel } from '@synergycodes/overflow-ui';
+import { FieldLabel } from '@/components/ui/field';
 
 function LabelRendererComponent({ uischema }: LabelProps) {
   const { text, required } = uischema as LabelElement;
 
   return (
-    <ShadcnFieldLabel>
+    <FieldLabel>
       {text}
       {required && <span className="text-destructive ml-1">*</span>}
-    </ShadcnFieldLabel>
+    </FieldLabel>
   );
 }
 

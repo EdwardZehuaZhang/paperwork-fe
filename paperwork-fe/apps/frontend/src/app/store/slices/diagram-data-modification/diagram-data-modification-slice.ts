@@ -8,7 +8,7 @@ export type DiagramDataModificationState = {
   onNodesChange: OnNodesChange<WorkflowBuilderNode>;
   onEdgesChange: OnEdgesChange<WorkflowBuilderEdge>;
   setNodeProperties: (nodeId: string, properties: NodeData['properties']) => void;
-  setNodeData: <T extends WorkflowBuilderNode['data']>(nodeId: string, data: T) => void;
+  setNodeData: <T extends WorkflowBuilderNode['data']>(nodeId: string, data: Partial<T>) => void;
   setEdgeData: (edgeId: string, data: EdgeData) => void;
   removeElements: (elements: { nodes?: WorkflowBuilderNode[]; edges?: WorkflowBuilderEdge[] }) => void;
 };

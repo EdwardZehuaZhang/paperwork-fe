@@ -1,0 +1,123 @@
+.form-body-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.question-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.question-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.question-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary, #333);
+}
+
+.question-input {
+  width: 100%;
+}
+
+.delete-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.delete-button:hover:not(:disabled) {
+  background-color: var(--destructive-light, #fee2e2);
+  color: var(--destructive, #dc2626);
+}
+
+.delete-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.delete-text {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.signature-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color, #e0e0e0);
+}
+
+.signatures-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.signature-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.signature-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.signature-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary, #333);
+}
+
+.signature-input {
+  width: 100%;
+}
+
+.signature-value {
+  font-size: 13px;
+  color: var(--text-muted, #666);
+  padding: 8px 0;
+}
+
+.add-button {
+  margin-top: 8px;
+}
+
+.add-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.add-icon {
+  width: 16px;
+  height: 16px;
+}
