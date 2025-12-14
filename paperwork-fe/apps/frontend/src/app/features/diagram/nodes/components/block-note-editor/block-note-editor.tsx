@@ -27,7 +27,7 @@ import { filterSuggestionItems } from '@blocknote/core';
 
 import styles from './block-note-editor.module.css';
 import { formNodeSchema, type FormNodeEditor } from './schema';
-import { getContentSuggestionItems, type FormQuestion, type FormSignature } from './answer-menu';
+import { getContentSuggestionItems, type FormQuestion, type FormSignature, type FormTime } from './answer-menu';
 
 type Props = {
   nodeId: string;
@@ -44,6 +44,8 @@ type Props = {
    * When provided, enables signature placeholder insertion in the editor.
    */
   signatures?: FormSignature[];
+  /** Optional array of time fields from the Form Body, used by the Time placeholders */
+  times?: FormTime[];
 };
 
 type FormNodeDragHandleMenuProps = Omit<React.ComponentProps<typeof DragHandleMenu>, 'children'>;
@@ -58,7 +60,7 @@ function FormNodeDragHandleMenu(props: FormNodeDragHandleMenuProps) {
 }
 
 export const BlockNoteEditor = memo(
-  ({ nodeId, onChange, initialContent, selected = false, questions = [], signatures = [] }: Props) => {
+  ({ nodeId, onChange, initialContent, selected = false, questions = [], signatures = [], times = [] }: Props) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const initialContentRef = useRef(initialContent);
     const [isEditorFocused, setIsEditorFocused] = useState(false);
@@ -88,14 +90,14 @@ export const BlockNoteEditor = memo(
       async (query: string) => {
         const defaultItems = getDefaultReactSlashMenuItems(editor);
         const contentItems =
-          questions.length > 0 || signatures.length > 0
-            ? getContentSuggestionItems(editor, questions, signatures)
+          questions.length > 0 || signatures.length > 0 || times.length > 0
+            ? getContentSuggestionItems(editor, questions, signatures, times)
             : [];
         // Put content items BEFORE default items so "Content" section appears at the top
         const allItems = [...contentItems, ...defaultItems];
         return filterSuggestionItems(allItems, query);
       },
-      [editor, questions, signatures],
+      [editor, questions, signatures, times],
     );
 
     useEffect(() => {
@@ -190,6 +192,11 @@ export const BlockNoteEditor = memo(
     if (prevProps.signatures?.length !== nextProps.signatures?.length) {
       return false;
     }
+
+    // Re-render if times change (important for Time menu items)
+    if (prevProps.times?.length !== nextProps.times?.length) {
+      return false;
+    }
     
     // Check if any question content has changed
     if (prevProps.questions && nextProps.questions) {
@@ -209,6 +216,19 @@ export const BlockNoteEditor = memo(
         if (
           prevProps.signatures[i]?.id !== nextProps.signatures[i]?.id ||
           prevProps.signatures[i]?.label !== nextProps.signatures[i]?.label
+        ) {
+          return false;
+        }
+      }
+    }
+
+    // Check if any time content has changed
+    if (prevProps.times && nextProps.times) {
+      for (let i = 0; i < prevProps.times.length; i++) {
+        if (
+          prevProps.times[i]?.id !== nextProps.times[i]?.id ||
+          prevProps.times[i]?.label !== nextProps.times[i]?.label ||
+          prevProps.times[i]?.format !== nextProps.times[i]?.format
         ) {
           return false;
         }

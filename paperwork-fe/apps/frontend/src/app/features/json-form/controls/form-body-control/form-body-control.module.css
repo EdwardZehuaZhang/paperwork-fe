@@ -9,10 +9,72 @@
   gap: 16px;
 }
 
+.times-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.time-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.time-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary, #333);
+}
+
+.time-select {
+  width: 100%;
+}
+
 .questions-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.money-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.money-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.money-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.money-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary, #333);
+}
+
+.money-currency {
+  width: 100%;
+}
+
+.money-question {
+  width: 100%;
 }
 
 .question-item {

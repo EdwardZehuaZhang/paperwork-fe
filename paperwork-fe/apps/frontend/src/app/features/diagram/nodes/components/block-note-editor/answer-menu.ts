@@ -11,6 +11,12 @@ export interface FormSignature {
   label: string; // display label (e.g., "Signature 1", "Signature 2")
 }
 
+export interface FormTime {
+  id: string; // stable ID linking to the form body property (e.g., "time1", "time2")
+  label: string; // display label (e.g., "Time 1", "Time 2")
+  format: string; // stored format (e.g., "Date, Month and Year")
+}
+
 /**
  * Generates suggestion menu items for content placeholders (answers and signatures).
  * Each item creates inline content linked to a specific question or signature.
@@ -24,7 +30,31 @@ export const getContentSuggestionItems = (
   editor: FormNodeEditor,
   questions: FormQuestion[],
   signatures: FormSignature[],
+  times: FormTime[] = [],
 ): DefaultReactSuggestionItem[] => {
+  const timeItems: DefaultReactSuggestionItem[] = times.map((t, index) => {
+    const label = t.label || `Time ${index + 1}`;
+    const format = t.format || 'Date, Month and Year';
+
+    return {
+      title: label,
+      group: 'Content',
+      aliases: [label.toLowerCase(), 'time', t.id],
+      subtext: `Insert time placeholder (${format})`,
+      onItemClick: () => {
+        editor.insertInlineContent([
+          {
+            type: 'time',
+            props: {
+              format,
+            },
+          },
+          ' ',
+        ]);
+      },
+    };
+  });
+
   const questionItems = questions.map((q, index) => {
     const label = q.label || `Q${index + 1}`;
 
@@ -61,6 +91,9 @@ export const getContentSuggestionItems = (
           {
             type: 'signature',
             props: {
+              backgroundColor: 'default',
+              textColor: 'default',
+              textAlignment: 'left',
               signatureId: s.id,
               label,
             },
@@ -71,5 +104,5 @@ export const getContentSuggestionItems = (
     };
   });
 
-  return [...questionItems, ...signatureItems];
+  return [...timeItems, ...questionItems, ...signatureItems];
 };

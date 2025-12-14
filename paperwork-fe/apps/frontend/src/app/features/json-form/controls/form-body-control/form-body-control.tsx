@@ -2,11 +2,33 @@ import { FormBodyControlProps } from '../../types/controls';
 import { createControlRenderer } from '../../utils/rendering';
 import { Accordion } from '@synergycodes/overflow-ui';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
+import { CurrencySelect } from '@/components/ui/currency-select';
 import { FieldSet, FieldGroup } from '@/components/ui/field';
 import { ControlWrapper } from '../control-wrapper';
 import { Trash, Plus } from '@phosphor-icons/react';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 import styles from './form-body-control.module.css';
 
@@ -15,18 +37,82 @@ function FormBodyControl(props: FormBodyControlProps) {
 
   const formBody = (data || {}) as Record<string, unknown>;
 
+  // Migrate legacy keys for backwards compatibility
+  useEffect(() => {
+    const shouldMigrateTime = typeof formBody.time === 'string' && typeof formBody.time1 !== 'string';
+    const shouldMigrateSignature =
+      typeof (formBody as any).signature === 'string' && typeof formBody.signature1 !== 'string';
+
+    if (!shouldMigrateTime && !shouldMigrateSignature) {
+      return;
+    }
+
+    const updated = { ...formBody };
+
+    if (shouldMigrateTime) {
+      const legacyTime = updated.time as string;
+      delete updated.time;
+      updated.time1 = legacyTime;
+    }
+
+    if (shouldMigrateSignature) {
+      const legacySignature = (updated as any).signature as string;
+      delete (updated as any).signature;
+      updated.signature1 = legacySignature;
+    }
+
+    handleChange(path, updated);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formBody, handleChange, path]);
+
+  const [addFieldOpen, setAddFieldOpen] = useState(false);
+
+  const timeOptions = [
+    'Date, Month and Year',
+    'Month and Year',
+    'Date and Month',
+    'Year Only',
+    'Monthly Only',
+    'Date Only',
+  ] as const;
+
+  const times = useMemo(
+    () =>
+      Object.entries(formBody)
+        .filter(([key]) => /^time\d+$/.test(key))
+        .sort((a, b) => {
+          const numA = parseInt(a[0].replace('time', ''), 10);
+          const numB = parseInt(b[0].replace('time', ''), 10);
+          return numA - numB;
+        }),
+    [formBody],
+  );
+
   // Extract only question fields (question1, question2, etc.)
   const questions = Object.entries(formBody)
-    .filter(([key]) => key.startsWith('question'))
+    .filter(([key]) => /^question\d+$/.test(key))
     .sort((a, b) => {
       const numA = parseInt(a[0].replace('question', ''), 10);
       const numB = parseInt(b[0].replace('question', ''), 10);
       return numA - numB;
     });
 
+  // Extract money question fields (money1, money2, etc.)
+  const moneyQuestions = useMemo(
+    () =>
+      Object.entries(formBody)
+        .filter(([key]) => /^money\d+$/.test(key))
+        .sort((a, b) => {
+          const numA = parseInt(a[0].replace('money', ''), 10);
+          const numB = parseInt(b[0].replace('money', ''), 10);
+          return numA - numB;
+        }),
+    [formBody],
+  );
+
   // Extract signature fields (signature1, signature2, etc.)
   const signatures = Object.entries(formBody)
-    .filter(([key]) => key.startsWith('signature'))
+    .filter(([key]) => /^signature\d+$/.test(key))
     .sort((a, b) => {
       const numA = parseInt(a[0].replace('signature', ''), 10);
       const numB = parseInt(b[0].replace('signature', ''), 10);
@@ -66,9 +152,96 @@ function FormBodyControl(props: FormBodyControlProps) {
     }
 
     const newQuestionKey = `question${nextNumber}`;
-    const updated = { ...formBody, [newQuestionKey]: `Question ${nextNumber}` };
+    const updated = { ...formBody, [newQuestionKey]: '' };
     handleChange(path, updated);
   }, [questions, formBody, handleChange, path]);
+
+  const handleMoneyQuestionChange = useCallback(
+    (moneyKey: string, value: string) => {
+      const updated = { ...formBody, [moneyKey]: value };
+      handleChange(path, updated);
+    },
+    [formBody, handleChange, path],
+  );
+
+  const handleMoneyCurrencyChange = useCallback(
+    (moneyKey: string, currency: string) => {
+      const currencyKey = `${moneyKey}Currency`;
+      const updated = { ...formBody, [currencyKey]: currency };
+      handleChange(path, updated);
+    },
+    [formBody, handleChange, path],
+  );
+
+  const handleDeleteMoney = useCallback(
+    (moneyKey: string) => {
+      const updated = { ...formBody };
+      delete updated[moneyKey];
+      delete updated[`${moneyKey}Currency`];
+      handleChange(path, updated);
+    },
+    [formBody, handleChange, path],
+  );
+
+  const handleAddMoney = useCallback(() => {
+    const moneyNumbers = moneyQuestions
+      .map(([key]) => parseInt(key.replace('money', ''), 10))
+      .sort((a, b) => a - b);
+
+    let nextNumber = 1;
+    for (const num of moneyNumbers) {
+      if (num === nextNumber) {
+        nextNumber++;
+      } else {
+        break;
+      }
+    }
+
+    const newMoneyKey = `money${nextNumber}`;
+    const updated = {
+      ...formBody,
+      [newMoneyKey]: '',
+      [`${newMoneyKey}Currency`]: '',
+    };
+
+    handleChange(path, updated);
+  }, [moneyQuestions, formBody, handleChange, path]);
+
+  const handleTimeChange = useCallback(
+    (timeKey: string, value: string) => {
+      const updated = { ...formBody, [timeKey]: value };
+      handleChange(path, updated);
+    },
+    [formBody, handleChange, path],
+  );
+
+  const handleDeleteTime = useCallback(
+    (timeKey: string) => {
+      const updated = { ...formBody };
+      delete updated[timeKey];
+      handleChange(path, updated);
+    },
+    [formBody, handleChange, path],
+  );
+
+  const handleAddTime = useCallback(() => {
+    const timeNumbers = times
+      .map(([key]) => parseInt(key.replace('time', ''), 10))
+      .sort((a, b) => a - b);
+
+    let nextNumber = 1;
+    for (const num of timeNumbers) {
+      if (num === nextNumber) {
+        nextNumber++;
+      } else {
+        break;
+      }
+    }
+
+    const newTimeKey = `time${nextNumber}`;
+    const updated = { ...formBody, [newTimeKey]: 'Date, Month and Year' };
+    handleChange(path, updated);
+  }, [times, formBody, handleChange, path]);
 
   const handleSignatureChange = useCallback(
     (signatureKey: string, value: string) => {
@@ -103,9 +276,36 @@ function FormBodyControl(props: FormBodyControlProps) {
     }
 
     const newSignatureKey = `signature${nextNumber}`;
-    const updated = { ...formBody, [newSignatureKey]: `Signatory ${nextNumber}` };
+    const updated = { ...formBody, [newSignatureKey]: '' };
     handleChange(path, updated);
   }, [signatures, formBody, handleChange, path]);
+
+  const addFieldOptions = useMemo(
+    () =>
+      [
+        {
+          value: 'question',
+          label: 'Question',
+          onSelect: () => handleAddQuestion(),
+        },
+        {
+          value: 'money',
+          label: 'Money',
+          onSelect: () => handleAddMoney(),
+        },
+        {
+          value: 'signature',
+          label: 'Signature',
+          onSelect: () => handleAddSignature(),
+        },
+        {
+          value: 'time',
+          label: 'Time',
+          onSelect: () => handleAddTime(),
+        },
+      ] as const,
+    [handleAddQuestion, handleAddMoney, handleAddSignature, handleAddTime],
+  );
 
   return (
     <div className={styles['form-body-container']}>
@@ -113,6 +313,47 @@ function FormBodyControl(props: FormBodyControlProps) {
         <FieldSet>
           <FieldGroup>
             <div className={styles['content-section']}>
+              <div className={styles['times-list']}>
+                {times.map(([timeKey, timeValue]) => {
+                  const timeNumber = timeKey.replace('time', '');
+                  const label = `Time ${timeNumber}`;
+
+                  return (
+                    <div key={timeKey} className={styles['time-item']}>
+                      <div className={styles['time-row']}>
+                        <label className={styles['time-label']}>{label}</label>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDeleteTime(timeKey)}
+                          disabled={!enabled}
+                          className={styles['delete-button']}
+                          title={`Delete ${label}`}
+                        >
+                          <Trash className={styles['delete-icon']} style={{ color: '#ef4444' }} />
+                        </Button>
+                      </div>
+                      <Select
+                        value={typeof timeValue === 'string' ? timeValue : 'Date, Month and Year'}
+                        onValueChange={(value) => handleTimeChange(timeKey, value)}
+                        disabled={!enabled}
+                      >
+                        <SelectTrigger className={styles['time-select']}>
+                          <SelectValue placeholder="Select a time format" />
+                        </SelectTrigger>
+                        <SelectContent position="item-aligned">
+                          {timeOptions.map((opt) => (
+                            <SelectItem key={opt} value={opt}>
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  );
+                })}
+              </div>
+
               <div className={styles['questions-list']}>
                 {questions.map(([questionKey, questionValue]) => {
                   const questionNumber = questionKey.replace('question', '');
@@ -138,7 +379,7 @@ function FormBodyControl(props: FormBodyControlProps) {
                         value={String(questionValue || '')}
                         onChange={(e) => handleQuestionChange(questionKey, e.target.value)}
                         disabled={!enabled}
-                        placeholder={`Enter ${label} text...`}
+                        placeholder="Enter a question"
                         className={styles['question-input']}
                       />
                     </div>
@@ -146,16 +387,46 @@ function FormBodyControl(props: FormBodyControlProps) {
                 })}
               </div>
 
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleAddQuestion}
-                disabled={!enabled}
-                className={styles['add-button']}
-              >
-                <Plus />
-                Add Question
-              </Button>
+              <div className={styles['money-list']}>
+                {moneyQuestions.map(([moneyKey, moneyQuestionValue]) => {
+                  const moneyNumber = moneyKey.replace('money', '');
+                  const label = `Money ${moneyNumber}`;
+                  const currencyValue = String(formBody[`${moneyKey}Currency`] || '');
+
+                  return (
+                    <div key={moneyKey} className={styles['money-item']}>
+                      <div className={styles['money-row']}>
+                        <label className={styles['money-label']}>{label}</label>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDeleteMoney(moneyKey)}
+                          disabled={!enabled}
+                          className={styles['delete-button']}
+                          title={`Delete ${label}`}
+                        >
+                          <Trash className={styles['delete-icon']} style={{ color: '#ef4444' }} />
+                        </Button>
+                      </div>
+                      <CurrencySelect
+                        value={currencyValue}
+                        onValueChange={(currency) => handleMoneyCurrencyChange(moneyKey, currency)}
+                        disabled={!enabled}
+                        placeholder="Select a currency"
+                        className={styles['money-currency']}
+                      />
+                      <Input
+                        type="text"
+                        value={String(moneyQuestionValue || '')}
+                        onChange={(e) => handleMoneyQuestionChange(moneyKey, e.target.value)}
+                        disabled={!enabled}
+                        placeholder="Enter a question"
+                        className={styles['money-question']}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
 
               <div className={styles['signatures-list']}>
                   {signatures.map(([signatureKey, signatureValue]) => {
@@ -182,7 +453,7 @@ function FormBodyControl(props: FormBodyControlProps) {
                           value={String(signatureValue || '')}
                           onChange={(e) => handleSignatureChange(signatureKey, e.target.value)}
                           disabled={!enabled}
-                          placeholder="Signatory"
+                          placeholder="Signature"
                           className={styles['signature-input']}
                         />
                       </div>
@@ -190,16 +461,43 @@ function FormBodyControl(props: FormBodyControlProps) {
                   })}
               </div>
 
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleAddSignature}
-                disabled={!enabled}
-                className={styles['add-button']}
-              >
-                <Plus />
-                Add Signature
-              </Button>
+              <Popover open={addFieldOpen} onOpenChange={setAddFieldOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    role="combobox"
+                    aria-expanded={addFieldOpen}
+                    disabled={!enabled}
+                    className={cn(styles['add-button'], 'justify-start gap-2')}
+                  >
+                    <Plus />
+                    + Add Field
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[220px] p-0" align="start">
+                  <Command>
+                    <CommandInput placeholder="Search fields..." />
+                    <CommandList>
+                      <CommandEmpty>No field found.</CommandEmpty>
+                      <CommandGroup>
+                        {addFieldOptions.map((opt) => (
+                          <CommandItem
+                            key={opt.value}
+                            value={opt.value}
+                            onSelect={() => {
+                              opt.onSelect();
+                              setAddFieldOpen(false);
+                            }}
+                          >
+                            {opt.label}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
             </div>
           </FieldGroup>
         </FieldSet>

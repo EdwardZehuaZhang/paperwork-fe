@@ -17,8 +17,11 @@ export const schema = {
     formBody: {
       type: 'object',
       properties: {
+        // Legacy single time format
+        time: { type: 'string' },
+        // Preferred numbered time fields
+        time1: { type: 'string' },
         question1: { type: 'string' },
-        question2: { type: 'string' },
         // Seed first signature; additional signatures can be added dynamically in UI
         signature1: { type: 'string' },
       },

@@ -72,16 +72,13 @@ const WorkflowNodeTemplateComponent = memo(
       [id, setNodeData],
     );
 
-    // Extract questions and signatures from node data for content placeholders
-    const { questions, signatures } = useMemo(() => extractContentFromNodeData(data), [data]);
+    // Extract questions, signatures, and times from node data for content placeholders
+    const { questions, signatures, times } = useMemo(() => extractContentFromNodeData(data), [data]);
 
     return (
       <Collapsible>
         <div
           className={styles['content']}
-          style={{
-            ...(selected ? { width: '600px', minWidth: '600px', maxWidth: '600px' } : {}),
-          }}
           data-expanded={selected ? 'true' : 'false'}
         >
           <div className={styles['header']}>
@@ -114,6 +111,7 @@ const WorkflowNodeTemplateComponent = memo(
                           selected={selected}
                           questions={questions}
                           signatures={signatures}
+                          times={times}
                         />
                       </Suspense>
                     </div>

@@ -1,5 +1,6 @@
 .content {
   --ax-public-node-gap: 0;
+  --workflow-node-expanded-width: 900px;
   transition: all 200ms ease-in-out;
   background-color: hsl(var(--card));
   border: 1px solid hsl(var(--border));
@@ -40,9 +41,9 @@
 /* Override node width when expanded - make it wrap around content */
 .content:has(.expanded-container),
 .content[data-expanded='true'] {
-  width: auto !important;
-  min-width: 400px !important;
-  max-width: 800px !important;
+  width: var(--workflow-node-expanded-width) !important;
+  min-width: var(--workflow-node-expanded-width) !important;
+  max-width: var(--workflow-node-expanded-width) !important;
 }
 
 /* Force all overflow-ui internal components to expand to full width ONLY when expanded */
