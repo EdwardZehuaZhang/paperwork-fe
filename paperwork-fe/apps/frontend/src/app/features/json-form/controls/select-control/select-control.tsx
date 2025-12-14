@@ -21,13 +21,21 @@ function SelectControl(props: SelectControlProps) {
     handleChange(path, value);
   };
 
+  const stopEventPropagation = (event: React.SyntheticEvent) => {
+    event.stopPropagation();
+  };
+
   return (
     <ControlWrapper {...props}>
       <Select value={data ?? ''} onValueChange={onChange} disabled={!enabled}>
-        <SelectTrigger>
+        <SelectTrigger onPointerDown={stopEventPropagation} onClick={stopEventPropagation}>
           <SelectValue placeholder={schema.placeholder || 'Select an option'} />
         </SelectTrigger>
-        <SelectContent position="item-aligned">
+        <SelectContent
+          position="item-aligned"
+          onPointerDown={stopEventPropagation}
+          onClick={stopEventPropagation}
+        >
           {options.map((option) => {
             if (option.type === 'separator') {
               return <SelectSeparator key={`separator-${option.label}`} />;
