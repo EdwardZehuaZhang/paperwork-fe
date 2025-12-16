@@ -1,5 +1,5 @@
 import { ForwardedRef, forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { Button } from '@synergycodes/overflow-ui';
+import { Button } from '@/components/ui/button';
 import { Icon } from '@workflow-builder/icons';
 import { DynamicCondition } from '@/features/json-form/types/controls';
 import { validateCondition } from '@/features/json-form/utils/conditional-transform';
@@ -90,7 +90,7 @@ export const ConditionsForm = forwardRef<ConditionsFormHandle, ConditionsFormPro
             />
           ))}
         </div>
-        <Button className={styles['add-button']} size="small" variant="secondary" onClick={addCondition}>
+        <Button className={styles['add-button']} size="sm" variant="secondary" onClick={addCondition}>
           <Icon name="PlusCircle" />
         </Button>
       </form>

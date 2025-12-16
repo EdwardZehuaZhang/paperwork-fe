@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useCallback, useMemo, useRef } from 'react';
-import { NavButton, TextArea } from '@synergycodes/overflow-ui';
+import { NavButton, TextArea } from '@/components/overflow-ui';
 import { useTranslation } from 'react-i18next';
 import { DynamicCondition, DynamicConditionsControlProps } from '../../types/controls';
 import { createControlRenderer } from '../../utils/rendering';

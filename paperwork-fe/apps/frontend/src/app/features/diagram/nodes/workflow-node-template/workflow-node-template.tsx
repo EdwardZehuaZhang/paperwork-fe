@@ -2,11 +2,11 @@ import { Handle } from '@xyflow/react';
 import { IconType, LayoutDirection } from '@workflow-builder/types/common';
 import { memo, useMemo, lazy, Suspense, useCallback } from 'react';
 import {
-  Collapsible,
   NodeDescription,
   NodeIcon,
   Status,
-} from '@synergycodes/overflow-ui';
+} from '@/features/diagram/ui-components';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Icon } from '@workflow-builder/icons';
 import { getHandleId } from '../../handles/get-handle-id';
 import { getHandlePosition } from '../../handles/get-handle-position';
@@ -15,7 +15,7 @@ import styles from './workflow-node-template.module.css';
 import { withOptionalComponentPlugins } from '@/features/plugins-core/adapters/adapter-components';
 import { NodeData } from '@workflow-builder/types/node-data';
 import useStore from '@/store/store';
-import { extractContentFromNodeData, extractQuestionsFromNodeData } from '../components/block-note-editor/extract-questions';
+import { extractContentFromNodeData } from '../components/block-note-editor/extract-questions';
 
 // Lazy load BlockNote editor to improve performance
 const BlockNoteEditor = lazy(() =>
@@ -63,10 +63,8 @@ const WorkflowNodeTemplateComponent = memo(
 
     const hasContent = !!children;
 
-    const handlesAlignment = hasContent && layoutDirection === 'RIGHT' ? 'header' : 'center';
-
     const handleEditorChange = useCallback(
-      (content: any) => {
+      (content: unknown) => {
         setNodeData(id, { editorContent: content });
       },
       [id, setNodeData],
@@ -87,14 +85,20 @@ const WorkflowNodeTemplateComponent = memo(
           <div className={styles['header']}>
             <NodeIcon icon={iconElement} />
             <NodeDescription label={label} description={description} />
-            {hasContent && <Collapsible.Button />}
+            {hasContent && (
+              <CollapsibleTrigger asChild>
+                <button type="button" aria-label="Toggle details">
+                  <Icon name="CaretDown" />
+                </button>
+              </CollapsibleTrigger>
+            )}
           </div>
           {(selected || hasContent) && (
             <div className={styles['node-content']}>
               <Status status={isValid === false ? 'invalid' : undefined} />
-              <Collapsible.Content>
+              <CollapsibleContent>
                 <div className={styles['collapsible']}>{children}</div>
-              </Collapsible.Content>
+              </CollapsibleContent>
               {selected && (
                 <div className={styles['expanded-container']}>
                   <div className={styles['expanded-content']}>

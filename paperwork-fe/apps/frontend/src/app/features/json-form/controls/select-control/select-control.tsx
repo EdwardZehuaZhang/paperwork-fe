@@ -28,9 +28,9 @@ function SelectControl(props: SelectControlProps) {
           <SelectValue placeholder={schema.placeholder || 'Select an option'} />
         </SelectTrigger>
         <SelectContent position="item-aligned">
-          {options.map((option) => {
+          {options.map((option, index) => {
             if (option.type === 'separator') {
-              return <SelectSeparator key={`separator-${option.label}`} />;
+              return <SelectSeparator key={`separator-${index}`} />;
             }
             return (
               <SelectItem key={option.value} value={option.value}>

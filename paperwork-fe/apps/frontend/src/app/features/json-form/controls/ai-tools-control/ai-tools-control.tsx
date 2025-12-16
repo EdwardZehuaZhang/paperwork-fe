@@ -1,7 +1,7 @@
 import styles from './ai-tools-control.module.css';
 
 import { PlusCircle, SlidersHorizontal } from '@phosphor-icons/react';
-import { Button } from '@synergycodes/overflow-ui';
+import { Button } from '@/components/ui/button';
 import { createControlRenderer } from '../../utils/rendering';
 import { useCallback } from 'react';
 import { FormControlWithLabel } from '@/components/form/form-control-with-label/form-control-with-label';
@@ -73,7 +73,7 @@ function AiToolsControl({ path, handleChange, data }: AiToolsControlProps) {
           </FormControlWithLabel>
         );
       })}
-      <Button variant="primary" onClick={(_) => openEditorModal()}>
+      <Button onClick={() => openEditorModal()}>
         <PlusCircle />
         Add Tool Slot
       </Button>

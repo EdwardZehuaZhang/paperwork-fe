@@ -4,7 +4,6 @@ import { devtools } from 'zustand/middleware';
 import { IntegrationDataFormat } from '../types';
 import { setStoreDataFromIntegration } from '@/store/slices/diagram-slice/actions';
 import { showSnackbar } from '@/utils/show-snackbar';
-import { SnackbarType } from '@synergycodes/overflow-ui';
 import { openTemplateSelectorModal } from '@/features/modals/template-selector/open-template-selector-modal';
 
 type IntegrationSavingStatus = 'disabled' | 'waiting' | 'saving' | 'saved' | 'notSaved';
@@ -32,7 +31,7 @@ export function loadData(loadData: Partial<IntegrationDataFormat>) {
 
     showSnackbar({
       title: 'restoreDiagramSuccess',
-      variant: SnackbarType.SUCCESS,
+      variant: 'success',
     });
   } else {
     // Welcome modal for no data

@@ -1,6 +1,6 @@
 import { FormBodyControlProps } from '../../types/controls';
 import { createControlRenderer } from '../../utils/rendering';
-import { Accordion } from '@synergycodes/overflow-ui';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { FieldSet, FieldGroup } from '@/components/ui/field';
@@ -109,100 +109,105 @@ function FormBodyControl(props: FormBodyControlProps) {
 
   return (
     <div className={styles['form-body-container']}>
-      <Accordion label="Content" defaultOpen={true}>
-        <FieldSet>
-          <FieldGroup>
-            <div className={styles['content-section']}>
-              <div className={styles['questions-list']}>
-                {questions.map(([questionKey, questionValue]) => {
-                  const questionNumber = questionKey.replace('question', '');
-                  const label = `Question ${questionNumber}`;
+      <Accordion type="single" collapsible defaultValue="content">
+        <AccordionItem value="content">
+          <AccordionTrigger>Content</AccordionTrigger>
+          <AccordionContent>
+            <FieldSet>
+              <FieldGroup>
+                <div className={styles['content-section']}>
+                  <div className={styles['questions-list']}>
+                    {questions.map(([questionKey, questionValue]) => {
+                      const questionNumber = questionKey.replace('question', '');
+                      const label = `Question ${questionNumber}`;
 
-                  return (
-                    <div key={questionKey} className={styles['question-item']}>
-                      <div className={styles['question-row']}>
-                        <label className={styles['question-label']}>{label}</label>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDeleteQuestion(questionKey)}
-                          disabled={!enabled}
-                          className={styles['delete-button']}
-                          title={`Delete ${label}`}
-                        >
-                          <Trash className={styles['delete-icon']} style={{ color: '#ef4444' }} />
-                        </Button>
-                      </div>
-                      <Input
-                        type="text"
-                        value={String(questionValue || '')}
-                        onChange={(e) => handleQuestionChange(questionKey, e.target.value)}
-                        disabled={!enabled}
-                        placeholder={`Enter ${label} text...`}
-                        className={styles['question-input']}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleAddQuestion}
-                disabled={!enabled}
-                className={styles['add-button']}
-              >
-                <Plus />
-                Add Question
-              </Button>
-
-              <div className={styles['signatures-list']}>
-                  {signatures.map(([signatureKey, signatureValue]) => {
-                    const signatureNumber = signatureKey.replace('signature', '');
-                    const label = `Signature ${signatureNumber}`;
-
-                    return (
-                      <div key={signatureKey} className={styles['signature-item']}>
-                        <div className={styles['signature-row']}>
-                          <label className={styles['signature-label']}>{label}</label>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleDeleteSignature(signatureKey)}
+                      return (
+                        <div key={questionKey} className={styles['question-item']}>
+                          <div className={styles['question-row']}>
+                            <label className={styles['question-label']}>{label}</label>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleDeleteQuestion(questionKey)}
+                              disabled={!enabled}
+                              className={styles['delete-button']}
+                              title={`Delete ${label}`}
+                            >
+                              <Trash className={styles['delete-icon']} weight="bold" />
+                            </Button>
+                          </div>
+                          <Input
+                            type="text"
+                            value={String(questionValue || '')}
+                            onChange={(e) => handleQuestionChange(questionKey, e.target.value)}
                             disabled={!enabled}
-                            className={styles['delete-button']}
-                            title={`Delete ${label}`}
-                          >
-                            <Trash className={styles['delete-icon']} style={{ color: '#ef4444' }} />
-                          </Button>
+                            placeholder={`Enter ${label} text...`}
+                            className={styles['question-input']}
+                          />
                         </div>
-                        <Input
-                          type="text"
-                          value={String(signatureValue || '')}
-                          onChange={(e) => handleSignatureChange(signatureKey, e.target.value)}
-                          disabled={!enabled}
-                          placeholder="Signatory"
-                          className={styles['signature-input']}
-                        />
-                      </div>
-                    );
-                  })}
-              </div>
+                      );
+                    })}
+                  </div>
 
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleAddSignature}
-                disabled={!enabled}
-                className={styles['add-button']}
-              >
-                <Plus />
-                Add Signature
-              </Button>
-            </div>
-          </FieldGroup>
-        </FieldSet>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleAddQuestion}
+                    disabled={!enabled}
+                    className={styles['add-button']}
+                  >
+                    <Plus className={styles['add-icon']} weight="bold" />
+                    Add Question
+                  </Button>
+
+                  <div className={styles['signatures-list']}>
+                    {signatures.map(([signatureKey, signatureValue]) => {
+                      const signatureNumber = signatureKey.replace('signature', '');
+                      const label = `Signature ${signatureNumber}`;
+
+                      return (
+                        <div key={signatureKey} className={styles['signature-item']}>
+                          <div className={styles['signature-row']}>
+                            <label className={styles['signature-label']}>{label}</label>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleDeleteSignature(signatureKey)}
+                              disabled={!enabled}
+                              className={styles['delete-button']}
+                              title={`Delete ${label}`}
+                            >
+                              <Trash className={styles['delete-icon']} weight="bold" />
+                            </Button>
+                          </div>
+                          <Input
+                            type="text"
+                            value={String(signatureValue || '')}
+                            onChange={(e) => handleSignatureChange(signatureKey, e.target.value)}
+                            disabled={!enabled}
+                            placeholder="Signatory"
+                            className={styles['signature-input']}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleAddSignature}
+                    disabled={!enabled}
+                    className={styles['add-button']}
+                  >
+                    <Plus className={styles['add-icon']} weight="bold" />
+                    Add Signature
+                  </Button>
+                </div>
+              </FieldGroup>
+            </FieldSet>
+          </AccordionContent>
+        </AccordionItem>
       </Accordion>
     </div>
   );

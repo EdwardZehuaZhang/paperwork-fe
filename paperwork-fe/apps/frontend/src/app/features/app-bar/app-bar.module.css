@@ -1,7 +1,7 @@
 .container {
-  background: hsl(var(--card));
+  background: var(--card);
   border-radius: 0.75rem;
-  border: 1px solid hsl(var(--border));
+  border: 1px solid var(--border);
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   display: flex;
   height: auto;
@@ -19,7 +19,7 @@
 }
 
 .toolbar .logo {
-  color: hsl(var(--foreground));
+  color: var(--foreground);
 }
 
 .toolbar .nav-segment {
@@ -55,11 +55,11 @@
 }
 
 .folder-name {
-  color: hsl(var(--muted-foreground));
+  color: var(--muted-foreground);
 }
 
 .title {
-  color: hsl(var(--foreground));
+  color: var(--foreground);
   min-height: 1em;
   min-width: 1em;
   cursor: pointer;

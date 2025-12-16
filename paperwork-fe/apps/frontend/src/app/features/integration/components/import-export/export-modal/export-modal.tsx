@@ -1,16 +1,16 @@
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, SnackbarType } from '@synergycodes/overflow-ui';
 
 import { showSnackbar } from '@/utils/show-snackbar';
 import { Icon } from '@workflow-builder/icons';
+import { Button } from '@/components/ui/button';
 
 import { getStoreDataForIntegration } from '@/store/slices/diagram-slice/actions';
 import { SyntaxHighlighterLazy } from '@/features/syntax-highlighter/components/syntax-highlighter-lazy';
 import { copy } from '@/utils/copy';
 import { noop } from '@/utils/noop';
 
-import styles from '../import-export-modal.module.css';
+import styles from './export-modal.module.css';
 
 export function ExportModal() {
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ export function ExportModal() {
 
     showSnackbar({
       title: 'contentCopied',
-      variant: SnackbarType.SUCCESS,
+      variant: 'success',
     });
   }, [storeData]);
 
@@ -32,7 +32,7 @@ export function ExportModal() {
     <div className={styles['container']}>
       <SyntaxHighlighterLazy value={storeData} onChange={noop} isDisabled />
       <div className={styles['actions']}>
-        <Button variant="primary" onClick={handleCopy}>
+        <Button onClick={handleCopy}>
           <Icon name="Copy" />
           {t('tooltips.copy')}
         </Button>

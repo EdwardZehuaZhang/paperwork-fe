@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { withOptionalFunctionPlugins } from '@/features/plugins-core/adapters/adapter-functions';
 
-import { MenuItemProps } from '@synergycodes/overflow-ui';
+import { MenuItemProps } from '@/components/overflow-ui';
 import { Icon } from '@workflow-builder/icons';
 
 import { openExportModal } from '@/features/integration/components/import-export/export-modal/open-export-modal';

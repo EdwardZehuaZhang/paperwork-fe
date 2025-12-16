@@ -1,5 +1,4 @@
 import { showSnackbar } from '@/utils/show-snackbar';
-import { SnackbarType } from '@synergycodes/overflow-ui';
 import { OnSaveParams } from '../types';
 
 export function showSnackbarSaveSuccessIfNeeded(savingParams?: OnSaveParams) {
@@ -9,7 +8,7 @@ export function showSnackbarSaveSuccessIfNeeded(savingParams?: OnSaveParams) {
 
   showSnackbar({
     title: 'saveDiagramSuccess',
-    variant: SnackbarType.SUCCESS,
+    variant: 'success',
   });
 }
 
@@ -20,6 +19,6 @@ export function showSnackbarSaveErrorIfNeeded(savingParams?: OnSaveParams) {
 
   showSnackbar({
     title: 'saveDiagramError',
-    variant: SnackbarType.ERROR,
+    variant: 'error',
   });
 }

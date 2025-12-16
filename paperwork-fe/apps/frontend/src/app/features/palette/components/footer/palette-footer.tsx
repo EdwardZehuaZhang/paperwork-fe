@@ -1,6 +1,6 @@
 import styles from './palette-footer.module.css';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@synergycodes/overflow-ui';
+import { Button } from '@/components/ui/button';
 import { OptionalFooterContent } from '@/features/plugins-core/components/optional-footer-content';
 
 type Props = {
@@ -13,7 +13,7 @@ export function PaletteFooter({ onTemplateClick }: Props) {
   return (
     <div className={styles['container']}>
       <OptionalFooterContent>
-        <Button variant="secondary" onClick={onTemplateClick} size="small">
+        <Button variant="secondary" onClick={onTemplateClick} size="sm">
           {t('palette.templates')}
         </Button>
       </OptionalFooterContent>

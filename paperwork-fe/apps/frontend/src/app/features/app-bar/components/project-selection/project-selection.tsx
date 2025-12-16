@@ -1,6 +1,6 @@
 import styles from '../../app-bar.module.css';
 
-import { NavButton, Menu, Input } from '@synergycodes/overflow-ui';
+import { NavButton, Menu, Input } from '@/components/overflow-ui';
 import { useMemo, useState } from 'react';
 import { CaretDown } from '@phosphor-icons/react';
 import { Icon } from '@workflow-builder/icons';

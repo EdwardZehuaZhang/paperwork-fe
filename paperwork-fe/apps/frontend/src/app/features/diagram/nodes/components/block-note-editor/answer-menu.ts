@@ -63,6 +63,9 @@ export const getContentSuggestionItems = (
             props: {
               signatureId: s.id,
               label,
+              backgroundColor: 'default',
+              textColor: 'default',
+              textAlignment: 'left',
             },
           },
           ' ', // add trailing space for easier typing

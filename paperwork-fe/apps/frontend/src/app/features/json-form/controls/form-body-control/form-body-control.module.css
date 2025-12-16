@@ -31,7 +31,7 @@
 .question-label {
   font-size: 14px;
   font-weight: 500;
-  color: var(--text-primary, #333);
+  color: var(--foreground);
 }
 
 .question-input {
@@ -51,13 +51,14 @@
 }
 
 .delete-button:hover:not(:disabled) {
-  background-color: var(--destructive-light, #fee2e2);
-  color: var(--destructive, #dc2626);
+  background-color: color-mix(in oklch, var(--destructive) 12%, transparent);
+  color: var(--destructive);
 }
 
 .delete-icon {
   width: 16px;
   height: 16px;
+  color: var(--destructive);
 }
 
 .delete-text {
@@ -70,7 +71,7 @@
   flex-direction: column;
   gap: 8px;
   padding-top: 8px;
-  border-top: 1px solid var(--border-color, #e0e0e0);
+  border-top: 1px solid var(--border);
 }
 
 .signatures-list {
@@ -95,7 +96,7 @@
 .signature-label {
   font-size: 14px;
   font-weight: 500;
-  color: var(--text-primary, #333);
+  color: var(--foreground);
 }
 
 .signature-input {
@@ -104,7 +105,7 @@
 
 .signature-value {
   font-size: 13px;
-  color: var(--text-muted, #666);
+  color: var(--muted-foreground);
   padding: 8px 0;
 }
 

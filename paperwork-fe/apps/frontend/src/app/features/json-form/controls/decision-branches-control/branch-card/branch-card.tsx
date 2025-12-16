@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import styles from './branch-card.module.css';
 import clsx from 'clsx';
-import { NavButton } from '@synergycodes/overflow-ui';
+import { NavButton } from '@/components/overflow-ui';
 import { SlidersHorizontal, Trash } from '@phosphor-icons/react';
 import { useCallback, useRef } from 'react';
 import {

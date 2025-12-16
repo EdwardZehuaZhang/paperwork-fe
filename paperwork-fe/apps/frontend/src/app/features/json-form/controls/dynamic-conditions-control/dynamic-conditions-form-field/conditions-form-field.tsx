@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
-import { Input, Select, NavButton, SegmentPicker } from '@synergycodes/overflow-ui';
+import { Input, Select, NavButton, SegmentPicker } from '@/components/overflow-ui';
 import { useMemo } from 'react';
 import { Icon } from '@workflow-builder/icons';
 import styles from './conditions-form-field.module.css';

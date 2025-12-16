@@ -4,7 +4,8 @@ import styles from './ai-agent-node-template.module.css';
 import { Handle } from '@xyflow/react';
 import { IconType, LayoutDirection } from '@workflow-builder/types/common';
 import { memo, useMemo } from 'react';
-import { Collapsible, NodeDescription, NodeIcon, NodePanel, Status } from '@synergycodes/overflow-ui';
+import { NodeDescription, NodeIcon, NodePanel, Status } from '@/features/diagram/ui-components';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Icon } from '@workflow-builder/icons';
 import { SettingInfo } from './components/setting-info/setting-info';
 import { ToolInfo } from './components/tool-info/tool-info';
@@ -61,11 +62,17 @@ export const AiAgentNodeTemplate = memo(
           <NodePanel.Header className={styles['header']}>
             <NodeIcon className={styles['icon']} icon={iconElement} />
             <NodeDescription label={label} description={description} />
-            {isCanvasNode && <Collapsible.Button />}
+            {isCanvasNode && (
+              <CollapsibleTrigger asChild>
+                <button type="button" aria-label="Toggle details">
+                  <Icon name="CaretDown" />
+                </button>
+              </CollapsibleTrigger>
+            )}
           </NodePanel.Header>
           <NodePanel.Content className={styles['content']}>
             <Status status={isValid === false ? 'invalid' : undefined} />
-            <Collapsible.Content>
+            <CollapsibleContent>
               <div className={styles['collapsible-content']}>
                 <SettingInfo
                   label="Chat Model"
@@ -80,7 +87,7 @@ export const AiAgentNodeTemplate = memo(
                   className={clsx({ [styles['selected-memory-icon']]: memoryModel })}
                 />
               </div>
-            </Collapsible.Content>
+            </CollapsibleContent>
             <ToolInfo>
               {selectedTools?.map((_, index) => (
                 <ConnectableItem

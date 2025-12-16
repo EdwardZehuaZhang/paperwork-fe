@@ -1,6 +1,8 @@
 "use client"
 
 import React, { useState, useContext, useCallback } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -64,15 +66,6 @@ export function ShadcnAppBar() {
   // Initialize auto-save hooks
   useAutoSave();
   useAutoSaveOnClose();
-
-  // Hover state handlers for buttons
-  const handleButtonMouseEnter = useCallback((event_: React.MouseEvent<HTMLButtonElement>) => {
-    event_.currentTarget.style.backgroundColor = theme === 'dark' ? '#333333' : '#f1f5f9';
-  }, [theme]);
-
-  const handleButtonMouseLeave = useCallback((event_: React.MouseEvent<HTMLButtonElement>) => {
-    event_.currentTarget.style.backgroundColor = 'transparent';
-  }, []);
 
   // Handlers - now defined inside component to access state
   const handleNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -147,94 +140,65 @@ export function ShadcnAppBar() {
   }, []);
 
   return (
-    <nav 
-      className="w-full transition-colors border shadow-sm" 
-      style={{ 
-        padding: '0.75rem 1rem',
-        backgroundColor: `hsl(var(--card))`,
-        borderColor: `hsl(var(--border))`,
-        borderRadius: '9999px',
-        boxShadow: '0 1px 2px 0 rgb(0 0 0 / 0.05)'
-      }}
-    >
-      <div className="flex items-center justify-between" style={{ gap: '2rem' }}>
+    <nav className="w-full rounded-full border border-border bg-card px-4 py-3 shadow-sm">
+      <div className="flex items-center justify-between gap-8">
         {/* Left: Logo and toolbar */}
-        <div className="flex items-center" style={{ gap: '2rem' }}>
+        <div className="flex items-center gap-8">
           {/* Logo */}
           <div className="flex items-center">
             <Logo style={{ width: '40px', height: '16px' }} />
           </div>
 
           {/* Toolbar buttons */}
-          <div className="flex items-center" style={{ gap: '0.5rem' }}>
+          <div className="flex items-center gap-1">
             {/* Save Button */}
-            <button 
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 text-muted-foreground hover:text-foreground"
               title={t('tooltips.save')}
-              className="flex items-center justify-center rounded-xl transition-colors"
-              style={{ 
-                width: '32px', 
-                height: '32px', 
-                padding: '0',
-                backgroundColor: 'transparent'
-              }}
-              onMouseEnter={handleButtonMouseEnter}
-              onMouseLeave={handleButtonMouseLeave}
               onClick={handleSave}
             >
               <SavingStatus />
-              <FloppyDisk size={16} style={{ color: theme === 'dark' ? '#e5e7eb' : '#334155' }} weight="regular" />
-            </button>
+              <FloppyDisk size={16} weight="regular" />
+            </Button>
 
             {/* Open File Button */}
-            <button 
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 text-muted-foreground hover:text-foreground"
               title={t('tooltips.open')}
-              className="flex items-center justify-center rounded-xl transition-colors"
-              style={{ 
-                width: '32px', 
-                height: '32px', 
-                padding: '0',
-                backgroundColor: 'transparent'
-              }}
-              onMouseEnter={handleButtonMouseEnter}
-              onMouseLeave={handleButtonMouseLeave}
               onClick={handleOpenWorkflows}
             >
-              <FolderOpen size={16} style={{ color: theme === 'dark' ? '#e5e7eb' : '#334155' }} weight="regular" />
-            </button>
+              <FolderOpen size={16} weight="regular" />
+            </Button>
 
             {/* Undo Button */}
-            <button 
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 text-muted-foreground hover:text-foreground"
               title={t('tooltips.undo', 'Undo')}
-              className="flex items-center justify-center rounded-xl transition-colors"
-              style={{ 
-                width: '32px', 
-                height: '32px', 
-                padding: '0',
-                backgroundColor: 'transparent'
-              }}
-              onMouseEnter={handleButtonMouseEnter}
-              onMouseLeave={handleButtonMouseLeave}
               onClick={handleUndo}
             >
-              <ArrowUUpLeft size={16} style={{ color: theme === 'dark' ? '#e5e7eb' : '#334155' }} weight="regular" />
-            </button>
+              <ArrowUUpLeft size={16} weight="regular" />
+            </Button>
 
             {/* Redo Button */}
-            <button 
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 text-muted-foreground hover:text-foreground"
               title={t('tooltips.redo', 'Redo')}
-              className="flex items-center justify-center rounded-xl transition-colors"
-              style={{ 
-                width: '32px', 
-                height: '32px', 
-                padding: '0',
-                backgroundColor: 'transparent'
-              }}
-              onMouseEnter={handleButtonMouseEnter}
-              onMouseLeave={handleButtonMouseLeave}
               onClick={handleRedo}
             >
-              <ArrowUUpRight size={16} style={{ color: theme === 'dark' ? '#e5e7eb' : '#334155' }} weight="regular" />
-            </button>
+              <ArrowUUpRight size={16} weight="regular" />
+            </Button>
 
             {/* Optional plugin extension point - additional tools can be added here */}
           </div>
@@ -246,10 +210,7 @@ export function ShadcnAppBar() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <button 
-                    onClick={() => console.log('Home clicked')}
-                    className="text-sm font-medium"
-                  >
+                  <button onClick={() => console.log('Home clicked')} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
                     {t('header.folderName')}
                   </button>
                 </BreadcrumbLink>
@@ -258,20 +219,16 @@ export function ShadcnAppBar() {
               <BreadcrumbItem>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button 
-                      className="flex items-center justify-center rounded-lg transition-colors"
-                      style={{ 
-                        width: '32px', 
-                        height: '32px', 
-                        padding: '0',
-                        backgroundColor: 'transparent'
-                      }}
-                      onMouseEnter={handleButtonMouseEnter}
-                      onMouseLeave={handleButtonMouseLeave}
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 text-muted-foreground hover:text-foreground"
                       title={t('tooltips.pickTheProject')}
+                      aria-label={t('tooltips.pickTheProject')}
                     >
-                      <DotsThree size={16} style={{ color: theme === 'dark' ? '#9ca3af' : '#475569' }} weight="bold" />
-                    </button>
+                      <DotsThree size={16} weight="bold" />
+                    </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuItem onClick={() => console.log('Duplicate to drafts clicked')}>
@@ -283,19 +240,14 @@ export function ShadcnAppBar() {
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 {isEditingName && !isReadOnlyMode ? (
-                  <input
+                  <Input
                     type="text"
                     value={documentName}
                     onChange={handleNameChange}
                     onBlur={handleNameBlur}
                     onKeyDown={handleNameKeyDown}
                     autoFocus
-                    className="font-medium px-2 py-1 border rounded-xl min-w-0 max-w-[150px] text-sm"
-                    style={{
-                      color: theme === 'dark' ? '#f3f4f6' : '#0f172a',
-                      backgroundColor: theme === 'dark' ? '#1f1f1f' : '#ffffff',
-                      borderColor: theme === 'dark' ? '#4b5563' : '#cbd5e1'
-                    }}
+                    className="h-8 max-w-[180px] text-sm font-medium"
                   />
                 ) : (
                   <BreadcrumbPage 
@@ -315,7 +267,7 @@ export function ShadcnAppBar() {
         </div>
 
         {/* Right: Controls */}
-        <div className="flex items-center" style={{ gap: '0.5rem' }}>
+        <div className="flex items-center gap-1">
           {/* Edit/Read mode toggle */}
           <ToggleGroup 
             type="single" 
@@ -325,8 +277,7 @@ export function ShadcnAppBar() {
                 setToggleReadOnlyMode(value === 'readonly');
               }
             }}
-            className="border rounded-xl"
-            style={{ borderColor: theme === 'dark' ? '#4b5563' : '#e2e8f0' }}
+            className="rounded-xl border border-input"
           >
             <ToggleGroupItem 
               value="edit" 
@@ -353,8 +304,7 @@ export function ShadcnAppBar() {
             onValueChange={() => {
               toggleTheme();
             }}
-            className="border rounded-xl"
-            style={{ borderColor: theme === 'dark' ? '#4b5563' : '#e2e8f0' }}
+            className="rounded-xl border border-input"
           >
             <ToggleGroupItem 
               value="light" 
@@ -375,39 +325,30 @@ export function ShadcnAppBar() {
           </ToggleGroup>
 
           {/* Refresh Layout button */}
-          <button 
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground"
             title={t('tooltips.layout', 'Refresh Layout')}
-            className="flex items-center justify-center rounded-xl transition-colors"
-            style={{ 
-              width: '32px', 
-              height: '32px', 
-              padding: '0',
-              backgroundColor: 'transparent'
-            }}
-            onMouseEnter={handleButtonMouseEnter}
-            onMouseLeave={handleButtonMouseLeave}
             onClick={handleRefreshLayout}
           >
-            <TreeStructure size={16} style={{ color: theme === 'dark' ? '#e5e7eb' : '#334155' }} weight="regular" />
-          </button>
+            <TreeStructure size={16} weight="regular" />
+          </Button>
 
           {/* Language dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button 
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-muted-foreground hover:text-foreground"
                 title={t('tooltips.changeLanguage', 'Change Language')}
-                className="flex items-center justify-center rounded-xl transition-colors"
-                style={{ 
-                  width: '32px', 
-                  height: '32px', 
-                  padding: '0',
-                  backgroundColor: 'transparent'
-                }}
-                onMouseEnter={handleButtonMouseEnter}
-                onMouseLeave={handleButtonMouseLeave}
+                aria-label={t('tooltips.changeLanguage', 'Change Language')}
               >
-                <Translate size={16} style={{ color: theme === 'dark' ? '#e5e7eb' : '#334155' }} weight="regular" />
-              </button>
+                <Translate size={16} weight="regular" />
+              </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onClick={() => handleLanguageChange('en')}>English</DropdownMenuItem>
@@ -420,20 +361,16 @@ export function ShadcnAppBar() {
           {/* Menu button with Export/Import/Save as Image */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button 
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-muted-foreground hover:text-foreground"
                 title={t('tooltips.menu')}
-                className="flex items-center justify-center rounded-xl transition-colors"
-                style={{ 
-                  width: '32px', 
-                  height: '32px', 
-                  padding: '0',
-                  backgroundColor: 'transparent'
-                }}
-                onMouseEnter={handleButtonMouseEnter}
-                onMouseLeave={handleButtonMouseLeave}
+                aria-label={t('tooltips.menu')}
               >
-                <DotsThreeVertical size={16} style={{ color: theme === 'dark' ? '#e5e7eb' : '#334155' }} weight="regular" />
-              </button>
+                <DotsThreeVertical size={16} weight="regular" />
+              </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onClick={openExportModal}>
