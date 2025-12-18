@@ -1,5 +1,5 @@
 .decision-node {
   > div {
-    min-width: max-content;
+    min-width: var(--ax-public-node-width);
   }
 }
