@@ -1,4 +1,4 @@
-import { IconSwitch } from '@synergycodes/overflow-ui';
+import { IconSwitch } from '@/components/overflow-ui';
 import { PencilSimple, PencilSimpleSlash } from '@phosphor-icons/react';
 
 import useStore from '@/store/store';

@@ -4,7 +4,7 @@ import { memo } from 'react';
 import { NodeProps } from '@xyflow/react';
 import { WorkflowBuilderNode } from '@workflow-builder/types/node-data';
 import { WorkflowNodeTemplate } from './workflow-node-template/workflow-node-template';
-import { NodeAsPortWrapper } from '@synergycodes/overflow-ui';
+import { NodeAsPortWrapper } from '@/features/diagram/ui-components';
 import { getHandlePosition } from '../handles/get-handle-position';
 import { getIsValidFromProperties } from '@/utils/validation/get-is-valid-from-properties';
 

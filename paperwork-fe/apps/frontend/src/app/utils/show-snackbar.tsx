@@ -1,6 +1,6 @@
-import { closeSnackbar, enqueueSnackbar } from 'notistack';
+import { closeSnackbar, enqueueSnackbar, type SnackbarKey as NotistackSnackbarKey, type OptionsObject } from 'notistack';
 import i18n from 'i18next';
-import { Snackbar, SnackbarProps } from '@synergycodes/overflow-ui';
+import { Snackbar, SnackbarProps } from '@/components/overflow-ui';
 import { DefaultTranslationMap } from '@/features/i18n/i18next';
 
 const AUTO_HIDE_DURATION_TIME = 3000;
@@ -24,17 +24,21 @@ export function showSnackbar({
   autoHideDuration = AUTO_HIDE_DURATION_TIME,
   preventDuplicate = true,
 }: ShowSnackbarProps) {
-  enqueueSnackbar(variant, {
-    content: (key) => (
+  const options: OptionsObject = {
+    content: (key: NotistackSnackbarKey) => (
       <Snackbar
         title={i18n.t(`${SNACKBAR_PREFIX}.${title}`)}
         variant={variant}
         subtitle={subtitle}
         buttonLabel={buttonLabel}
-        onButtonClick={() => {
-          onButtonClick?.();
-          closeSnackbar(key);
-        }}
+        onButtonClick={
+          onButtonClick
+            ? (event_) => {
+                onButtonClick(event_);
+                closeSnackbar(key);
+              }
+            : undefined
+        }
         close={close}
         onClose={() => closeSnackbar(key)}
       />
@@ -42,6 +46,8 @@ export function showSnackbar({
     autoHideDuration,
     preventDuplicate,
     anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
-  });
+  };
+
+  enqueueSnackbar('', options);
   return { showSnackbar };
 }

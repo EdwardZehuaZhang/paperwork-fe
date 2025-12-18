@@ -1,15 +1,15 @@
 import clsx from 'clsx';
-import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, SnackbarType } from '@synergycodes/overflow-ui';
+import { useCallback, useState } from 'react';
 
+import { Button } from '@/components/ui/button';
 import { Icon } from '@workflow-builder/icons';
 import { showSnackbar } from '@/utils/show-snackbar';
 
 import { setStoreDataFromIntegration } from '@/store/slices/diagram-slice/actions';
 import { SyntaxHighlighterLazy } from '@/features/syntax-highlighter/components/syntax-highlighter-lazy';
 
-import styles from '../import-export-modal.module.css';
+import styles from './import-modal.module.css';
 import { IntegrationDataError, validateIntegrationData } from '@/features/integration/utils/validate-integration-data';
 import { closeModal } from '@/features/modals/stores/use-modal-store';
 import { trackFutureChange } from '@/features/changes-tracker/stores/use-changes-tracker-store';
@@ -49,7 +49,7 @@ export function ImportModal() {
 
         showSnackbar({
           title: 'loadDiagramSuccess',
-          variant: SnackbarType.SUCCESS,
+          variant: 'success',
         });
       }
     },
@@ -69,12 +69,12 @@ export function ImportModal() {
       )}
       <div className={styles['actions']}>
         {warnings.length > 0 && errors.length === 0 && (
-          <Button variant="warning" onClick={() => handleImport({ shouldIgnoreWarnings: true })}>
+          <Button variant="secondary" onClick={() => handleImport({ shouldIgnoreWarnings: true })}>
             <Icon name="DownloadSimple" />
             {t('importExport.ignoreAndImport')}
           </Button>
         )}
-        <Button variant="primary" onClick={() => handleImport({ shouldIgnoreWarnings: false })}>
+        <Button onClick={() => handleImport({ shouldIgnoreWarnings: false })}>
           <Icon name="DownloadSimple" />
           {t('importExport.import')}
         </Button>

@@ -1,6 +1,7 @@
 import styles from './sales-contact.module.css';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import imageUrl from '../../assets/maciej-teska-workflow.jpg';
-import { Avatar, Button } from '@synergycodes/overflow-ui';
 import clsx from 'clsx';
 import { LinkedinLogo, PaperPlaneRight } from '@phosphor-icons/react';
 
@@ -14,6 +15,13 @@ const salesDetails = {
 
 export function SalesContact() {
   const { name, position, imageUrl, email, linkedInUrl } = salesDetails;
+  const initials = name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join('');
+
   function handleLinkedInClick() {
     window.open(`${linkedInUrl}`, '_blank');
   }
@@ -25,18 +33,21 @@ export function SalesContact() {
   return (
     <div className={styles['container']}>
       <div className={styles['details-container']}>
-        <Avatar username={name} imageUrl={imageUrl} />
+        <Avatar>
+          <AvatarImage src={imageUrl} alt={name} />
+          <AvatarFallback>{initials}</AvatarFallback>
+        </Avatar>
         <div className={styles['details']}>
           <span className="ax-public-h10">{name}</span>
           <span className={clsx('ax-public-p11', styles['position'])}>{position}</span>
         </div>
       </div>
       <div className={styles['buttons']}>
-        <Button size="medium" variant="secondary" onClick={handleLinkedInClick}>
+        <Button variant="secondary" onClick={handleLinkedInClick}>
           <LinkedinLogo />
           LinkedIn
         </Button>
-        <Button size="medium" variant="secondary" onClick={handleEmailClick}>
+        <Button variant="secondary" onClick={handleEmailClick}>
           <PaperPlaneRight />
           Email
         </Button>

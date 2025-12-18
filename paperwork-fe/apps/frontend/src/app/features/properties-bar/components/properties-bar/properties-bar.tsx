@@ -1,6 +1,6 @@
 import styles from './properties-bar.module.css';
 
-import { SegmentPicker } from '@synergycodes/overflow-ui';
+import { SegmentPicker } from '@/components/overflow-ui';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { withOptionalComponentPlugins } from '@/features/plugins-core/adapters/adapter-components';

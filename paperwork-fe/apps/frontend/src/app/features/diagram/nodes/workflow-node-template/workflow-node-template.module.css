@@ -2,8 +2,8 @@
   --ax-public-node-gap: 0;
   --workflow-node-expanded-width: 900px;
   transition: all 200ms ease-in-out;
-  background-color: hsl(var(--card));
-  border: 1px solid hsl(var(--border));
+  background-color: var(--card);
+  border: 1px solid var(--border);
   border-radius: 0.75rem;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   overflow: hidden;
@@ -16,7 +16,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid hsl(var(--border));
+  border-bottom: 1px solid var(--border);
 }
 
 .node-content {
@@ -33,9 +33,9 @@
 
 /* Selected state - add ring effect like shadcn inputs */
 .content[data-expanded='true'] {
-  border-color: hsl(var(--ring));
+  border-color: var(--ring);
   outline: none;
-  box-shadow: 0 0 0 3px hsl(var(--ring) / 0.5), 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent), 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
 /* Override node width when expanded - make it wrap around content */

@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { Button, ShadcnButton } from '@synergycodes/overflow-ui';
+import { Button } from '@/components/ui/button';
+import { Checkbox as ShadcnCheckbox } from '@/components/ui/checkbox';
+import { Input as ShadcnInput } from '@/components/ui/input';
+import { Label as ShadcnLabel } from '@/components/ui/label';
+import * as ShadcnSelect from '@/components/ui/select';
+import { Textarea as ShadcnTextarea } from '@/components/ui/textarea';
 import {
   Card,
   CardHeader,
@@ -7,7 +12,7 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from '@synergycodes/overflow-ui';
+} from '@/components/ui/card';
 import {
   Menubar,
   MenubarContent,
@@ -16,21 +21,16 @@ import {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
-} from '@synergycodes/overflow-ui';
+} from '@/components/ui/menubar';
 import {
-  ShadcnInput,
-  ShadcnLabel,
-  ShadcnTextarea,
-  ShadcnSelect,
-  ShadcnCheckbox,
-  ShadcnField,
-  ShadcnFieldLabel,
-  ShadcnFieldDescription,
-  ShadcnFieldGroup,
-  ShadcnFieldLegend,
-  ShadcnFieldSeparator,
-  ShadcnFieldSet,
-} from '@synergycodes/overflow-ui';
+  Field as ShadcnField,
+  FieldLabel as ShadcnFieldLabel,
+  FieldDescription as ShadcnFieldDescription,
+  FieldGroup as ShadcnFieldGroup,
+  FieldLegend as ShadcnFieldLegend,
+  FieldSeparator as ShadcnFieldSeparator,
+  FieldSet as ShadcnFieldSet,
+} from '@/components/ui/field';
 import { ShadcnNavbarDemo } from './shadcn-navbar-demo';
 import { AppBarContainerLazy } from './app/features/app-bar/app-bar-container-lazy';
 import { ShadcnAppBar } from './app/features/app-bar/shadcn-app-bar';
@@ -338,10 +338,10 @@ function FieldDemo() {
               </ShadcnFieldSet>
               
               <ShadcnField orientation="horizontal">
-                <ShadcnButton type="submit">Submit</ShadcnButton>
-                <ShadcnButton type="button" variant="outline">
+                <Button type="submit">Submit</Button>
+                <Button type="button" variant="outline">
                   Cancel
-                </ShadcnButton>
+                </Button>
               </ShadcnField>
             </ShadcnFieldGroup>
           </form>

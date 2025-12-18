@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '@synergycodes/overflow-ui';
+} from '@/components/ui/dropdown-menu';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,11 +14,11 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@synergycodes/overflow-ui';
+} from '@/components/ui/breadcrumb';
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from '@synergycodes/overflow-ui';
+} from '@/components/ui/toggle-group';
 import {
   FloppyDisk,
   FolderOpen,

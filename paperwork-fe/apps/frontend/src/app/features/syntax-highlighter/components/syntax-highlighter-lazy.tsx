@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { TextArea } from '@synergycodes/overflow-ui';
+import { TextArea } from '@/components/overflow-ui';
 
 import type { SyntaxHighlighterProps } from './syntax-highlighter';
 

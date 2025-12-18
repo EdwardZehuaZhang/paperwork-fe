@@ -5,9 +5,12 @@ import TagManager from 'react-gtm-module';
 import { App } from './app/app';
 import './app/features/i18n';
 
-TagManager.initialize({
-  gtmId: import.meta.env.GTM_ID,
-});
+const gtmId = import.meta.env.VITE_GTM_ID;
+if (typeof gtmId === 'string' && gtmId.trim().length > 0) {
+  TagManager.initialize({
+    gtmId,
+  });
+}
 
 const root = ReactDOM.createRoot(document.querySelector('#root') as HTMLElement);
 

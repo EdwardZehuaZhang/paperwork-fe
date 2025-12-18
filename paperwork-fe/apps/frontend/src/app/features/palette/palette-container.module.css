@@ -6,11 +6,11 @@
   justify-content: space-between;
   pointer-events: all;
   border-radius: 0.75rem;
-  background: hsl(var(--card));
+  background: var(--card);
   display: flex;
   flex-direction: column;
   padding: 1.5rem 0;
-  border: 1px solid hsl(var(--border));
+  border: 1px solid var(--border);
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
@@ -27,12 +27,12 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: hsl(var(--card));
+  background: var(--card);
   padding-bottom: 1rem;
 }
 
 .sidebar.expanded .header {
-  border-bottom: 1px solid hsl(var(--border));
+  border-bottom: 1px solid var(--border);
 }
 
 .content {
@@ -53,5 +53,5 @@
   flex-direction: column;
   padding: 0 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid hsl(var(--border));
+  border-top: 1px solid var(--border);
 }

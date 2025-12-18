@@ -1,7 +1,8 @@
 import { Node, Edge } from '@xyflow/react';
 import styles from './delete-confirmation.module.css';
 import { Trans, useTranslation } from 'react-i18next';
-import { Checkbox, Button } from '@synergycodes/overflow-ui';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
 type DeleteConfirmationProps = {
@@ -19,12 +20,6 @@ export function DeleteConfirmation({ nodes, edges, onShouldShowAgainChange }: De
     edges.length > 0 ? t(`deleteConfirmation.${edges.length > 1 ? 'edges' : 'edge'}`) : '',
   ].filter(Boolean);
 
-  function handleChange() {
-    const newValue = !isChecked;
-    setIsChecked(newValue);
-    onShouldShowAgainChange?.(newValue);
-  }
-
   const translatedParts = parts.join(` ${t('deleteConfirmation.andConnected')} `);
   const selectedText = t(`deleteConfirmation.${nodes.length > 1 ? 'selectedPlural' : 'selected'}`);
 
@@ -38,7 +33,15 @@ export function DeleteConfirmation({ nodes, edges, onShouldShowAgainChange }: De
         />
       </span>
       <div className={styles['checkbox-wrapper']}>
-        <Checkbox id="dont-show-again-checkbox" size="small" checked={isChecked} onChange={handleChange} />
+        <Checkbox
+          id="dont-show-again-checkbox"
+          checked={isChecked}
+          onCheckedChange={(checked) => {
+            const newValue = checked === true;
+            setIsChecked(newValue);
+            onShouldShowAgainChange?.(newValue);
+          }}
+        />
         <label htmlFor="dont-show-again-checkbox">{t('deleteConfirmation.dontShowMeThisAgain')}</label>
       </div>
     </div>
@@ -58,7 +61,7 @@ export function DeleteConfirmationButtons({ onDeleteClick, onCancelClick }: Dele
       <Button variant="secondary" onClick={onCancelClick}>
         {t('deleteConfirmation.cancel')}
       </Button>
-      <Button onClick={onDeleteClick} size="medium" variant="error" autoFocus>
+      <Button onClick={onDeleteClick} variant="destructive" autoFocus>
         {t('deleteConfirmation.delete')}
       </Button>
     </div>

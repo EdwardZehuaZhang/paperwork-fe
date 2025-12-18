@@ -1,4 +1,4 @@
-import { IconSwitch } from '@synergycodes/overflow-ui';
+import { IconSwitch } from '@/components/overflow-ui';
 import { MoonStars, Sun } from '@phosphor-icons/react';
 
 import { useTheme } from '@/hooks/use-theme';

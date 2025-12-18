@@ -1,7 +1,7 @@
 import styles from './palette-header.module.css';
-import { NavButton } from '@synergycodes/overflow-ui';
 import { Icon } from '@workflow-builder/icons';
 import { useTranslation } from 'react-i18next';
+import { Button } from '@/components/ui/button';
 
 type PaletteHeaderProps = {
   onClick: () => void;
@@ -13,14 +13,18 @@ export function PaletteHeader({ onClick, isSidebarExpanded }: PaletteHeaderProps
 
   return (
     <div className={styles['container']}>
-      <span className="ax-public-h7">{t('palette.nodesLibrary')}</span>
-      <NavButton
-        size="small"
+      <span className="text-sm font-medium leading-none">{t('palette.nodesLibrary')}</span>
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon"
+        className="h-8 w-8"
         onClick={onClick}
-        tooltip={isSidebarExpanded ? t('tooltips.closePalette') : t('tooltips.openPalette')}
+        title={isSidebarExpanded ? t('tooltips.closePalette') : t('tooltips.openPalette')}
+        aria-label={isSidebarExpanded ? t('tooltips.closePalette') : t('tooltips.openPalette')}
       >
         <Icon name="SidebarSimple" />
-      </NavButton>
+      </Button>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { Icon, WBIcon } from '@workflow-builder/icons';
-import { NavButton } from '@synergycodes/overflow-ui';
+import { NavButton } from '@/components/overflow-ui';
 import { openNoAccessModal } from '../../functions/open-no-access-modal';
 
 export function getAppBarButton(icon: WBIcon, tooltip?: Parameters<typeof i18n.t>[0]) {

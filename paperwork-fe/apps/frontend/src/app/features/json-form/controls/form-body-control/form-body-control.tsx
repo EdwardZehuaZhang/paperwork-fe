@@ -1,6 +1,6 @@
 import { FormBodyControlProps } from '../../types/controls';
 import { createControlRenderer } from '../../utils/rendering';
-import { Accordion } from '@synergycodes/overflow-ui';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -309,198 +309,203 @@ function FormBodyControl(props: FormBodyControlProps) {
 
   return (
     <div className={styles['form-body-container']}>
-      <Accordion label="Content" defaultOpen={true}>
-        <FieldSet>
-          <FieldGroup>
-            <div className={styles['content-section']}>
-              <div className={styles['times-list']}>
-                {times.map(([timeKey, timeValue]) => {
-                  const timeNumber = timeKey.replace('time', '');
-                  const label = `Time ${timeNumber}`;
+      <Accordion type="single" collapsible defaultValue="content">
+        <AccordionItem value="content">
+          <AccordionTrigger>Content</AccordionTrigger>
+          <AccordionContent>
+            <FieldSet>
+              <FieldGroup>
+                <div className={styles['content-section']}>
+                  <div className={styles['times-list']}>
+                    {times.map(([timeKey, timeValue]) => {
+                      const timeNumber = timeKey.replace('time', '');
+                      const label = `Time ${timeNumber}`;
 
-                  return (
-                    <div key={timeKey} className={styles['time-item']}>
-                      <div className={styles['time-row']}>
-                        <label className={styles['time-label']}>{label}</label>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDeleteTime(timeKey)}
-                          disabled={!enabled}
-                          className={styles['delete-button']}
-                          title={`Delete ${label}`}
-                        >
-                          <Trash className={styles['delete-icon']} style={{ color: '#ef4444' }} />
-                        </Button>
-                      </div>
-                      <Select
-                        value={typeof timeValue === 'string' ? timeValue : 'Date, Month and Year'}
-                        onValueChange={(value) => handleTimeChange(timeKey, value)}
-                        disabled={!enabled}
-                      >
-                        <SelectTrigger className={styles['time-select']}>
-                          <SelectValue placeholder="Select a time format" />
-                        </SelectTrigger>
-                        <SelectContent position="item-aligned">
-                          {timeOptions.map((opt) => (
-                            <SelectItem key={opt} value={opt}>
-                              {opt}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className={styles['questions-list']}>
-                {questions.map(([questionKey, questionValue]) => {
-                  const questionNumber = questionKey.replace('question', '');
-                  const label = `Question ${questionNumber}`;
-
-                  return (
-                    <div key={questionKey} className={styles['question-item']}>
-                      <div className={styles['question-row']}>
-                        <label className={styles['question-label']}>{label}</label>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDeleteQuestion(questionKey)}
-                          disabled={!enabled}
-                          className={styles['delete-button']}
-                          title={`Delete ${label}`}
-                        >
-                          <Trash className={styles['delete-icon']} style={{ color: '#ef4444' }} />
-                        </Button>
-                      </div>
-                      <Input
-                        type="text"
-                        value={String(questionValue || '')}
-                        onChange={(e) => handleQuestionChange(questionKey, e.target.value)}
-                        disabled={!enabled}
-                        placeholder="Enter a question"
-                        className={styles['question-input']}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className={styles['money-list']}>
-                {moneyQuestions.map(([moneyKey, moneyQuestionValue]) => {
-                  const moneyNumber = moneyKey.replace('money', '');
-                  const label = `Money ${moneyNumber}`;
-                  const currencyValue = String(formBody[`${moneyKey}Currency`] || '');
-
-                  return (
-                    <div key={moneyKey} className={styles['money-item']}>
-                      <div className={styles['money-row']}>
-                        <label className={styles['money-label']}>{label}</label>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDeleteMoney(moneyKey)}
-                          disabled={!enabled}
-                          className={styles['delete-button']}
-                          title={`Delete ${label}`}
-                        >
-                          <Trash className={styles['delete-icon']} style={{ color: '#ef4444' }} />
-                        </Button>
-                      </div>
-                      <CurrencySelect
-                        value={currencyValue}
-                        onValueChange={(currency) => handleMoneyCurrencyChange(moneyKey, currency)}
-                        disabled={!enabled}
-                        placeholder="Select a currency"
-                        className={styles['money-currency']}
-                      />
-                      <Input
-                        type="text"
-                        value={String(moneyQuestionValue || '')}
-                        onChange={(e) => handleMoneyQuestionChange(moneyKey, e.target.value)}
-                        disabled={!enabled}
-                        placeholder="Enter a question"
-                        className={styles['money-question']}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className={styles['signatures-list']}>
-                  {signatures.map(([signatureKey, signatureValue]) => {
-                    const signatureNumber = signatureKey.replace('signature', '');
-                    const label = `Signature ${signatureNumber}`;
-
-                    return (
-                      <div key={signatureKey} className={styles['signature-item']}>
-                        <div className={styles['signature-row']}>
-                          <label className={styles['signature-label']}>{label}</label>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleDeleteSignature(signatureKey)}
+                      return (
+                        <div key={timeKey} className={styles['time-item']}>
+                          <div className={styles['time-row']}>
+                            <label className={styles['time-label']}>{label}</label>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleDeleteTime(timeKey)}
+                              disabled={!enabled}
+                              className={styles['delete-button']}
+                              title={`Delete ${label}`}
+                            >
+                              <Trash className={styles['delete-icon']} />
+                            </Button>
+                          </div>
+                          <Select
+                            value={typeof timeValue === 'string' ? timeValue : 'Date, Month and Year'}
+                            onValueChange={(value) => handleTimeChange(timeKey, value)}
                             disabled={!enabled}
-                            className={styles['delete-button']}
-                            title={`Delete ${label}`}
                           >
-                            <Trash className={styles['delete-icon']} style={{ color: '#ef4444' }} />
-                          </Button>
+                            <SelectTrigger className={styles['time-select']}>
+                              <SelectValue placeholder="Select a time format" />
+                            </SelectTrigger>
+                            <SelectContent position="item-aligned">
+                              {timeOptions.map((opt) => (
+                                <SelectItem key={opt} value={opt}>
+                                  {opt}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <Input
-                          type="text"
-                          value={String(signatureValue || '')}
-                          onChange={(e) => handleSignatureChange(signatureKey, e.target.value)}
-                          disabled={!enabled}
-                          placeholder="Signature"
-                          className={styles['signature-input']}
-                        />
-                      </div>
-                    );
-                  })}
-              </div>
+                      );
+                    })}
+                  </div>
 
-              <Popover open={addFieldOpen} onOpenChange={setAddFieldOpen}>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    role="combobox"
-                    aria-expanded={addFieldOpen}
-                    disabled={!enabled}
-                    className={cn(styles['add-button'], 'justify-start gap-2')}
-                  >
-                    <Plus />
-                    + Add Field
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-[220px] p-0" align="start">
-                  <Command>
-                    <CommandInput placeholder="Search fields..." />
-                    <CommandList>
-                      <CommandEmpty>No field found.</CommandEmpty>
-                      <CommandGroup>
-                        {addFieldOptions.map((opt) => (
-                          <CommandItem
-                            key={opt.value}
-                            value={opt.value}
-                            onSelect={() => {
-                              opt.onSelect();
-                              setAddFieldOpen(false);
-                            }}
-                          >
-                            {opt.label}
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-            </div>
-          </FieldGroup>
-        </FieldSet>
+                  <div className={styles['questions-list']}>
+                    {questions.map(([questionKey, questionValue]) => {
+                      const questionNumber = questionKey.replace('question', '');
+                      const label = `Question ${questionNumber}`;
+
+                      return (
+                        <div key={questionKey} className={styles['question-item']}>
+                          <div className={styles['question-row']}>
+                            <label className={styles['question-label']}>{label}</label>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleDeleteQuestion(questionKey)}
+                              disabled={!enabled}
+                              className={styles['delete-button']}
+                              title={`Delete ${label}`}
+                            >
+                              <Trash className={styles['delete-icon']} />
+                            </Button>
+                          </div>
+                          <Input
+                            type="text"
+                            value={String(questionValue || '')}
+                            onChange={(e) => handleQuestionChange(questionKey, e.target.value)}
+                            disabled={!enabled}
+                            placeholder={"Enter a question"}
+                            className={styles['question-input']}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className={styles['money-list']}>
+                    {moneyQuestions.map(([moneyKey, moneyQuestionValue]) => {
+                      const moneyNumber = moneyKey.replace('money', '');
+                      const label = `Money ${moneyNumber}`;
+                      const currencyValue = String(formBody[`${moneyKey}Currency`] || '');
+
+                      return (
+                        <div key={moneyKey} className={styles['money-item']}>
+                          <div className={styles['money-row']}>
+                            <label className={styles['money-label']}>{label}</label>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleDeleteMoney(moneyKey)}
+                              disabled={!enabled}
+                              className={styles['delete-button']}
+                              title={`Delete ${label}`}
+                            >
+                              <Trash className={styles['delete-icon']} />
+                            </Button>
+                          </div>
+                          <CurrencySelect
+                            value={currencyValue}
+                            onValueChange={(currency) => handleMoneyCurrencyChange(moneyKey, currency)}
+                            disabled={!enabled}
+                            placeholder="Select a currency"
+                            className={styles['money-currency']}
+                          />
+                          <Input
+                            type="text"
+                            value={String(moneyQuestionValue || '')}
+                            onChange={(e) => handleMoneyQuestionChange(moneyKey, e.target.value)}
+                            disabled={!enabled}
+                            placeholder="Enter a question"
+                            className={styles['money-question']}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className={styles['signatures-list']}>
+                    {signatures.map(([signatureKey, signatureValue]) => {
+                      const signatureNumber = signatureKey.replace('signature', '');
+                      const label = `Signature ${signatureNumber}`;
+
+                      return (
+                        <div key={signatureKey} className={styles['signature-item']}>
+                          <div className={styles['signature-row']}>
+                            <label className={styles['signature-label']}>{label}</label>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleDeleteSignature(signatureKey)}
+                              disabled={!enabled}
+                              className={styles['delete-button']}
+                              title={`Delete ${label}`}
+                            >
+                              <Trash className={styles['delete-icon']} />
+                            </Button>
+                          </div>
+                          <Input
+                            type="text"
+                            value={String(signatureValue || '')}
+                            onChange={(e) => handleSignatureChange(signatureKey, e.target.value)}
+                            disabled={!enabled}
+                            placeholder="Signature"
+                            className={styles['signature-input']}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <Popover open={addFieldOpen} onOpenChange={setAddFieldOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        role="combobox"
+                        aria-expanded={addFieldOpen}
+                        disabled={!enabled}
+                        className={cn(styles['add-button'], 'justify-start gap-2')}
+                      >
+                        <Plus />
+                        + Add Field
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[220px] p-0" align="start">
+                      <Command>
+                        <CommandInput placeholder="Search fields..." />
+                        <CommandList>
+                          <CommandEmpty>No field found.</CommandEmpty>
+                          <CommandGroup>
+                            {addFieldOptions.map((opt) => (
+                              <CommandItem
+                                key={opt.value}
+                                value={opt.value}
+                                onSelect={() => {
+                                  opt.onSelect();
+                                  setAddFieldOpen(false);
+                                }}
+                              >
+                                {opt.label}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              </FieldGroup>
+            </FieldSet>
+          </AccordionContent>
+        </AccordionItem>
       </Accordion>
     </div>
   );

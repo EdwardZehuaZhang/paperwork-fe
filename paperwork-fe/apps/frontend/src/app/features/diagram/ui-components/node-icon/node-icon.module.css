@@ -1,0 +1,23 @@
+:root {
+  --ax-public-node-icon-border-size: 0.0625rem;
+  --ax-public-node-icon-border-radius: var(--ax-token-radius-node-head-icon);
+  --ax-public-node-icon-padding: var(--ax-token-spacing-node-head-icon);
+
+  --ax-public-node-icon-color: var(--primary);
+  --ax-public-node-icon-container-border-color: transparent;
+  --ax-public-node-icon-container-background-color: var(--chart-5);
+}
+
+.container {
+  display: flex;
+  padding: var(--ax-public-node-icon-padding);
+  justify-content: center;
+  align-items: center;
+  color: var(--ax-public-node-icon-color);
+
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: var(--ax-public-node-icon-container-background-color);
+}

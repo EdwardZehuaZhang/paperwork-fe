@@ -1,7 +1,7 @@
 import styles from './properties-bar-header.module.css';
 
-import { NavButton } from '@synergycodes/overflow-ui';
 import { Icon } from '@workflow-builder/icons';
+import { Button } from '@/components/ui/button';
 
 type Props = {
   header: string;
@@ -14,13 +14,20 @@ export function PropertiesBarHeader({ isExpanded, header, name, onDotsClick }: P
   return (
     <div className={styles['header']}>
       <div className={styles['text-container']}>
-        <span className={name ? 'ax-public-h9' : 'ax-public-h7'}>{header}</span>
-        {isExpanded && <p className="ax-public-p11">{name}</p>}
+        <span className="text-sm font-medium leading-none">{header}</span>
+        {isExpanded && name && <p className="text-xs text-muted-foreground">{name}</p>}
       </div>
       {onDotsClick && (
-        <NavButton size="small" onClick={onDotsClick}>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8"
+          onClick={onDotsClick}
+          aria-label="More options"
+        >
           <Icon name="DotsThreeVertical" />
-        </NavButton>
+        </Button>
       )}
     </div>
   );

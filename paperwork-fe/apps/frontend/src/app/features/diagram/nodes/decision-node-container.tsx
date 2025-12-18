@@ -2,7 +2,7 @@ import useStore from '@/store/store';
 
 import { memo } from 'react';
 import { NodeProps, Node } from '@xyflow/react';
-import { NodeAsPortWrapper } from '@synergycodes/overflow-ui';
+import { NodeAsPortWrapper } from '@/features/diagram/ui-components';
 import { DecisionNodeTemplate } from './decision-node-template/decision-node-template';
 import { DecisionNodeSchema } from '../../../data/nodes/decision/schema';
 import { NodeDataProperties } from '@/features/json-form/types/default-properties';

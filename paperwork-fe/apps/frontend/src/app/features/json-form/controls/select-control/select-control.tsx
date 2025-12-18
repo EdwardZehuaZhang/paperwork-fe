@@ -36,9 +36,9 @@ function SelectControl(props: SelectControlProps) {
           onPointerDown={stopEventPropagation}
           onClick={stopEventPropagation}
         >
-          {options.map((option) => {
+          {options.map((option, index) => {
             if (option.type === 'separator') {
-              return <SelectSeparator key={`separator-${option.label}`} />;
+              return <SelectSeparator key={`separator-${index}`} />;
             }
             return (
               <SelectItem key={option.value} value={option.value}>
