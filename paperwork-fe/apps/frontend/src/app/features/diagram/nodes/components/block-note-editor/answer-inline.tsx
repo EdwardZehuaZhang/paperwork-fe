@@ -1,5 +1,6 @@
 import { createReactInlineContentSpec } from '@blocknote/react';
 import type { InlineContentConfig } from '@blocknote/core';
+import type { MouseEventHandler } from 'react';
 
 /**
  * Custom inline content for answer placeholders.
@@ -17,15 +18,50 @@ export const AnswerInline = createReactInlineContentSpec(
         default: '', // display label (e.g., "Q1", "Q2")
       },
     },
-    content: 'none',
+    // Use styled so BlockNote marks this inline node selectable; this enables NodeSelection for click-to-select.
+    content: 'styled',
   } as const satisfies InlineContentConfig,
   {
     render: (props) => {
       const { questionId, label } = props.inlineContent.props;
 
+      const selectThisToken: MouseEventHandler<HTMLSpanElement> = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const tiptapEditor = (props.editor as any)._tiptapEditor;
+        const view = (props.editor as any).prosemirrorView ?? tiptapEditor?.view;
+        const state = tiptapEditor?.state;
+        if (!view || !state) return;
+
+        const candidatePos = view.posAtDOM(event.currentTarget, 0);
+        const node = state.doc.nodeAt(candidatePos);
+
+        // Prefer a node selection now that the inline content is selectable.
+        if (node && tiptapEditor.commands?.setNodeSelection) {
+          tiptapEditor.chain().focus().setNodeSelection(candidatePos).run();
+          return;
+        }
+
+        // Fallback: text selection spanning the node still preserves it when copied inside the editor.
+        if (node) {
+          tiptapEditor
+            .chain()
+            .focus()
+            .setTextSelection({ from: candidatePos, to: candidatePos + node.nodeSize })
+            .run();
+          return;
+        }
+
+        view.focus();
+      };
+
       // Display like [___Q1 Answer___] with yellow background
       return (
         <span
+          contentEditable={false}
+          onMouseDown={selectThisToken}
+          onDoubleClick={selectThisToken}
           style={{
             backgroundColor: '#fff3b0',
             padding: '2px 6px',
