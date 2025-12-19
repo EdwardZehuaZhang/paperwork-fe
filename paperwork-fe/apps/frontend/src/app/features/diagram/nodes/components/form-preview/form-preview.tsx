@@ -15,8 +15,8 @@ import {
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { FileText } from '@phosphor-icons/react';
-import { SignatureField } from './signature-field';
 import { DateTimeField } from './date-time-field';
+import { SignatureFileUpload } from '@/components/file-upload-demo';
 
 import styles from './form-preview.module.css';
 
@@ -61,11 +61,31 @@ export function FormPreview({ formBody }: FormPreviewProps) {
       return numberA - numberB;
     });
 
-  const hasNoFields =
-    questions.length === 0 &&
-    moneyQuestions.length === 0 &&
-    signatures.length === 0 &&
-    times.length === 0;
+  // Create ordered array of all field types to match properties panel order: times -> questions -> money -> signatures
+  const orderedFields = [
+    ...times.map(([key, value]) => ({
+      type: 'time' as const,
+      key,
+      value,
+    })),
+    ...questions.map(([key, value]) => ({
+      type: 'question' as const,
+      key,
+      value,
+    })),
+    ...moneyQuestions.map(([key, value]) => ({
+      type: 'money' as const,
+      key,
+      value,
+    })),
+    ...signatures.map(([key, value]) => ({
+      type: 'signature' as const,
+      key,
+      value,
+    })),
+  ];
+
+  const hasNoFields = orderedFields.length === 0;
 
   if (hasNoFields) {
     return (
@@ -94,65 +114,68 @@ export function FormPreview({ formBody }: FormPreviewProps) {
         <div className={styles['form-content']}>
           <FieldSet>
             <FieldGroup>
-              {/* Render text questions */}
-              {questions.map(([key, value]) => {
-                const questionNumber = key.replace('question', '');
-                return (
-                  <Field key={key}>
-                    <FieldLabel htmlFor={key}>Question {questionNumber}</FieldLabel>
-                    <Textarea
-                      id={key}
-                      placeholder={typeof value === 'string' && value ? value : 'Enter your answer here...'}
-                      rows={4}
-                      disabled
-                      readOnly
-                    />
-                    <FieldDescription>Text question (read-only preview)</FieldDescription>
-                  </Field>
-                );
-              })}
-
-              {/* Render money questions */}
-              {moneyQuestions.map(([key, value]) => {
-                const moneyNumber = key.replace('money', '');
-                const currencyKey = `${key}Currency`;
-                const currency = (formBody[currencyKey] as string) || 'USD';
-
-                return (
-                  <Field key={key}>
-                    <FieldLabel htmlFor={key}>Money {moneyNumber}</FieldLabel>
-                    <InputGroup>
-                      <InputGroupAddon>
-                        <InputGroupText>$</InputGroupText>
-                      </InputGroupAddon>
-                      <InputGroupInput
-                        id={key}
-                        placeholder={typeof value === 'string' && value ? value : '0.00'}
-                        disabled
-                        readOnly
+              {/* Render fields in order: times -> questions -> money -> signatures */}
+              {orderedFields.map((field) => {
+                if (field.type === 'question') {
+                  const questionNumber = field.key.replace('question', '');
+                  return (
+                    <Field key={field.key}>
+                      <FieldLabel htmlFor={field.key}>Question {questionNumber}</FieldLabel>
+                      <Textarea
+                        id={field.key}
+                        placeholder={typeof field.value === 'string' && field.value ? field.value : 'Enter your answer here...'}
+                        rows={4}
                       />
-                      <InputGroupAddon align="inline-end">
-                        <InputGroupText>{currency}</InputGroupText>
-                      </InputGroupAddon>
-                    </InputGroup>
-                    <FieldDescription>Money field in {currency} (read-only preview)</FieldDescription>
-                  </Field>
-                );
-              })}
+                      <FieldDescription>Text question</FieldDescription>
+                    </Field>
+                  );
+                }
 
-              {/* Render signatures */}
-              {signatures.map(([key, value]) => {
-                const signatureNumber = key.replace('signature', '');
-                const label =
-                  typeof value === 'string' && value ? value : `Signature ${signatureNumber}`;
-                return <SignatureField key={key} questionKey={key} label={label} />;
-              })}
+                if (field.type === 'money') {
+                  const moneyNumber = field.key.replace('money', '');
+                  const currencyKey = `${field.key}Currency`;
+                  const currency = (formBody[currencyKey] as string) || 'USD';
 
-              {/* Render date/time fields */}
-              {times.map(([key, value]) => {
-                const timeNumber = key.replace('time', '');
-                const format = typeof value === 'string' && value ? value : 'Date, Month and Year';
-                return <DateTimeField key={key} questionKey={key} label={`Date/Time ${timeNumber}`} format={format} />;
+                  return (
+                    <Field key={field.key}>
+                      <FieldLabel htmlFor={field.key}>Money {moneyNumber}</FieldLabel>
+                      <InputGroup>
+                        <InputGroupAddon>
+                          <InputGroupText>$</InputGroupText>
+                        </InputGroupAddon>
+                        <InputGroupInput
+                          id={field.key}
+                          placeholder={typeof field.value === 'string' && field.value ? field.value : '0.00'}
+                        />
+                        <InputGroupAddon align="inline-end">
+                          <InputGroupText>{currency}</InputGroupText>
+                        </InputGroupAddon>
+                      </InputGroup>
+                      <FieldDescription>Money field in {currency}</FieldDescription>
+                    </Field>
+                  );
+                }
+
+                if (field.type === 'signature') {
+                  const signatureNumber = field.key.replace('signature', '');
+                  const label = typeof field.value === 'string' && field.value ? field.value : `Signature ${signatureNumber}`;
+
+                  return (
+                    <Field key={field.key}>
+                      <FieldLabel htmlFor={field.key}>{label}</FieldLabel>
+                      <SignatureFileUpload />
+                      <FieldDescription>Upload signature files</FieldDescription>
+                    </Field>
+                  );
+                }
+
+                if (field.type === 'time') {
+                  const timeNumber = field.key.replace('time', '');
+                  const format = typeof field.value === 'string' && field.value ? field.value : 'Date, Month and Year';
+                  return <DateTimeField key={field.key} questionKey={field.key} label={`Date/Time ${timeNumber}`} format={format} />;
+                }
+
+                return null;
               })}
             </FieldGroup>
           </FieldSet>
