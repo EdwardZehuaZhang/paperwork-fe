@@ -7,7 +7,7 @@ import {
   Status,
 } from '@/features/diagram/ui-components';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Icon } from '@workflow-builder/icons';
 import { getHandleId } from '../../handles/get-handle-id';
 import { getHandlePosition } from '../../handles/get-handle-position';
@@ -65,6 +65,21 @@ const WorkflowNodeTemplateComponent = memo(
 
     const hasContent = !!children;
 
+    const isFormNode = useMemo(() => {
+      const properties = data?.properties as unknown;
+      if (!properties || typeof properties !== 'object') {
+        return false;
+      }
+
+      return (
+        'formBody' in properties &&
+        typeof (properties as { formBody?: unknown }).formBody === 'object' &&
+        (properties as { formBody?: unknown }).formBody !== null
+      );
+    }, [data?.properties]);
+
+    const isExpanded = selected && isFormNode;
+
     const handleEditorChange = useCallback(
       (content: unknown) => {
         setNodeData(id, { editorContent: content });
@@ -87,15 +102,27 @@ const WorkflowNodeTemplateComponent = memo(
     const previewMode = data?.previewMode || 'editDocument';
     const formBody = (data?.properties as any)?.formBody || {};
 
+    const showNodeContent = isExpanded || hasContent;
+
     return (
       <Collapsible>
         <div
           className={styles['content']}
-          data-expanded={selected ? 'true' : 'false'}
+          data-expanded={isExpanded ? 'true' : 'false'}
         >
           <div className={styles['header']}>
             <NodeIcon icon={iconElement} />
             <NodeDescription label={label} description={description} />
+            {selected && (
+              <div style={{ marginLeft: 'auto' }}>
+                <Tabs value={previewMode} onValueChange={handlePreviewModeChange}>
+                  <TabsList>
+                    <TabsTrigger value="editDocument">Edit Document</TabsTrigger>
+                    <TabsTrigger value="previewForm">Preview Form</TabsTrigger>
+                  </TabsList>
+                </Tabs>
+              </div>
+            )}
             {hasContent && (
               <CollapsibleTrigger asChild>
                 <button type="button" aria-label="Toggle details">
@@ -104,32 +131,16 @@ const WorkflowNodeTemplateComponent = memo(
               </CollapsibleTrigger>
             )}
           </div>
-          {(selected || hasContent) && (
+          {showNodeContent && (
             <div className={styles['node-content']}>
               <Status status={isValid === false ? 'invalid' : undefined} />
               <CollapsibleContent>
                 <div className={styles['collapsible']}>{children}</div>
               </CollapsibleContent>
-              {selected && (
+              {isExpanded && (
                 <div className={styles['expanded-container']}>
                   <div className={styles['expanded-content']}>
                     <div className={styles['preview-section']}>
-                      <div className={styles['preview-header']}>
-                        <span className="ax-public-h10">Preview</span>
-                        <ToggleGroup
-                          type="single"
-                          variant="outline"
-                          value={previewMode}
-                          onValueChange={handlePreviewModeChange}
-                        >
-                          <ToggleGroupItem value="editDocument" aria-label="Edit Document">
-                            Edit Document
-                          </ToggleGroupItem>
-                          <ToggleGroupItem value="previewForm" aria-label="Preview Form">
-                            Preview Form
-                          </ToggleGroupItem>
-                        </ToggleGroup>
-                      </div>
                       {previewMode === 'editDocument' ? (
                         <Suspense
                           fallback={

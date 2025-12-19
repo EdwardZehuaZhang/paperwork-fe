@@ -7,6 +7,7 @@ import { isDeepEqual } from 'remeda';
 import { memo } from 'react';
 import { trackFutureChange } from '@/features/changes-tracker/stores/use-changes-tracker-store';
 import { flatErrors } from '@/utils/validation/flat-errors';
+import { NodeAccessProperties } from './node-access-properties';
 
 type Props = {
   node: WorkflowBuilderNode;
@@ -37,12 +38,16 @@ export const NodeProperties = memo(({ node }: Props) => {
   };
 
   return (
-    <JSONForm
-      data={properties}
-      schema={schema}
-      uischema={uischema as JsonFormsProps['uischema']}
-      onChange={onChange}
-      readonly={isReadOnlyMode}
-    />
+    <div className="space-y-4">
+      <JSONForm
+        data={properties}
+        schema={schema}
+        uischema={uischema as JsonFormsProps['uischema']}
+        onChange={onChange}
+        readonly={isReadOnlyMode}
+      />
+
+      <NodeAccessProperties node={node} />
+    </div>
   );
 });
