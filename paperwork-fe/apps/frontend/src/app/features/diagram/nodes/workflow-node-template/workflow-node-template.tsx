@@ -7,6 +7,7 @@ import {
   Status,
 } from '@/features/diagram/ui-components';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Icon } from '@workflow-builder/icons';
 import { getHandleId } from '../../handles/get-handle-id';
 import { getHandlePosition } from '../../handles/get-handle-position';
@@ -16,6 +17,7 @@ import { withOptionalComponentPlugins } from '@/features/plugins-core/adapters/a
 import { NodeData } from '@workflow-builder/types/node-data';
 import useStore from '@/store/store';
 import { extractContentFromNodeData } from '../components/block-note-editor/extract-questions';
+import { FormPreview } from '../components/form-preview/form-preview';
 
 // Lazy load BlockNote editor to improve performance
 const BlockNoteEditor = lazy(() =>
@@ -70,8 +72,20 @@ const WorkflowNodeTemplateComponent = memo(
       [id, setNodeData],
     );
 
+    const handlePreviewModeChange = useCallback(
+      (value: string) => {
+        if (value) {
+          setNodeData(id, { previewMode: value as 'editDocument' | 'previewForm' });
+        }
+      },
+      [id, setNodeData],
+    );
+
     // Extract questions, signatures, and times from node data for content placeholders
     const { questions, signatures, times } = useMemo(() => extractContentFromNodeData(data), [data]);
+
+    const previewMode = data?.previewMode || 'editDocument';
+    const formBody = (data?.properties as any)?.formBody || {};
 
     return (
       <Collapsible>
@@ -100,24 +114,43 @@ const WorkflowNodeTemplateComponent = memo(
                 <div className={styles['expanded-container']}>
                   <div className={styles['expanded-content']}>
                     <div className={styles['preview-section']}>
-                      <span className="ax-public-h10">Preview</span>
-                      <Suspense
-                        fallback={
-                          <div className={styles['editor-loading']}>
-                            <span className="ax-public-p11">Loading editor...</span>
-                          </div>
-                        }
-                      >
-                        <BlockNoteEditor
-                          nodeId={id}
-                          initialContent={data?.editorContent}
-                          onChange={handleEditorChange}
-                          selected={selected}
-                          questions={questions}
-                          signatures={signatures}
-                          times={times}
-                        />
-                      </Suspense>
+                      <div className={styles['preview-header']}>
+                        <span className="ax-public-h10">Preview</span>
+                        <ToggleGroup
+                          type="single"
+                          variant="outline"
+                          value={previewMode}
+                          onValueChange={handlePreviewModeChange}
+                        >
+                          <ToggleGroupItem value="editDocument" aria-label="Edit Document">
+                            Edit Document
+                          </ToggleGroupItem>
+                          <ToggleGroupItem value="previewForm" aria-label="Preview Form">
+                            Preview Form
+                          </ToggleGroupItem>
+                        </ToggleGroup>
+                      </div>
+                      {previewMode === 'editDocument' ? (
+                        <Suspense
+                          fallback={
+                            <div className={styles['editor-loading']}>
+                              <span className="ax-public-p11">Loading editor...</span>
+                            </div>
+                          }
+                        >
+                          <BlockNoteEditor
+                            nodeId={id}
+                            initialContent={data?.editorContent}
+                            onChange={handleEditorChange}
+                            selected={selected}
+                            questions={questions}
+                            signatures={signatures}
+                            times={times}
+                          />
+                        </Suspense>
+                      ) : (
+                        <FormPreview formBody={formBody} />
+                      )}
                     </div>
                   </div>
                 </div>
