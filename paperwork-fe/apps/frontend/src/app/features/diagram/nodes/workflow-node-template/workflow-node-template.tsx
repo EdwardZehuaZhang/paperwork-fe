@@ -18,6 +18,8 @@ import { NodeData } from '@workflow-builder/types/node-data';
 import useStore from '@/store/store';
 import { extractContentFromNodeData } from '../components/block-note-editor/extract-questions';
 import { FormPreview } from '../components/form-preview/form-preview';
+import { SheetEditor } from '../components/sheet-editor/sheet-editor';
+import { SheetPreview } from '../components/sheet-preview/sheet-preview';
 
 // Lazy load BlockNote editor to improve performance
 const BlockNoteEditor = lazy(() =>
@@ -72,6 +74,13 @@ const WorkflowNodeTemplateComponent = memo(
       [id, setNodeData],
     );
 
+    const handleSheetChange = useCallback(
+      (content: unknown) => {
+        setNodeData(id, { sheetContent: content });
+      },
+      [id, setNodeData],
+    );
+
     const handlePreviewModeChange = useCallback(
       (value: string) => {
         if (value) {
@@ -86,6 +95,21 @@ const WorkflowNodeTemplateComponent = memo(
 
     const previewMode = data?.previewMode || 'editDocument';
     const formBody = (data?.properties as any)?.formBody || {};
+    const isSheetNode = data?.type === 'sheet';
+    const toggleLabel = isSheetNode ? 'Edit Sheet' : 'Edit Document';
+    
+    // Initialize default sheetContent if missing for sheet nodes
+    const sheetContent = useMemo(() => {
+      if (!isSheetNode) return undefined;
+      
+      return data?.sheetContent || {
+        columnDefs: [
+          { field: 'col1', headerName: 'Column 1', width: 150, editable: true, resizable: true },
+        ],
+        rowData: [{ col1: '' }],
+        cellFormatting: {},
+      };
+    }, [data?.sheetContent, isSheetNode]);
 
     return (
       <Collapsible>
@@ -122,8 +146,8 @@ const WorkflowNodeTemplateComponent = memo(
                           value={previewMode}
                           onValueChange={handlePreviewModeChange}
                         >
-                          <ToggleGroupItem value="editDocument" aria-label="Edit Document">
-                            Edit Document
+                          <ToggleGroupItem value="editDocument" aria-label={toggleLabel}>
+                            {toggleLabel}
                           </ToggleGroupItem>
                           <ToggleGroupItem value="previewForm" aria-label="Preview Form">
                             Preview Form
@@ -131,23 +155,37 @@ const WorkflowNodeTemplateComponent = memo(
                         </ToggleGroup>
                       </div>
                       {previewMode === 'editDocument' ? (
-                        <Suspense
-                          fallback={
-                            <div className={styles['editor-loading']}>
-                              <span className="ax-public-p11">Loading editor...</span>
-                            </div>
-                          }
-                        >
-                          <BlockNoteEditor
+                        isSheetNode ? (
+                          <SheetEditor
                             nodeId={id}
-                            initialContent={data?.editorContent}
-                            onChange={handleEditorChange}
+                            initialContent={sheetContent}
+                            onChange={handleSheetChange}
                             selected={selected}
                             questions={questions}
                             signatures={signatures}
                             times={times}
                           />
-                        </Suspense>
+                        ) : (
+                          <Suspense
+                            fallback={
+                              <div className={styles['editor-loading']}>
+                                <span className="ax-public-p11">Loading editor...</span>
+                              </div>
+                            }
+                          >
+                            <BlockNoteEditor
+                              nodeId={id}
+                              initialContent={data?.editorContent}
+                              onChange={handleEditorChange}
+                              selected={selected}
+                              questions={questions}
+                              signatures={signatures}
+                              times={times}
+                            />
+                          </Suspense>
+                        )
+                      ) : isSheetNode ? (
+                        <SheetPreview sheetContent={sheetContent} />
                       ) : (
                         <FormPreview formBody={formBody} />
                       )}

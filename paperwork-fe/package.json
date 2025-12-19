@@ -41,6 +41,8 @@
   },
   "packageManager": "pnpm@10.9.0",
   "dependencies": {
+    "ag-grid-community": "^35.0.0",
+    "ag-grid-react": "^35.0.0",
     "uploadthing": "^7.7.4"
   }
 }

@@ -11,7 +11,7 @@ export function NodeDescription({ label, description, className }: Props) {
   return (
     <div className={clsx(styles['container'], className)}>
       <span className={clsx('ax-public-h9', styles['title'])}>{label}</span>
-      <span className={clsx('ax-public-p12', styles['subtitle'])}>
+      <span className={clsx('ax-public-p20', styles['subtitle'])}>
         {description}
       </span>
     </div>

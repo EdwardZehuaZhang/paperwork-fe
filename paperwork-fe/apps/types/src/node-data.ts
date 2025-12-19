@@ -24,6 +24,7 @@ export type NodeData<T = BaseNodeProperties & Record<string, unknown>> = {
   icon: IconType;
   type: string;
   editorContent?: any; // BlockNote editor content
+  sheetContent?: any; // ag-Grid sheet content (columnDefs, rowData, cellFormatting)
   previewMode?: 'editDocument' | 'previewForm'; // Toggle state for edit document vs preview form
 };
 
