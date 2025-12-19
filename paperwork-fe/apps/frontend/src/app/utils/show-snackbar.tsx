@@ -1,7 +1,8 @@
-import { closeSnackbar, enqueueSnackbar, type SnackbarKey as NotistackSnackbarKey, type OptionsObject } from 'notistack';
 import i18n from 'i18next';
-import { Snackbar, SnackbarProps } from '@/components/overflow-ui';
-import { DefaultTranslationMap } from '@/features/i18n/i18next';
+import { toast } from 'sonner';
+
+import type { SnackbarProps } from '@/components/overflow-ui';
+import type { DefaultTranslationMap } from '@/features/i18n/i18next';
 
 const AUTO_HIDE_DURATION_TIME = 3000;
 
@@ -24,30 +25,37 @@ export function showSnackbar({
   autoHideDuration = AUTO_HIDE_DURATION_TIME,
   preventDuplicate = true,
 }: ShowSnackbarProps) {
-  const options: OptionsObject = {
-    content: (key: NotistackSnackbarKey) => (
-      <Snackbar
-        title={i18n.t(`${SNACKBAR_PREFIX}.${title}`)}
-        variant={variant}
-        subtitle={subtitle}
-        buttonLabel={buttonLabel}
-        onButtonClick={
-          onButtonClick
-            ? (event_) => {
-                onButtonClick(event_);
-                closeSnackbar(key);
-              }
-            : undefined
-        }
-        close={close}
-        onClose={() => closeSnackbar(key)}
-      />
-    ),
-    autoHideDuration,
-    preventDuplicate,
-    anchorOrigin: { horizontal: 'center', vertical: 'bottom' },
+  const message = i18n.t(`${SNACKBAR_PREFIX}.${title}`);
+  const id = preventDuplicate ? `${SNACKBAR_PREFIX}:${title}:${variant ?? 'default'}` : undefined;
+
+  const toastOptions = {
+    id,
+    description: subtitle,
+    duration: autoHideDuration,
+    dismissible: close,
+    action:
+      buttonLabel && onButtonClick
+        ? {
+            label: buttonLabel,
+            onClick: () => onButtonClick(undefined as never),
+          }
+        : undefined,
   };
 
-  enqueueSnackbar('', options);
-  return { showSnackbar };
+  switch (variant) {
+    case 'success':
+      toast.success(message, toastOptions);
+      break;
+    case 'info':
+      toast.info(message, toastOptions);
+      break;
+    case 'warning':
+      toast.warning(message, toastOptions);
+      break;
+    case 'error':
+      toast.error(message, toastOptions);
+      break;
+    default:
+      toast(message, toastOptions);
+  }
 }

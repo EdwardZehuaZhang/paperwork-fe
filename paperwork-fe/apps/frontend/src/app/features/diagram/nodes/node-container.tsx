@@ -17,12 +17,26 @@ export const NodeContainer = memo(({ id, data, selected }: Props) => {
   const isValid = getIsValidFromProperties(properties);
 
   const layoutDirection = useStore((store) => store.layoutDirection);
+  const isReadOnlyMode = useStore((store) => store.isReadOnlyMode);
   const handleTargetPosition = getHandlePosition({ direction: layoutDirection, handleType: 'target' });
   const handleSourcePosition = getHandlePosition({ direction: layoutDirection, handleType: 'source' });
   const connectionBeingDragged = useStore((store) => store.connectionBeingDragged);
 
   const handleTargetId = getHandleId({ nodeId: id, handleType: 'target' });
   const handleSourceId = getHandleId({ nodeId: id, handleType: 'source' });
+
+  const logHandlePointerDownCapture = (label: 'target' | 'source') => (event: React.PointerEvent) => {
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.debug('[rf] handle pointerdown', {
+        label,
+        nodeId: id,
+        handleId: label === 'target' ? handleTargetId : handleSourceId,
+        button: event.button,
+        buttons: event.buttons,
+      });
+    }
+  };
 
   return (
     <NodeAsPortWrapper isConnecting={!!connectionBeingDragged} targetPortPosition={handleTargetPosition}>
@@ -38,8 +52,30 @@ export const NodeContainer = memo(({ id, data, selected }: Props) => {
           isValid={isValid}
           showHandles={false}
         />
-        <Handle id={handleTargetId} position={handleTargetPosition} type="target" />
-        <Handle id={handleSourceId} position={handleSourcePosition} type="source" />
+        {!isReadOnlyMode && (
+          <>
+            <Handle
+              id={handleTargetId}
+              position={handleTargetPosition}
+              type="target"
+              className="nodrag"
+              onPointerDownCapture={logHandlePointerDownCapture('target')}
+              isConnectable
+              isConnectableStart
+              isConnectableEnd
+            />
+            <Handle
+              id={handleSourceId}
+              position={handleSourcePosition}
+              type="source"
+              className="nodrag"
+              onPointerDownCapture={logHandlePointerDownCapture('source')}
+              isConnectable
+              isConnectableStart
+              isConnectableEnd={false}
+            />
+          </>
+        )}
       </>
     </NodeAsPortWrapper>
   );

@@ -19,7 +19,10 @@ export const schema = {
     },
     noteRequirement: {
       type: 'string',
-      options: ['optional', 'required'],
+      options: [
+        { label: 'Optional', value: 'optional' },
+        { label: 'Required', value: 'required' },
+      ],
     },
     notePlaceholder: {
       type: 'string',

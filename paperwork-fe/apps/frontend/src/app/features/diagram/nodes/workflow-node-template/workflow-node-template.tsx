@@ -64,6 +64,10 @@ const WorkflowNodeTemplateComponent = memo(
     const linkedNodeId = isApprovalNode ? (data?.properties as any)?.linkedNodeId : undefined;
     const linkedNode = linkedNodeId ? nodes.find((node) => node.id === linkedNodeId) : undefined;
 
+    const isFormApprovalNode = isApprovalNode && linkedNode?.data?.type === 'form';
+    const isStandaloneSheetNode = data?.type === 'sheet';
+    const allowEditDocumentPreviewForm = isStandaloneSheetNode || isFormApprovalNode;
+
     const isFormNode = useMemo(() => {
       const properties = data?.properties as unknown;
       if (!properties || typeof properties !== 'object') {
@@ -95,11 +99,15 @@ const WorkflowNodeTemplateComponent = memo(
 
     const handlePreviewModeChange = useCallback(
       (value: string) => {
+        if (!allowEditDocumentPreviewForm) {
+          return;
+        }
+
         if (value) {
           setNodeData(id, { previewMode: value as 'editDocument' | 'previewForm' });
         }
       },
-      [id, setNodeData],
+      [allowEditDocumentPreviewForm, id, setNodeData],
     );
 
     // Extract questions, signatures, and times from node data for content placeholders
@@ -135,10 +143,17 @@ const WorkflowNodeTemplateComponent = memo(
       [contentExtractionData],
     );
 
-    const previewMode = data?.previewMode || 'editDocument';
+    const previewMode = allowEditDocumentPreviewForm
+      ? (data?.previewMode || 'editDocument')
+      : 'editDocument';
     const noteRequirement = ((data?.properties as any)?.noteRequirement as 'optional' | 'required') || 'optional';
     const notePlaceholder = ((data?.properties as any)?.notePlaceholder as string) || 'Additional note';
     const isSheetNode = data?.type === 'sheet' || (isApprovalNode && linkedNode?.data?.type === 'sheet');
+
+    const expandedDocumentOrientation = isSheetNode ? 'landscape' : 'portrait';
+    const expandedWidth = expandedDocumentOrientation === 'landscape' ? '1272px' : '900px';
+    const expandedDocumentAspectRatio =
+      expandedDocumentOrientation === 'landscape' ? '1.414 / 1' : '1 / 1.414';
     
     // Initialize default sheetContent if missing for sheet nodes
     const sheetContent = useMemo(() => {
@@ -167,10 +182,10 @@ const WorkflowNodeTemplateComponent = memo(
       }
 
       const rowData = [];
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 30; i++) {
         const row: Record<string, string> = {};
         for (let j = 0; j < 10; j++) {
-          row[`col${j + 1}`] = j === 0 ? String(i + 1) : '';
+          row[`col${j + 1}`] = '';
         }
         rowData.push(row);
       }
@@ -195,11 +210,17 @@ const WorkflowNodeTemplateComponent = memo(
         <div
           className={styles['content']}
           data-expanded={isExpanded ? 'true' : 'false'}
+          style={
+            {
+              '--workflow-node-expanded-width': expandedWidth,
+              '--workflow-node-document-aspect-ratio': expandedDocumentAspectRatio,
+            } as React.CSSProperties
+          }
         >
           <div className={styles['header']}>
             <NodeIcon icon={iconElement} />
             <NodeDescription label={label} description={description} />
-            {selected && (
+            {selected && allowEditDocumentPreviewForm && (
               <div style={{ marginLeft: 'auto' }}>
                 <Tabs value={previewMode} onValueChange={handlePreviewModeChange}>
                   <TabsList>

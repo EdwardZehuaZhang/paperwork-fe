@@ -65,6 +65,20 @@
   scrollbar-width: none;
 }
 
+/*
+  The properties panel clips overflow horizontally.
+  Tailwind/shadcn focus rings are implemented via box-shadow and can get cut off at the edges.
+  Force rings to be inset within the focused control so the ring remains visible without relying
+  on overflowing outside the element.
+*/
+.content :global(input:focus-visible),
+.content :global(textarea:focus-visible),
+.content :global(select:focus-visible),
+.content :global(button[role='combobox']:focus-visible),
+.content :global([data-slot='input-group-control']:focus-visible) {
+  --tw-ring-inset: inset;
+}
+
 .content::-webkit-scrollbar {
   display: none;
 }

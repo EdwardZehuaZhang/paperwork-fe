@@ -46,18 +46,18 @@ export function SignatureFileUpload() {
         // Wait for all uploads to complete
         await Promise.all(uploadPromises);
 
-        toast('Upload complete');
+        toast.success('Upload complete');
       } catch (error) {
         // This handles any error that might occur outside the individual upload processes
         console.error("Unexpected error during upload:", error);
-        toast('Upload failed');
+        toast.error('Upload failed');
       }
     },
     [],
   );
  
   const onFileReject = React.useCallback((file: File, message: string) => {
-    toast(message, {
+    toast.error(message, {
       description: `"${file.name.length > 20 ? `${file.name.slice(0, 20)}...` : file.name}" has been rejected`,
     });
   }, []);
@@ -85,7 +85,7 @@ export function SignatureFileUpload() {
         </FileUploadTrigger>
       </FileUploadDropzone>
       <div className="mt-4 flex items-center gap-2">
-        <Button type="button" variant="ghost" size="sm" onClick={() => toast('Remove via built-in UI (WIP)')}
+        <Button type="button" variant="ghost" size="sm" onClick={() => toast.info('Remove via built-in UI (WIP)')}
         >
           <X className="mr-2 h-4 w-4" />
           Clear

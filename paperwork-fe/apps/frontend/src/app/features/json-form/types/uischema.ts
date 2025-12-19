@@ -14,6 +14,7 @@ import {
   AiToolsControlElement,
   DecisionBranchesControlElement,
   FormBodyControlElement,
+  LinkedNodeSelectControlElement,
 } from './controls';
 import { LabelElement } from './label';
 
@@ -27,6 +28,7 @@ export type UISchemaControlElement<T extends string = string> = (
   | AiToolsControlElement
   | DecisionBranchesControlElement
   | FormBodyControlElement
+  | LinkedNodeSelectControlElement
 ) & { scope: T; errorIndicatorEnabled?: boolean };
 export type UISchemaControlElementType = UISchemaControlElement['type'];
 

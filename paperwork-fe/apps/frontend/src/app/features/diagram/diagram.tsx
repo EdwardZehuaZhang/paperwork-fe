@@ -82,6 +82,10 @@ function DiagramContainerComponent({ edgeTypes = {} }: { edgeTypes?: EdgeTypes }
   const onConnect: OnConnect = useCallback(
     (connection) => {
       trackFutureChange('addEdge');
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.debug('[rf] onConnect', connection);
+      }
       onConnectAction(connection);
     },
     [onConnectAction],
@@ -93,12 +97,20 @@ function DiagramContainerComponent({ edgeTypes = {} }: { edgeTypes?: EdgeTypes }
       _: any,
       { nodeId, handleId }: { nodeId: string | null; handleId: string | null },
     ) => {
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.debug('[rf] onConnectStart', { nodeId, handleId });
+      }
       setConnectionBeingDragged(nodeId, handleId);
     },
     [setConnectionBeingDragged],
   );
 
   const onConnectEnd = useCallback(() => {
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.debug('[rf] onConnectEnd');
+    }
     setConnectionBeingDragged(null, null);
   }, [setConnectionBeingDragged]);
 

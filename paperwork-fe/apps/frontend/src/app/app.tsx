@@ -7,6 +7,7 @@ import { CoexistenceDemo } from '../coexistence-demo';
 import { RouterProvider as ReactRouterProvider } from 'react-router-dom';
 import { router } from './routing/router';
 import { AuthProvider } from './auth/auth-context';
+import { SonnerToaster } from './components/sonner-toaster';
 
 import './features/i18n/index';
 import { withIntegration } from './features/integration/components/with-integration';
@@ -17,6 +18,7 @@ function AppComponent(_props: PropsWithChildren) {
   return (
     <AuthProvider>
       <ReactRouterProvider router={router} />
+      <SonnerToaster />
     </AuthProvider>
   );
 }
