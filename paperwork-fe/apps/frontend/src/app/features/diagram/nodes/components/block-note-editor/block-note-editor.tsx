@@ -28,6 +28,7 @@ import { filterSuggestionItems } from '@blocknote/core';
 import styles from './block-note-editor.module.css';
 import { formNodeSchema, type FormNodeEditor } from './schema';
 import { getContentSuggestionItems, type FormQuestion, type FormSignature, type FormTime } from './answer-menu';
+import useStore from '@/store/store';
 
 type Props = {
   nodeId: string;
@@ -64,6 +65,7 @@ export const BlockNoteEditor = memo(
     const containerRef = useRef<HTMLDivElement>(null);
     const initialContentRef = useRef(initialContent);
     const [isEditorFocused, setIsEditorFocused] = useState(false);
+    const isConnecting = useStore((store) => !!store.connectionBeingDragged);
 
     const editor = useCreateBlockNote(
       {
@@ -108,7 +110,7 @@ export const BlockNoteEditor = memo(
 
     useEffect(() => {
       const container = containerRef.current;
-      if (!container || !isEditorFocused) return;
+      if (!container || !isEditorFocused || isConnecting) return;
 
       const stopAllPropagation = (event: Event) => {
         event.stopPropagation();
@@ -131,7 +133,7 @@ export const BlockNoteEditor = memo(
         container.removeEventListener('mouseup', stopAllPropagation, true);
         container.removeEventListener('wheel', stopAllPropagation, true);
       };
-    }, [isEditorFocused]);
+    }, [isConnecting, isEditorFocused]);
 
     return (
       <div

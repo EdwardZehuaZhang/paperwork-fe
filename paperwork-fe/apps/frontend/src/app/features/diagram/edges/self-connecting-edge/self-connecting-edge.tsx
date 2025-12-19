@@ -1,6 +1,6 @@
 import { BaseEdge, EdgeProps } from '@xyflow/react';
 import { EdgeState, useEdgeStyle } from '@/features/diagram/ui-components';
-import { EDGE_CURVE_RADIUS, SELF_CONNECTING_EDGE_LABEL_OFFSET } from '../edge.consts';
+import { EDGE_CURVE_RADIUS, EDGE_INTERACTION_WIDTH, SELF_CONNECTING_EDGE_LABEL_OFFSET } from '../edge.consts';
 import { WorkflowBuilderEdge } from '@workflow-builder/types/node-data';
 
 type SelfConnectingEdgeProps = EdgeProps<WorkflowBuilderEdge> & {
@@ -58,5 +58,5 @@ export function SelfConnectingEdge({
     EDGE_CURVE_RADIUS,
   );
 
-  return <BaseEdge id={id} path={path} style={style} />;
+  return <BaseEdge id={id} path={path} style={style} interactionWidth={EDGE_INTERACTION_WIDTH} />;
 }

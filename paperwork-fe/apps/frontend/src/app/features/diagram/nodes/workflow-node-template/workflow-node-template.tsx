@@ -60,14 +60,6 @@ const WorkflowNodeTemplateComponent = memo(
 
     const hasContent = !!children;
 
-    const isApprovalNode = data?.type === 'approval';
-    const linkedNodeId = isApprovalNode ? (data?.properties as any)?.linkedNodeId : undefined;
-    const linkedNode = linkedNodeId ? nodes.find((node) => node.id === linkedNodeId) : undefined;
-
-    const isFormApprovalNode = isApprovalNode && linkedNode?.data?.type === 'form';
-    const isStandaloneSheetNode = data?.type === 'sheet';
-    const allowEditDocumentPreviewForm = isStandaloneSheetNode || isFormApprovalNode;
-
     const isFormNode = useMemo(() => {
       const properties = data?.properties as unknown;
       if (!properties || typeof properties !== 'object') {
@@ -80,6 +72,14 @@ const WorkflowNodeTemplateComponent = memo(
         (properties as { formBody?: unknown }).formBody !== null
       );
     }, [data?.properties]);
+
+    const isApprovalNode = data?.type === 'approval';
+    const linkedNodeId = isApprovalNode ? (data?.properties as any)?.linkedNodeId : undefined;
+    const linkedNode = linkedNodeId ? nodes.find((node) => node.id === linkedNodeId) : undefined;
+
+    const isFormApprovalNode = isApprovalNode && linkedNode?.data?.type === 'form';
+    const isStandaloneSheetNode = data?.type === 'sheet';
+    const allowEditDocumentPreviewForm = isStandaloneSheetNode || isFormApprovalNode || isFormNode;
 
     const isExpanded = selected && isFormNode;
 

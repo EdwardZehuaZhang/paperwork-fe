@@ -17,6 +17,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { FileText } from '@phosphor-icons/react';
 import { DateTimeField } from '../form-preview/date-time-field';
+import { AddressField } from '../form-preview/address-field';
 import { SignatureFileUpload } from '@/components/file-upload-demo';
 import styles from '../form-preview/form-preview.module.css';
 
@@ -52,8 +53,21 @@ export function ApprovalFormPreview({ formBody, noteRequirement, notePlaceholder
     .filter(([key]) => /^time\d+$/.test(key))
     .sort((a, b) => Number.parseInt(a[0].replace('time', ''), 10) - Number.parseInt(b[0].replace('time', ''), 10));
 
+  const currentTimes = Object.entries(mergedFormBody)
+    .filter(([key]) => /^currentTime\d+$/.test(key))
+    .sort(
+      (a, b) =>
+        Number.parseInt(a[0].replace('currentTime', ''), 10) - Number.parseInt(b[0].replace('currentTime', ''), 10),
+    );
+
+  const addresses = Object.entries(mergedFormBody)
+    .filter(([key]) => /^address\d+$/.test(key))
+    .sort((a, b) => Number.parseInt(a[0].replace('address', ''), 10) - Number.parseInt(b[0].replace('address', ''), 10));
+
   const orderedFields = [
     ...times.map(([key, value]) => ({ type: 'time' as const, key, value })),
+    ...currentTimes.map(([key, value]) => ({ type: 'currentTime' as const, key, value })),
+    ...addresses.map(([key, value]) => ({ type: 'address' as const, key, value })),
     ...questions.map(([key, value]) => ({ type: 'question' as const, key, value })),
     ...moneyQuestions.map(([key, value]) => ({ type: 'money' as const, key, value })),
     ...signatures.map(([key, value]) => ({ type: 'signature' as const, key, value })),
@@ -145,6 +159,37 @@ export function ApprovalFormPreview({ formBody, noteRequirement, notePlaceholder
                   const timeNumber = field.key.replace('time', '');
                   const format = typeof field.value === 'string' && field.value ? field.value : 'Date, Month and Year';
                   return <DateTimeField key={field.key} questionKey={field.key} label={`Date/Time ${timeNumber}`} format={format} />;
+                }
+
+                if (field.type === 'currentTime') {
+                  const timeNumber = field.key.replace('currentTime', '');
+                  const format = typeof field.value === 'string' && field.value ? field.value : 'Date, Month and Year';
+                  return (
+                    <DateTimeField
+                      key={field.key}
+                      questionKey={field.key}
+                      label={`Current Time ${timeNumber}`}
+                      format={format}
+                      value={new Date()}
+                    />
+                  );
+                }
+
+                if (field.type === 'address') {
+                  const addressNumber = field.key.replace('address', '');
+                  const format =
+                    typeof field.value === 'string' && field.value
+                      ? field.value
+                      : 'Street Address, City and Postal Code';
+
+                  return (
+                    <AddressField
+                      key={field.key}
+                      questionKey={field.key}
+                      label={`Address ${addressNumber}`}
+                      format={format}
+                    />
+                  );
                 }
 
                 return null;

@@ -16,6 +16,7 @@ import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { FileText } from '@phosphor-icons/react';
 import { DateTimeField } from './date-time-field';
+import { AddressField } from './address-field';
 import { SignatureFileUpload } from '@/components/file-upload-demo';
 
 import styles from './form-preview.module.css';
@@ -61,10 +62,38 @@ export function FormPreview({ formBody }: FormPreviewProps) {
       return numberA - numberB;
     });
 
-  // Create ordered array of all field types to match properties panel order: times -> questions -> money -> signatures
+  // Extract current times (currentTime1, currentTime2, etc.)
+  const currentTimes = Object.entries(formBody)
+    .filter(([key]) => /^currentTime\d+$/.test(key))
+    .sort((a, b) => {
+      const numberA = Number.parseInt(a[0].replace('currentTime', ''), 10);
+      const numberB = Number.parseInt(b[0].replace('currentTime', ''), 10);
+      return numberA - numberB;
+    });
+
+  // Extract addresses (address1, address2, etc.)
+  const addresses = Object.entries(formBody)
+    .filter(([key]) => /^address\d+$/.test(key))
+    .sort((a, b) => {
+      const numberA = Number.parseInt(a[0].replace('address', ''), 10);
+      const numberB = Number.parseInt(b[0].replace('address', ''), 10);
+      return numberA - numberB;
+    });
+
+  // Create ordered array of all field types to match properties panel order: times -> current times -> addresses -> questions -> money -> signatures
   const orderedFields = [
     ...times.map(([key, value]) => ({
       type: 'time' as const,
+      key,
+      value,
+    })),
+    ...currentTimes.map(([key, value]) => ({
+      type: 'currentTime' as const,
+      key,
+      value,
+    })),
+    ...addresses.map(([key, value]) => ({
+      type: 'address' as const,
       key,
       value,
     })),
@@ -114,7 +143,7 @@ export function FormPreview({ formBody }: FormPreviewProps) {
         <div className={styles['form-content']}>
           <FieldSet>
             <FieldGroup>
-              {/* Render fields in order: times -> questions -> money -> signatures */}
+              {/* Render fields in order: times -> current times -> addresses -> questions -> money -> signatures */}
               {orderedFields.map((field) => {
                 if (field.type === 'question') {
                   const questionNumber = field.key.replace('question', '');
@@ -173,6 +202,37 @@ export function FormPreview({ formBody }: FormPreviewProps) {
                   const timeNumber = field.key.replace('time', '');
                   const format = typeof field.value === 'string' && field.value ? field.value : 'Date, Month and Year';
                   return <DateTimeField key={field.key} questionKey={field.key} label={`Date/Time ${timeNumber}`} format={format} />;
+                }
+
+                if (field.type === 'currentTime') {
+                  const timeNumber = field.key.replace('currentTime', '');
+                  const format = typeof field.value === 'string' && field.value ? field.value : 'Date, Month and Year';
+                  return (
+                    <DateTimeField
+                      key={field.key}
+                      questionKey={field.key}
+                      label={`Current Time ${timeNumber}`}
+                      format={format}
+                      value={new Date()}
+                    />
+                  );
+                }
+
+                if (field.type === 'address') {
+                  const addressNumber = field.key.replace('address', '');
+                  const format =
+                    typeof field.value === 'string' && field.value
+                      ? field.value
+                      : 'Street Address, City and Postal Code';
+
+                  return (
+                    <AddressField
+                      key={field.key}
+                      questionKey={field.key}
+                      label={`Address ${addressNumber}`}
+                      format={format}
+                    />
+                  );
                 }
 
                 return null;

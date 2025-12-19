@@ -9,9 +9,44 @@ interface DateTimeFieldProps {
   label: string;
   questionKey: string;
   format: string;
+  value?: Date;
 }
 
-export function DateTimeField({ label, questionKey, format }: DateTimeFieldProps) {
+function pad2(value: number) {
+  return String(value).padStart(2, '0');
+}
+
+function formatDateForOption(date: Date, format: string) {
+  const day = pad2(date.getDate());
+  const month = pad2(date.getMonth() + 1);
+  const year = String(date.getFullYear());
+
+  switch (format) {
+    case 'Date, Month and Year': {
+      return `${day}/${month}/${year}`;
+    }
+    case 'Month and Year': {
+      return `${month}/${year}`;
+    }
+    case 'Date and Month': {
+      return `${day}/${month}`;
+    }
+    case 'Year Only': {
+      return year;
+    }
+    case 'Monthly Only': {
+      return month;
+    }
+    case 'Date Only': {
+      return day;
+    }
+    default: {
+      return '';
+    }
+  }
+}
+
+export function DateTimeField({ label, questionKey, format, value }: DateTimeFieldProps) {
   // Map format string to display format
   const getFormatDisplay = () => {
     switch (format) {
@@ -39,6 +74,9 @@ export function DateTimeField({ label, questionKey, format }: DateTimeFieldProps
     }
   };
 
+  const resolvedDisplay = value ? formatDateForOption(value, format) : getFormatDisplay();
+  const fallbackDisplay = value ? '—' : 'Select date';
+
   return (
     <Field>
       <FieldLabel htmlFor={questionKey}>{label}</FieldLabel>
@@ -51,7 +89,7 @@ export function DateTimeField({ label, questionKey, format }: DateTimeFieldProps
             disabled
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {getFormatDisplay()}
+            {resolvedDisplay || fallbackDisplay}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">

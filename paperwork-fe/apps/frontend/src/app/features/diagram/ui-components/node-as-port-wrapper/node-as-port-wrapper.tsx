@@ -41,7 +41,17 @@ export const NodeAsPortWrapper = memo(function NodeAsPortWrapper({
     }
   }, [isConnecting]);
 
+  const onPointerEnter = useCallback(() => {
+    if (isConnecting) {
+      setIsConnectionTarget(true);
+    }
+  }, [isConnecting]);
+
   const onMouseLeave = useCallback(() => {
+    setIsConnectionTarget(false);
+  }, []);
+
+  const onPointerLeave = useCallback(() => {
     setIsConnectionTarget(false);
   }, []);
 
@@ -50,6 +60,8 @@ export const NodeAsPortWrapper = memo(function NodeAsPortWrapper({
       ref={ref}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onPointerEnter={onPointerEnter}
+      onPointerLeave={onPointerLeave}
       style={containerStyles as React.CSSProperties}
       className={clsx({
         ['is-connection-target']: canApplyStyles,

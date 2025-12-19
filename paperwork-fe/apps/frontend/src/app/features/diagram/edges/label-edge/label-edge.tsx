@@ -1,7 +1,12 @@
 import './variables.css';
 import { EdgeProps, getSmoothStepPath, BaseEdge, useReactFlow } from '@xyflow/react';
 import { WorkflowBuilderEdge } from 'apps/types/src/node-data';
-import { EDGE_CURVE_RADIUS, EDGE_OFFSET, SELF_CONNECTING_EDGE_LABEL_OFFSET } from '../edge.consts';
+import {
+  EDGE_CURVE_RADIUS,
+  EDGE_OFFSET,
+  EDGE_INTERACTION_WIDTH,
+  SELF_CONNECTING_EDGE_LABEL_OFFSET,
+} from '../edge.consts';
 import { Icon } from '@workflow-builder/icons';
 import { SelfConnectingEdge } from '../self-connecting-edge/self-connecting-edge';
 import { EdgeLabel } from '../edge-label-renderer/edge-label-renderer';
@@ -77,7 +82,7 @@ export function LabelEdge({
 
   return (
     <>
-      <BaseEdge id={id} path={edgePath} style={style} />
+      <BaseEdge id={id} path={edgePath} style={style} interactionWidth={EDGE_INTERACTION_WIDTH} />
       <EdgeLabel {...labelProps} labelX={labelX} labelY={labelY} />
     </>
   );

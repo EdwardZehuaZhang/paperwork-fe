@@ -85,6 +85,14 @@
 
     /* Compatibility: existing Tailwind config uses --sidebar-background */
     --sidebar-background: var(--sidebar);
+
+    /* React Flow edge tokens (fallbacks)
+     * Some diagram components expect these ax-* variables to exist.
+     */
+    --ax-edge-primary-default: var(--muted-foreground);
+    --ax-edge-primary-hover: var(--foreground);
+    --ax-edge-primary-active: var(--primary);
+    --ax-edge-primary-disabled: var(--border);
   }
 
   .dark {
@@ -118,6 +126,12 @@
     --sidebar-primary: oklch(0.4246 0.1680 261.8892);
     --sidebar-primary-foreground: oklch(1.0000 0 0);
     --sidebar-accent: oklch(0.2739 0.0055 286.0326);
+
+    /* React Flow edge tokens (fallbacks) */
+    --ax-edge-primary-default: var(--muted-foreground);
+    --ax-edge-primary-hover: var(--foreground);
+    --ax-edge-primary-active: var(--primary);
+    --ax-edge-primary-disabled: var(--border);
     --sidebar-accent-foreground: oklch(0.9851 0 0);
     --sidebar-border: oklch(0.2739 0.0055 286.0326);
     --sidebar-ring: oklch(0.4246 0.1680 261.8892);

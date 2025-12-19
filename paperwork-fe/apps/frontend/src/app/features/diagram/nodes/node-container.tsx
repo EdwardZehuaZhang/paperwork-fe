@@ -1,6 +1,7 @@
 import useStore from '@/store/store';
 
 import { memo } from 'react';
+import type { PointerEvent } from 'react';
 import { Handle, NodeProps } from '@xyflow/react';
 import { WorkflowBuilderNode } from '@workflow-builder/types/node-data';
 import { WorkflowNodeTemplate } from './workflow-node-template/workflow-node-template';
@@ -25,7 +26,8 @@ export const NodeContainer = memo(({ id, data, selected }: Props) => {
   const handleTargetId = getHandleId({ nodeId: id, handleType: 'target' });
   const handleSourceId = getHandleId({ nodeId: id, handleType: 'source' });
 
-  const logHandlePointerDownCapture = (label: 'target' | 'source') => (event: React.PointerEvent) => {
+  const logHandlePointerDownCapture =
+    (label: 'target' | 'source') => (event: PointerEvent<HTMLDivElement>) => {
     if (import.meta.env.DEV) {
       // eslint-disable-next-line no-console
       console.debug('[rf] handle pointerdown', {
@@ -58,20 +60,18 @@ export const NodeContainer = memo(({ id, data, selected }: Props) => {
               id={handleTargetId}
               position={handleTargetPosition}
               type="target"
-              className="nodrag"
               onPointerDownCapture={logHandlePointerDownCapture('target')}
               isConnectable
-              isConnectableStart
-              isConnectableEnd
+              isConnectableStart={false}
+              isConnectableEnd={true}
             />
             <Handle
               id={handleSourceId}
               position={handleSourcePosition}
               type="source"
-              className="nodrag"
               onPointerDownCapture={logHandlePointerDownCapture('source')}
               isConnectable
-              isConnectableStart
+              isConnectableStart={true}
               isConnectableEnd={false}
             />
           </>

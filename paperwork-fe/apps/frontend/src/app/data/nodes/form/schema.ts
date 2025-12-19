@@ -21,6 +21,10 @@ export const schema = {
         time: { type: 'string' },
         // Preferred numbered time fields
         time1: { type: 'string' },
+        // Preferred numbered current time fields
+        currentTime1: { type: 'string' },
+        // Preferred numbered address fields
+        address1: { type: 'string' },
         question1: { type: 'string' },
         // Seed first signature; additional signatures can be added dynamically in UI
         signature1: { type: 'string' },

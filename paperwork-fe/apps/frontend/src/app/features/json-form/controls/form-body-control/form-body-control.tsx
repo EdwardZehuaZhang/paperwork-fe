@@ -77,6 +77,12 @@ function FormBodyControl(props: FormBodyControlProps) {
     'Date Only',
   ] as const;
 
+  const addressOptions = [
+    'Street Address',
+    'Street Address and City',
+    'Street Address, City and Postal Code',
+  ] as const;
+
   const times = useMemo(
     () =>
       Object.entries(formBody)
@@ -84,6 +90,30 @@ function FormBodyControl(props: FormBodyControlProps) {
         .sort((a, b) => {
           const numA = parseInt(a[0].replace('time', ''), 10);
           const numB = parseInt(b[0].replace('time', ''), 10);
+          return numA - numB;
+        }),
+    [formBody],
+  );
+
+  const currentTimes = useMemo(
+    () =>
+      Object.entries(formBody)
+        .filter(([key]) => /^currentTime\d+$/.test(key))
+        .sort((a, b) => {
+          const numA = parseInt(a[0].replace('currentTime', ''), 10);
+          const numB = parseInt(b[0].replace('currentTime', ''), 10);
+          return numA - numB;
+        }),
+    [formBody],
+  );
+
+  const addresses = useMemo(
+    () =>
+      Object.entries(formBody)
+        .filter(([key]) => /^address\d+$/.test(key))
+        .sort((a, b) => {
+          const numA = parseInt(a[0].replace('address', ''), 10);
+          const numB = parseInt(b[0].replace('address', ''), 10);
           return numA - numB;
         }),
     [formBody],
@@ -244,6 +274,78 @@ function FormBodyControl(props: FormBodyControlProps) {
     handleChange(path, updated);
   }, [times, formBody, handleChange, path]);
 
+  const handleCurrentTimeChange = useCallback(
+    (currentTimeKey: string, value: string) => {
+      const updated = { ...formBody, [currentTimeKey]: value };
+      handleChange(path, updated);
+    },
+    [formBody, handleChange, path],
+  );
+
+  const handleDeleteCurrentTime = useCallback(
+    (currentTimeKey: string) => {
+      const updated = { ...formBody };
+      delete updated[currentTimeKey];
+      handleChange(path, updated);
+    },
+    [formBody, handleChange, path],
+  );
+
+  const handleAddCurrentTime = useCallback(() => {
+    const currentTimeNumbers = currentTimes
+      .map(([key]) => parseInt(key.replace('currentTime', ''), 10))
+      .sort((a, b) => a - b);
+
+    let nextNumber = 1;
+    for (const num of currentTimeNumbers) {
+      if (num === nextNumber) {
+        nextNumber++;
+      } else {
+        break;
+      }
+    }
+
+    const newCurrentTimeKey = `currentTime${nextNumber}`;
+    const updated = { ...formBody, [newCurrentTimeKey]: 'Date, Month and Year' };
+    handleChange(path, updated);
+  }, [currentTimes, formBody, handleChange, path]);
+
+  const handleAddressChange = useCallback(
+    (addressKey: string, value: string) => {
+      const updated = { ...formBody, [addressKey]: value };
+      handleChange(path, updated);
+    },
+    [formBody, handleChange, path],
+  );
+
+  const handleDeleteAddress = useCallback(
+    (addressKey: string) => {
+      const updated = { ...formBody };
+      delete updated[addressKey];
+      handleChange(path, updated);
+    },
+    [formBody, handleChange, path],
+  );
+
+  const handleAddAddress = useCallback(() => {
+    const addressNumbers = addresses
+      .map(([key]) => parseInt(key.replace('address', ''), 10))
+      .sort((a, b) => a - b);
+
+    let nextNumber = 1;
+    for (const num of addressNumbers) {
+      if (num === nextNumber) {
+        nextNumber++;
+      } else {
+        break;
+      }
+    }
+
+    const newAddressKey = `address${nextNumber}`;
+    const updated = { ...formBody, [newAddressKey]: 'Street Address, City and Postal Code' };
+    handleChange(path, updated);
+  }, [addresses, formBody, handleChange, path]);
+
   const handleSignatureChange = useCallback(
     (signatureKey: string, value: string) => {
       const updated = { ...formBody, [signatureKey]: value };
@@ -304,8 +406,18 @@ function FormBodyControl(props: FormBodyControlProps) {
           label: 'Time',
           onSelect: () => handleAddTime(),
         },
+        {
+          value: 'currentTime',
+          label: 'Current time',
+          onSelect: () => handleAddCurrentTime(),
+        },
+        {
+          value: 'address',
+          label: 'Address',
+          onSelect: () => handleAddAddress(),
+        },
       ] as const,
-    [handleAddQuestion, handleAddMoney, handleAddSignature, handleAddTime],
+    [handleAddQuestion, handleAddMoney, handleAddSignature, handleAddTime, handleAddCurrentTime, handleAddAddress],
   );
 
   return (
@@ -347,6 +459,88 @@ function FormBodyControl(props: FormBodyControlProps) {
                             </SelectTrigger>
                             <SelectContent position="item-aligned">
                               {timeOptions.map((opt) => (
+                                <SelectItem key={opt} value={opt}>
+                                  {opt}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className={styles['times-list']}>
+                    {currentTimes.map(([currentTimeKey, currentTimeValue]) => {
+                      const timeNumber = currentTimeKey.replace('currentTime', '');
+                      const label = `Current Time ${timeNumber}`;
+
+                      return (
+                        <div key={currentTimeKey} className={styles['time-item']}>
+                          <div className={styles['time-row']}>
+                            <label className={styles['time-label']}>{label}</label>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleDeleteCurrentTime(currentTimeKey)}
+                              disabled={!enabled}
+                              className={styles['delete-button']}
+                              title={`Delete ${label}`}
+                            >
+                              <Trash className={styles['delete-icon']} />
+                            </Button>
+                          </div>
+                          <Select
+                            value={typeof currentTimeValue === 'string' ? currentTimeValue : 'Date, Month and Year'}
+                            onValueChange={(value) => handleCurrentTimeChange(currentTimeKey, value)}
+                            disabled={!enabled}
+                          >
+                            <SelectTrigger className={styles['time-select']}>
+                              <SelectValue placeholder="Select a time format" />
+                            </SelectTrigger>
+                            <SelectContent position="item-aligned">
+                              {timeOptions.map((opt) => (
+                                <SelectItem key={opt} value={opt}>
+                                  {opt}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className={styles['times-list']}>
+                    {addresses.map(([addressKey, addressValue]) => {
+                      const addressNumber = addressKey.replace('address', '');
+                      const label = `Address ${addressNumber}`;
+
+                      return (
+                        <div key={addressKey} className={styles['time-item']}>
+                          <div className={styles['time-row']}>
+                            <label className={styles['time-label']}>{label}</label>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleDeleteAddress(addressKey)}
+                              disabled={!enabled}
+                              className={styles['delete-button']}
+                              title={`Delete ${label}`}
+                            >
+                              <Trash className={styles['delete-icon']} />
+                            </Button>
+                          </div>
+                          <Select
+                            value={typeof addressValue === 'string' ? addressValue : 'Street Address, City and Postal Code'}
+                            onValueChange={(value) => handleAddressChange(addressKey, value)}
+                            disabled={!enabled}
+                          >
+                            <SelectTrigger className={styles['time-select']}>
+                              <SelectValue placeholder="Select an address format" />
+                            </SelectTrigger>
+                            <SelectContent position="item-aligned">
+                              {addressOptions.map((opt) => (
                                 <SelectItem key={opt} value={opt}>
                                   {opt}
                                 </SelectItem>
@@ -476,7 +670,7 @@ function FormBodyControl(props: FormBodyControlProps) {
                         className={cn(styles['add-button'], 'justify-start gap-2')}
                       >
                         <Plus />
-                        + Add Field
+                        Add Field
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-[220px] p-0" align="start">

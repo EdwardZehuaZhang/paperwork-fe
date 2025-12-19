@@ -9,6 +9,8 @@ export const defaultPropertiesData: NodeDataProperties<FormNodeSchema> = {
   formBody: {
     time: '',
     time1: 'Date, Month and Year',
+    currentTime1: '',
+    address1: '',
     question1: '',
     signature1: '',
   },
