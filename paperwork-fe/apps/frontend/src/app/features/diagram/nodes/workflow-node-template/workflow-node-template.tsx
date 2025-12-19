@@ -20,6 +20,7 @@ import { extractContentFromNodeData } from '../components/block-note-editor/extr
 import { FormPreview } from '../components/form-preview/form-preview';
 import { SheetEditor } from '../components/sheet-editor/sheet-editor';
 import { SheetPreview } from '../components/sheet-preview/sheet-preview';
+import { ApprovalFormPreview } from '../components/approval-form-preview/approval-form-preview';
 
 // Lazy load BlockNote editor to improve performance
 const BlockNoteEditor = lazy(() =>
@@ -56,6 +57,7 @@ const WorkflowNodeTemplateComponent = memo(
     children,
   }: WorkflowNodeTemplateProps) => {
     const setNodeData = useStore((store) => store.setNodeData);
+    const nodes = useStore((store) => store.nodes);
     
     const handleTargetId = getHandleId({ nodeId: id, handleType: 'target' });
     const handleSourceId = getHandleId({ nodeId: id, handleType: 'source' });
@@ -66,6 +68,10 @@ const WorkflowNodeTemplateComponent = memo(
     const iconElement = useMemo(() => <Icon name={icon} size="large" />, [icon]);
 
     const hasContent = !!children;
+
+    const isApprovalNode = data?.type === 'approval';
+    const linkedNodeId = isApprovalNode ? (data?.properties as any)?.linkedNodeId : undefined;
+    const linkedNode = linkedNodeId ? nodes.find((node) => node.id === linkedNodeId) : undefined;
 
     const isFormNode = useMemo(() => {
       const properties = data?.properties as unknown;
@@ -106,19 +112,50 @@ const WorkflowNodeTemplateComponent = memo(
     );
 
     // Extract questions, signatures, and times from node data for content placeholders
-    const { questions, signatures, times } = useMemo(() => extractContentFromNodeData(data), [data]);
+    const effectiveLinkedProperties = useMemo(() => {
+      if (!isApprovalNode) return undefined;
+      const linkedProperties = (linkedNode?.data?.properties as Record<string, unknown>) || undefined;
+      return linkedProperties;
+    }, [isApprovalNode, linkedNode?.data?.properties]);
+
+    const effectiveFormBody = useMemo(() => {
+      const localFormBody = ((data?.properties as any)?.formBody || {}) as Record<string, unknown>;
+      const linkedFormBody = (effectiveLinkedProperties as any)?.formBody || {};
+      return {
+        ...(isApprovalNode ? linkedFormBody : {}),
+        ...localFormBody,
+      };
+    }, [data?.properties, effectiveLinkedProperties, isApprovalNode]);
+
+    const contentExtractionData = useMemo(() => {
+      if (!isApprovalNode || !data) return data;
+      return {
+        ...data,
+        properties: {
+          ...(effectiveLinkedProperties || {}),
+          ...(data.properties as Record<string, unknown>),
+          formBody: effectiveFormBody,
+        },
+      } as NodeData;
+    }, [data, effectiveFormBody, effectiveLinkedProperties, isApprovalNode]);
+
+    const { questions, signatures, times } = useMemo(
+      () => extractContentFromNodeData(contentExtractionData),
+      [contentExtractionData],
+    );
 
     const previewMode = data?.previewMode || 'editDocument';
-    const formBody = (data?.properties as any)?.formBody || {};
-    const isSheetNode = data?.type === 'sheet';
+    const noteRequirement = ((data?.properties as any)?.noteRequirement as 'optional' | 'required') || 'optional';
+    const notePlaceholder = ((data?.properties as any)?.notePlaceholder as string) || 'Additional note';
+    const isSheetNode = data?.type === 'sheet' || (isApprovalNode && linkedNode?.data?.type === 'sheet');
     
     // Initialize default sheetContent if missing for sheet nodes
     const sheetContent = useMemo(() => {
       if (!isSheetNode) return undefined;
-      
+
       if (data?.sheetContent) return data.sheetContent;
-      
-      // Default to 20 rows x 10 columns (A-J) with auto-numbering in column A
+      if (isApprovalNode && linkedNode?.data?.sheetContent) return linkedNode.data.sheetContent;
+
       const toColumnLetter = (index: number): string => {
         let n = index;
         let result = '';
@@ -128,7 +165,7 @@ const WorkflowNodeTemplateComponent = memo(
         }
         return result;
       };
-      
+
       const columnDefs = [];
       for (let i = 0; i < 10; i++) {
         columnDefs.push({
@@ -137,7 +174,7 @@ const WorkflowNodeTemplateComponent = memo(
           width: 150,
         });
       }
-      
+
       const rowData = [];
       for (let i = 0; i < 20; i++) {
         const row: Record<string, string> = {};
@@ -146,13 +183,19 @@ const WorkflowNodeTemplateComponent = memo(
         }
         rowData.push(row);
       }
-      
+
       return {
         columnDefs,
         rowData,
         cellFormatting: {},
       };
-    }, [data?.sheetContent, isSheetNode]);
+    }, [data?.sheetContent, isApprovalNode, isSheetNode, linkedNode?.data?.sheetContent]);
+
+    const effectiveEditorContent = useMemo(() => {
+      if (data?.editorContent) return data.editorContent;
+      if (isApprovalNode && linkedNode?.data?.editorContent) return linkedNode.data.editorContent;
+      return undefined;
+    }, [data?.editorContent, isApprovalNode, linkedNode?.data?.editorContent]);
 
     const showNodeContent = isExpanded || hasContent;
 
@@ -214,7 +257,7 @@ const WorkflowNodeTemplateComponent = memo(
                           >
                             <BlockNoteEditor
                               nodeId={id}
-                              initialContent={data?.editorContent}
+                              initialContent={effectiveEditorContent}
                               onChange={handleEditorChange}
                               selected={selected}
                               questions={questions}
@@ -223,8 +266,14 @@ const WorkflowNodeTemplateComponent = memo(
                             />
                           </Suspense>
                         )
+                      ) : isApprovalNode ? (
+                        <ApprovalFormPreview
+                          formBody={effectiveFormBody}
+                          noteRequirement={noteRequirement}
+                          notePlaceholder={notePlaceholder}
+                        />
                       ) : (
-                        <FormPreview formBody={formBody} />
+                        <FormPreview formBody={effectiveFormBody} />
                       )}
                     </div>
                   </div>

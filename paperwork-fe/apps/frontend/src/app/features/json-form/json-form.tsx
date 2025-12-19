@@ -18,6 +18,7 @@ import { dynamicConditionsControlRenderer } from './controls/dynamic-conditions-
 import { aiToolsControlRenderer } from './controls/ai-tools-control/ai-tools-control';
 import { decisionBranchesControlRenderer } from './controls/decision-branches-control/decision-branches-control';
 import { formBodyControlRenderer } from './controls/form-body-control/form-body-control';
+import { linkedNodeSelectControlRenderer } from './controls/linked-node-select-control/linked-node-select-control';
 import { FieldGroup } from '@/components/ui/field';
 
 type Props = Pick<ComponentProps<typeof JsonForms>, 'onChange' | 'data' | 'uischema' | 'schema'> & {
@@ -51,4 +52,5 @@ const renderers: JsonFormsRendererRegistryEntry[] = [
   aiToolsControlRenderer,
   decisionBranchesControlRenderer,
   formBodyControlRenderer,
+  linkedNodeSelectControlRenderer,
 ];

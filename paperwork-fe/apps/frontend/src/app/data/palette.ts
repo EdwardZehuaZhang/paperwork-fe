@@ -8,5 +8,6 @@ import { decision } from './nodes/decision/decision';
 import { aiAgent } from './nodes/ai-agent/ai-agent';
 import { form } from './nodes/form/form';
 import { sheet } from './nodes/sheet/sheet';
+import { approval } from './nodes/approval/approval';
 
-export const paletteData: PaletteItem[] = [form, sheet, triggerNode, action, delay, conditional, decision, notification, aiAgent];
+export const paletteData: PaletteItem[] = [approval, form, sheet, triggerNode, action, delay, conditional, decision, notification, aiAgent];
