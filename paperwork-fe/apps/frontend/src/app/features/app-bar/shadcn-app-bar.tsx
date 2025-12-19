@@ -50,6 +50,7 @@ import { openImportModal } from '@/features/integration/components/import-export
 import { SavingStatus } from '@/features/integration/components/saving-status/saving-status';
 import { useAutoSave } from '@/features/integration/hooks/use-auto-save';
 import { useAutoSaveOnClose } from '@/features/integration/hooks/use-auto-save-on-close';
+import { BulkAccessDialog } from '@/features/access-control/bulk-access-dialog';
 
 export function ShadcnAppBar() {
   const { t } = useTranslation();
@@ -357,6 +358,9 @@ export function ShadcnAppBar() {
               <DropdownMenuItem onClick={() => handleLanguageChange('de')}>Deutsch</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {/* Bulk Access Dialog */}
+          <BulkAccessDialog />
 
           {/* Menu button with Export/Import/Save as Image */}
           <DropdownMenu>

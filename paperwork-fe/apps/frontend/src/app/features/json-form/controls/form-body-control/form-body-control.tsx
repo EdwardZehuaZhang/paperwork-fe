@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/command';
 import { CurrencySelect } from '@/components/ui/currency-select';
 import { FieldSet, FieldGroup } from '@/components/ui/field';
+import { Separator } from '@/components/ui/separator';
 import { ControlWrapper } from '../control-wrapper';
 import { Trash, Plus } from '@phosphor-icons/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -310,9 +311,9 @@ function FormBodyControl(props: FormBodyControlProps) {
   return (
     <div className={styles['form-body-container']}>
       <Accordion type="single" collapsible defaultValue="content">
-        <AccordionItem value="content">
+        <AccordionItem value="content" className="border-b-0">
           <AccordionTrigger>Content</AccordionTrigger>
-          <AccordionContent>
+          <AccordionContent className="pb-6">
             <FieldSet>
               <FieldGroup>
                 <div className={styles['content-section']}>
@@ -505,6 +506,7 @@ function FormBodyControl(props: FormBodyControlProps) {
               </FieldGroup>
             </FieldSet>
           </AccordionContent>
+          <Separator />
         </AccordionItem>
       </Accordion>
     </div>

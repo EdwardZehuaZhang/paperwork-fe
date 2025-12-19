@@ -1,5 +1,6 @@
 import { FieldSet, FieldGroup } from '@/components/ui/field';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Separator } from '@/components/ui/separator';
 import { AccordionLayoutElement, LayoutProps } from '../../types/layouts';
 import { LayoutWrapper } from '../layout-wrapper';
 import { createLayoutRenderer } from '../../utils/rendering';
@@ -12,13 +13,14 @@ function AccordionLayout(props: LayoutProps<AccordionLayoutElement>) {
   return (
     <LayoutWrapper {...props}>
       <Accordion type="single" collapsible defaultValue="section">
-        <AccordionItem value="section">
+        <AccordionItem value="section" className="border-b-0">
           <AccordionTrigger>{label}</AccordionTrigger>
-          <AccordionContent>
+          <AccordionContent className="pb-6">
             <FieldSet>
               <FieldGroup>{renderElements(props)}</FieldGroup>
             </FieldSet>
           </AccordionContent>
+          <Separator />
         </AccordionItem>
       </Accordion>
     </LayoutWrapper>

@@ -1,5 +1,6 @@
 .editor-container {
   border-radius: 0.375rem;
+  border: 0.0625rem solid var(--border, var(--ax-ui-stroke-primary-default, currentColor));
   overflow: visible;
   background-color: var(--ax-ui-surface-primary-default);
   width: 100%;
@@ -29,7 +30,7 @@
 
 /* Override BlockNote styles to match our design system */
 .editor-container :global(.bn-container) {
-  border: 0.0625rem solid var(--ax-ui-stroke-primary-default);
+  border: 0;
   border-radius: 0.375rem;
   height: 100%;
   display: flex;

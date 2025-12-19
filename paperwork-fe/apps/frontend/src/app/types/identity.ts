@@ -10,10 +10,12 @@ export type User = {
   email: string;
   displayName: string;
   departmentId: string;
+  initials: string;
   roles: RoleFlags;
 };
 
 export type Department = {
   id: string;
   name: string;
+  color?: string;
 };

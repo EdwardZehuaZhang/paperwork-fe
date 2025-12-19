@@ -31,6 +31,11 @@
   padding-bottom: 1rem;
 }
 
+/* Match PropertiesBar collapsed height (no extra bottom padding when collapsed) */
+.sidebar:not(.expanded) .header {
+  padding-bottom: 0;
+}
+
 .sidebar.expanded .header {
   border-bottom: 1px solid var(--border);
 }
