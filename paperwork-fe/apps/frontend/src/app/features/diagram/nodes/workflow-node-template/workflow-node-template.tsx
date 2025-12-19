@@ -18,6 +18,8 @@ import { NodeData } from '@workflow-builder/types/node-data';
 import useStore from '@/store/store';
 import { extractContentFromNodeData } from '../components/block-note-editor/extract-questions';
 import { FormPreview } from '../components/form-preview/form-preview';
+import { SheetEditor } from '../components/sheet-editor/sheet-editor';
+import { SheetPreview } from '../components/sheet-preview/sheet-preview';
 
 // Lazy load BlockNote editor to improve performance
 const BlockNoteEditor = lazy(() =>
@@ -87,6 +89,13 @@ const WorkflowNodeTemplateComponent = memo(
       [id, setNodeData],
     );
 
+    const handleSheetChange = useCallback(
+      (content: unknown) => {
+        setNodeData(id, { sheetContent: content });
+      },
+      [id, setNodeData],
+    );
+
     const handlePreviewModeChange = useCallback(
       (value: string) => {
         if (value) {
@@ -101,6 +110,49 @@ const WorkflowNodeTemplateComponent = memo(
 
     const previewMode = data?.previewMode || 'editDocument';
     const formBody = (data?.properties as any)?.formBody || {};
+    const isSheetNode = data?.type === 'sheet';
+    
+    // Initialize default sheetContent if missing for sheet nodes
+    const sheetContent = useMemo(() => {
+      if (!isSheetNode) return undefined;
+      
+      if (data?.sheetContent) return data.sheetContent;
+      
+      // Default to 20 rows x 10 columns (A-J) with auto-numbering in column A
+      const toColumnLetter = (index: number): string => {
+        let n = index;
+        let result = '';
+        while (n >= 0) {
+          result = String.fromCharCode((n % 26) + 65) + result;
+          n = Math.floor(n / 26) - 1;
+        }
+        return result;
+      };
+      
+      const columnDefs = [];
+      for (let i = 0; i < 10; i++) {
+        columnDefs.push({
+          field: `col${i + 1}`,
+          headerName: toColumnLetter(i),
+          width: 150,
+        });
+      }
+      
+      const rowData = [];
+      for (let i = 0; i < 20; i++) {
+        const row: Record<string, string> = {};
+        for (let j = 0; j < 10; j++) {
+          row[`col${j + 1}`] = j === 0 ? String(i + 1) : '';
+        }
+        rowData.push(row);
+      }
+      
+      return {
+        columnDefs,
+        rowData,
+        cellFormatting: {},
+      };
+    }, [data?.sheetContent, isSheetNode]);
 
     const showNodeContent = isExpanded || hasContent;
 
@@ -142,23 +194,37 @@ const WorkflowNodeTemplateComponent = memo(
                   <div className={styles['expanded-content']}>
                     <div className={styles['preview-section']}>
                       {previewMode === 'editDocument' ? (
-                        <Suspense
-                          fallback={
-                            <div className={styles['editor-loading']}>
-                              <span className="ax-public-p11">Loading editor...</span>
-                            </div>
-                          }
-                        >
-                          <BlockNoteEditor
+                        isSheetNode ? (
+                          <SheetEditor
                             nodeId={id}
-                            initialContent={data?.editorContent}
-                            onChange={handleEditorChange}
+                            initialContent={sheetContent}
+                            onChange={handleSheetChange}
                             selected={selected}
                             questions={questions}
                             signatures={signatures}
                             times={times}
                           />
-                        </Suspense>
+                        ) : (
+                          <Suspense
+                            fallback={
+                              <div className={styles['editor-loading']}>
+                                <span className="ax-public-p11">Loading editor...</span>
+                              </div>
+                            }
+                          >
+                            <BlockNoteEditor
+                              nodeId={id}
+                              initialContent={data?.editorContent}
+                              onChange={handleEditorChange}
+                              selected={selected}
+                              questions={questions}
+                              signatures={signatures}
+                              times={times}
+                            />
+                          </Suspense>
+                        )
+                      ) : isSheetNode ? (
+                        <SheetPreview sheetContent={sheetContent} />
                       ) : (
                         <FormPreview formBody={formBody} />
                       )}
