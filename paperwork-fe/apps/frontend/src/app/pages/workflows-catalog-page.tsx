@@ -1,8 +1,15 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { WorkflowCollectionPage } from '../features/workflow-collection';
 
 export function WorkflowsCatalogPage() {
+  useEffect(() => {
+    document.body.classList.add('hide-sidebar');
+    return () => {
+      document.body.classList.remove('hide-sidebar');
+    };
+  }, []);
+
   const navigate = useNavigate();
 
   const onWorkflowSelect = useCallback(

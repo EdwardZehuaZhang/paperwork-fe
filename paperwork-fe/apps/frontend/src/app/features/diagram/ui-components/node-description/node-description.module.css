@@ -1,6 +1,6 @@
 :root {
   --ax-public-node-title-color: var(--ax-txt-primary-default);
-  --ax-public-node-title-subtitle: var(--ax-txt-secondary-default);
+  --ax-public-node-title-subtitle: var(--muted-foreground);
 }
 
 .container {

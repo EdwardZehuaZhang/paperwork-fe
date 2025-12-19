@@ -56,9 +56,28 @@ export const AiAgentNodeTemplate = memo(
 
     const handlesAlignment = layoutDirection === 'RIGHT' ? 'header' : 'center';
 
+    const isPalettePreview = showHandles === false;
+
+    if (isPalettePreview) {
+      return (
+        <NodePanel.Root
+          selected={selected}
+          className={clsx(styles['root'], styles['palettePreview'])}
+        >
+          <NodePanel.Header className={styles['header']}>
+            <NodeIcon className={styles['icon']} icon={iconElement} />
+            <NodeDescription label={label} description={description} />
+          </NodePanel.Header>
+          <NodePanel.Content className={styles['content']}>
+            <ToolInfo />
+          </NodePanel.Content>
+        </NodePanel.Root>
+      );
+    }
+
     return (
       <Collapsible>
-        <NodePanel.Root selected={selected}>
+        <NodePanel.Root selected={selected} className={styles['root']}>
           <NodePanel.Header className={styles['header']}>
             <NodeIcon className={styles['icon']} icon={iconElement} />
             <NodeDescription label={label} description={description} />

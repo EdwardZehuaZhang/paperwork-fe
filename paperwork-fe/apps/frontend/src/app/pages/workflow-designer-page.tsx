@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ReactFlowProvider } from '@xyflow/react';
 import { setAutoFreeze } from 'immer';
@@ -24,6 +24,13 @@ export function WorkflowDesignerPage() {
 
   // Disable immer's automatic object freezing because ReactFlow mutates objects under the hood
   setAutoFreeze(false);
+
+  useLayoutEffect(() => {
+    document.body.classList.add('hide-sidebar');
+    return () => {
+      document.body.classList.remove('hide-sidebar');
+    };
+  }, []);
 
   useEffect(() => {
     if (!workflowId) return;

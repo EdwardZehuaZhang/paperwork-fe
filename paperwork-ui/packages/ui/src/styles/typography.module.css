@@ -15,6 +15,11 @@
   font-weight: 600;
 }
 
+/* Node titles use ax-public-h9; make them medium */
+.ax-public-h9 {
+  font-weight: 500;
+}
+
 .ax-public-p1,
 .ax-public-p2,
 .ax-public-p3,

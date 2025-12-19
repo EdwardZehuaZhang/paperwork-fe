@@ -10,6 +10,19 @@
   @layer base, component;
 }
 
+@layer ui.base {
+  .ax-public-h9 {
+    font-weight: 500;
+  }
+}
+
+/* Hide sidebar utility */
+.hide-sidebar {
+  aside {
+    display: none;
+  }
+}
+
 /* Shadcn theme variables */
 @layer base {
   :root {

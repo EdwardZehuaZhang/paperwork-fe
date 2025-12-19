@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { IconType } from '@workflow-builder/types/common';
 import { LayoutDirection } from '@workflow-builder/types/common';
 import { memo, useMemo } from 'react';
@@ -44,23 +45,31 @@ export const DecisionNodeTemplate = memo(
     const handleTargetPosition = getHandlePosition({ direction: layoutDirection, handleType: 'target' });
 
     const isCanvasNode = showHandles;
+    const isPalettePreview = showHandles === false;
 
     const handlesAlignment = layoutDirection === 'RIGHT' ? 'header' : 'center';
 
     return (
-      <NodePanel.Root selected={selected} className={styles['decision-node']}>
+      <NodePanel.Root
+        selected={selected}
+        className={clsx(styles['decision-node'], {
+          [styles['palettePreview']]: isPalettePreview,
+        })}
+      >
         <NodePanel.Header>
           <NodeIcon icon={iconElement} />
           <NodeDescription label={label} description={description} />
         </NodePanel.Header>
         <NodePanel.Content>
-          <Status status={isValid === false ? 'invalid' : undefined} />
+          {!isPalettePreview && <Status status={isValid === false ? 'invalid' : undefined} />}
           <BranchesContainer layoutDirection={layoutDirection} nodeId={id} decisionBranches={decisionBranches ?? []} />
         </NodePanel.Content>
-        <NodePanel.Handles isVisible={isCanvasNode} alignment={handlesAlignment}>
-          <Handle id={handleTargetId} position={handleTargetPosition} type="target" />
-          <Handle id={handleSourceId} position={Position.Right} type="source" />
-        </NodePanel.Handles>
+        {!isPalettePreview && (
+          <NodePanel.Handles isVisible={isCanvasNode} alignment={handlesAlignment}>
+            <Handle id={handleTargetId} position={handleTargetPosition} type="target" />
+            <Handle id={handleSourceId} position={Position.Right} type="source" />
+          </NodePanel.Handles>
+        )}
       </NodePanel.Root>
     );
   },
