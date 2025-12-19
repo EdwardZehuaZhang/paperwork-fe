@@ -1,4 +1,3 @@
-import { Handle } from '@xyflow/react';
 import { IconType, LayoutDirection } from '@workflow-builder/types/common';
 import { memo, useMemo, lazy, Suspense, useCallback } from 'react';
 import {
@@ -9,8 +8,6 @@ import {
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Icon } from '@workflow-builder/icons';
-import { getHandleId } from '../../handles/get-handle-id';
-import { getHandlePosition } from '../../handles/get-handle-position';
 
 import styles from './workflow-node-template.module.css';
 import { withOptionalComponentPlugins } from '@/features/plugins-core/adapters/adapter-components';
@@ -58,12 +55,6 @@ const WorkflowNodeTemplateComponent = memo(
   }: WorkflowNodeTemplateProps) => {
     const setNodeData = useStore((store) => store.setNodeData);
     const nodes = useStore((store) => store.nodes);
-    
-    const handleTargetId = getHandleId({ nodeId: id, handleType: 'target' });
-    const handleSourceId = getHandleId({ nodeId: id, handleType: 'source' });
-
-    const handleTargetPosition = getHandlePosition({ direction: layoutDirection, handleType: 'target' });
-    const handleSourcePosition = getHandlePosition({ direction: layoutDirection, handleType: 'source' });
 
     const iconElement = useMemo(() => <Icon name={icon} size="large" />, [icon]);
 
@@ -281,10 +272,6 @@ const WorkflowNodeTemplateComponent = memo(
               )}
             </div>
           )}
-          <div className={styles['handles']} style={{ display: showHandles ? 'flex' : 'none' }}>
-            <Handle id={handleTargetId} position={handleTargetPosition} type="target" />
-            <Handle id={handleSourceId} position={handleSourcePosition} type="source" />
-          </div>
         </div>
       </Collapsible>
     );

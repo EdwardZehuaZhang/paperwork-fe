@@ -31,6 +31,11 @@
   pointer-events: none;
 }
 
+/* Re-enable pointer events for handles themselves to allow dragging connections */
+.handles :global(.react-flow__handle) {
+  pointer-events: all !important;
+}
+
 /* Selected state - add ring effect like shadcn inputs */
 .content[data-expanded='true'] {
   border-color: var(--ring);
