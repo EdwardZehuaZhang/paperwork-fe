@@ -1,4 +1,3 @@
-import { Handle } from '@xyflow/react';
 import { IconType, LayoutDirection } from '@workflow-builder/types/common';
 import { memo, useMemo, lazy, Suspense, useCallback } from 'react';
 import {
@@ -9,8 +8,6 @@ import {
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Icon } from '@workflow-builder/icons';
-import { getHandleId } from '../../handles/get-handle-id';
-import { getHandlePosition } from '../../handles/get-handle-position';
 
 import styles from './workflow-node-template.module.css';
 import { withOptionalComponentPlugins } from '@/features/plugins-core/adapters/adapter-components';
@@ -20,6 +17,7 @@ import { extractContentFromNodeData } from '../components/block-note-editor/extr
 import { FormPreview } from '../components/form-preview/form-preview';
 import { SheetEditor } from '../components/sheet-editor/sheet-editor';
 import { SheetPreview } from '../components/sheet-preview/sheet-preview';
+import { ApprovalFormPreview } from '../components/approval-form-preview/approval-form-preview';
 
 // Lazy load BlockNote editor to improve performance
 const BlockNoteEditor = lazy(() =>
@@ -56,16 +54,19 @@ const WorkflowNodeTemplateComponent = memo(
     children,
   }: WorkflowNodeTemplateProps) => {
     const setNodeData = useStore((store) => store.setNodeData);
-    
-    const handleTargetId = getHandleId({ nodeId: id, handleType: 'target' });
-    const handleSourceId = getHandleId({ nodeId: id, handleType: 'source' });
-
-    const handleTargetPosition = getHandlePosition({ direction: layoutDirection, handleType: 'target' });
-    const handleSourcePosition = getHandlePosition({ direction: layoutDirection, handleType: 'source' });
+    const nodes = useStore((store) => store.nodes);
 
     const iconElement = useMemo(() => <Icon name={icon} size="large" />, [icon]);
 
     const hasContent = !!children;
+
+    const isApprovalNode = data?.type === 'approval';
+    const linkedNodeId = isApprovalNode ? (data?.properties as any)?.linkedNodeId : undefined;
+    const linkedNode = linkedNodeId ? nodes.find((node) => node.id === linkedNodeId) : undefined;
+
+    const isFormApprovalNode = isApprovalNode && linkedNode?.data?.type === 'form';
+    const isStandaloneSheetNode = data?.type === 'sheet';
+    const allowEditDocumentPreviewForm = isStandaloneSheetNode || isFormApprovalNode;
 
     const isFormNode = useMemo(() => {
       const properties = data?.properties as unknown;
@@ -98,27 +99,69 @@ const WorkflowNodeTemplateComponent = memo(
 
     const handlePreviewModeChange = useCallback(
       (value: string) => {
+        if (!allowEditDocumentPreviewForm) {
+          return;
+        }
+
         if (value) {
           setNodeData(id, { previewMode: value as 'editDocument' | 'previewForm' });
         }
       },
-      [id, setNodeData],
+      [allowEditDocumentPreviewForm, id, setNodeData],
     );
 
     // Extract questions, signatures, and times from node data for content placeholders
-    const { questions, signatures, times } = useMemo(() => extractContentFromNodeData(data), [data]);
+    const effectiveLinkedProperties = useMemo(() => {
+      if (!isApprovalNode) return undefined;
+      const linkedProperties = (linkedNode?.data?.properties as Record<string, unknown>) || undefined;
+      return linkedProperties;
+    }, [isApprovalNode, linkedNode?.data?.properties]);
 
-    const previewMode = data?.previewMode || 'editDocument';
-    const formBody = (data?.properties as any)?.formBody || {};
-    const isSheetNode = data?.type === 'sheet';
+    const effectiveFormBody = useMemo(() => {
+      const localFormBody = ((data?.properties as any)?.formBody || {}) as Record<string, unknown>;
+      const linkedFormBody = (effectiveLinkedProperties as any)?.formBody || {};
+      return {
+        ...(isApprovalNode ? linkedFormBody : {}),
+        ...localFormBody,
+      };
+    }, [data?.properties, effectiveLinkedProperties, isApprovalNode]);
+
+    const contentExtractionData = useMemo(() => {
+      if (!isApprovalNode || !data) return data;
+      return {
+        ...data,
+        properties: {
+          ...(effectiveLinkedProperties || {}),
+          ...(data.properties as Record<string, unknown>),
+          formBody: effectiveFormBody,
+        },
+      } as NodeData;
+    }, [data, effectiveFormBody, effectiveLinkedProperties, isApprovalNode]);
+
+    const { questions, signatures, times } = useMemo(
+      () => extractContentFromNodeData(contentExtractionData),
+      [contentExtractionData],
+    );
+
+    const previewMode = allowEditDocumentPreviewForm
+      ? (data?.previewMode || 'editDocument')
+      : 'editDocument';
+    const noteRequirement = ((data?.properties as any)?.noteRequirement as 'optional' | 'required') || 'optional';
+    const notePlaceholder = ((data?.properties as any)?.notePlaceholder as string) || 'Additional note';
+    const isSheetNode = data?.type === 'sheet' || (isApprovalNode && linkedNode?.data?.type === 'sheet');
+
+    const expandedDocumentOrientation = isSheetNode ? 'landscape' : 'portrait';
+    const expandedWidth = expandedDocumentOrientation === 'landscape' ? '1272px' : '900px';
+    const expandedDocumentAspectRatio =
+      expandedDocumentOrientation === 'landscape' ? '1.414 / 1' : '1 / 1.414';
     
     // Initialize default sheetContent if missing for sheet nodes
     const sheetContent = useMemo(() => {
       if (!isSheetNode) return undefined;
-      
+
       if (data?.sheetContent) return data.sheetContent;
-      
-      // Default to 20 rows x 10 columns (A-J) with auto-numbering in column A
+      if (isApprovalNode && linkedNode?.data?.sheetContent) return linkedNode.data.sheetContent;
+
       const toColumnLetter = (index: number): string => {
         let n = index;
         let result = '';
@@ -128,7 +171,7 @@ const WorkflowNodeTemplateComponent = memo(
         }
         return result;
       };
-      
+
       const columnDefs = [];
       for (let i = 0; i < 10; i++) {
         columnDefs.push({
@@ -137,22 +180,28 @@ const WorkflowNodeTemplateComponent = memo(
           width: 150,
         });
       }
-      
+
       const rowData = [];
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 30; i++) {
         const row: Record<string, string> = {};
         for (let j = 0; j < 10; j++) {
-          row[`col${j + 1}`] = j === 0 ? String(i + 1) : '';
+          row[`col${j + 1}`] = '';
         }
         rowData.push(row);
       }
-      
+
       return {
         columnDefs,
         rowData,
         cellFormatting: {},
       };
-    }, [data?.sheetContent, isSheetNode]);
+    }, [data?.sheetContent, isApprovalNode, isSheetNode, linkedNode?.data?.sheetContent]);
+
+    const effectiveEditorContent = useMemo(() => {
+      if (data?.editorContent) return data.editorContent;
+      if (isApprovalNode && linkedNode?.data?.editorContent) return linkedNode.data.editorContent;
+      return undefined;
+    }, [data?.editorContent, isApprovalNode, linkedNode?.data?.editorContent]);
 
     const showNodeContent = isExpanded || hasContent;
 
@@ -161,11 +210,17 @@ const WorkflowNodeTemplateComponent = memo(
         <div
           className={styles['content']}
           data-expanded={isExpanded ? 'true' : 'false'}
+          style={
+            {
+              '--workflow-node-expanded-width': expandedWidth,
+              '--workflow-node-document-aspect-ratio': expandedDocumentAspectRatio,
+            } as React.CSSProperties
+          }
         >
           <div className={styles['header']}>
             <NodeIcon icon={iconElement} />
             <NodeDescription label={label} description={description} />
-            {selected && (
+            {selected && allowEditDocumentPreviewForm && (
               <div style={{ marginLeft: 'auto' }}>
                 <Tabs value={previewMode} onValueChange={handlePreviewModeChange}>
                   <TabsList>
@@ -214,7 +269,7 @@ const WorkflowNodeTemplateComponent = memo(
                           >
                             <BlockNoteEditor
                               nodeId={id}
-                              initialContent={data?.editorContent}
+                              initialContent={effectiveEditorContent}
                               onChange={handleEditorChange}
                               selected={selected}
                               questions={questions}
@@ -223,8 +278,14 @@ const WorkflowNodeTemplateComponent = memo(
                             />
                           </Suspense>
                         )
+                      ) : isApprovalNode ? (
+                        <ApprovalFormPreview
+                          formBody={effectiveFormBody}
+                          noteRequirement={noteRequirement}
+                          notePlaceholder={notePlaceholder}
+                        />
                       ) : (
-                        <FormPreview formBody={formBody} />
+                        <FormPreview formBody={effectiveFormBody} />
                       )}
                     </div>
                   </div>
@@ -232,10 +293,6 @@ const WorkflowNodeTemplateComponent = memo(
               )}
             </div>
           )}
-          <div className={styles['handles']} style={{ display: showHandles ? 'flex' : 'none' }}>
-            <Handle id={handleTargetId} position={handleTargetPosition} type="target" />
-            <Handle id={handleSourceId} position={handleSourcePosition} type="source" />
-          </div>
         </div>
       </Collapsible>
     );

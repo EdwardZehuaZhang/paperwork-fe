@@ -32,7 +32,7 @@ function PropertiesBarComponent({
   onTabChange,
   tabs = [],
 }: PropertiesBarProps) {
-  const MIN_WIDTH_PX = 270;
+  const MIN_WIDTH_PX = 300;
   const MAX_WIDTH_PX = 720;
 
   const [widthPx, setWidthPx] = useState<number>(MIN_WIDTH_PX);

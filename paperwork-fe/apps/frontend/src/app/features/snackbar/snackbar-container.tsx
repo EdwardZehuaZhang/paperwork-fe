@@ -1,16 +1,5 @@
-import { Snackbar } from '@/components/overflow-ui';
-import { SnackbarProvider } from 'notistack';
+import { SonnerToaster } from '@/components/sonner-toaster';
 
 export function SnackbarContainer() {
-  return (
-    <SnackbarProvider
-      Components={{
-        default: Snackbar,
-        info: Snackbar,
-        success: Snackbar,
-        warning: Snackbar,
-        error: Snackbar,
-      }}
-    />
-  );
+  return <SonnerToaster />;
 }

@@ -9,7 +9,6 @@ import { PropertiesBarContainerLazy } from '../features/properties-bar/propertie
 import { PaletteContainerLazy } from '../features/palette/palette-container-lazy';
 import { DiagramWrapper } from '../features/diagram/diagram-wrapper';
 import { DiagramContainer as Diagram } from '../features/diagram/diagram';
-import { SnackbarContainer } from '../features/snackbar/snackbar-container';
 import { OptionalHooks } from '../features/plugins-core/components/optional-hooks';
 import { AppLoaderContainer } from '../features/integration/components/app-loader/app-loader-container';
 
@@ -71,7 +70,6 @@ export function WorkflowDesignerPage() {
           <DiagramWrapper>
             <Diagram />
           </DiagramWrapper>
-          <SnackbarContainer />
           <AppLoaderContainer />
           <OptionalHooks />
         </div>

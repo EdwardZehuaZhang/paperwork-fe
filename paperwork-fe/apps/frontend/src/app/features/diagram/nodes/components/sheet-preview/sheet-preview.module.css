@@ -5,7 +5,7 @@
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  aspect-ratio: 1 / 1.414; /* A4 ratio (1:√2) to match SheetEditor */
+  aspect-ratio: 1.414 / 1; /* Landscape A4 ratio (√2:1) */
   flex-shrink: 0;
   box-sizing: border-box;
   display: flex;

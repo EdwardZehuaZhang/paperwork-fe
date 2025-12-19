@@ -49,8 +49,8 @@ const createDefaultTableStructure = () => {
   for (let i = 0; i < 20; i++) {
     const row: Record<string, any> = {};
     for (let j = 0; j < 10; j++) {
-      // Prefill first column with 1..20, others empty
-      row[`col${j + 1}`] = j === 0 ? String(i + 1) : '';
+      // New sheets should start empty (no default values in column A)
+      row[`col${j + 1}`] = '';
     }
     rowData.push(row);
   }
@@ -72,6 +72,7 @@ export const SheetEditor = memo(
     const spreadsheetRef = useRef<any>(null);
     const [jssInstance, setJssInstance] = useState<any>(null);
     const lastClickedCellRef = useRef<{ x: number; y: number } | null>(null);
+    const onChangeRef = useRef<SheetEditorProps['onChange']>(onChange);
 
     const defaultStructure = useMemo(() => createDefaultTableStructure(), []);
 
@@ -95,6 +96,27 @@ export const SheetEditor = memo(
       }
       return normalized;
     });
+
+    // Some jspreadsheet callbacks are bound once; keep live refs to avoid stale state.
+    const columnDefsRef = useRef(columnDefs);
+    const rowDataRef = useRef(rowData);
+    const cellFormattingRef = useRef(cellFormatting);
+
+    useEffect(() => {
+      onChangeRef.current = onChange;
+    }, [onChange]);
+
+    useEffect(() => {
+      columnDefsRef.current = columnDefs;
+    }, [columnDefs]);
+
+    useEffect(() => {
+      rowDataRef.current = rowData;
+    }, [rowData]);
+
+    useEffect(() => {
+      cellFormattingRef.current = cellFormatting;
+    }, [cellFormatting]);
 
     useEffect(() => {
       if (!selected) return;
@@ -143,6 +165,11 @@ export const SheetEditor = memo(
     );
 
     const columnFields = useMemo(() => columnDefs.map((c) => c.field), [columnDefs]);
+    const columnFieldsRef = useRef(columnFields);
+
+    useEffect(() => {
+      columnFieldsRef.current = columnFields;
+    }, [columnFields]);
 
     const data = useMemo(
       () => rowData.map((row) => columnFields.map((field) => row[field] ?? '')),
@@ -167,21 +194,24 @@ export const SheetEditor = memo(
 
     const emitChange = useCallback(
       (nextColumns: ColumnDef[], nextRows: Record<string, any>[], nextFormatting: Record<string, Set<string>>) => {
-        if (!onChange) return;
-        onChange({ columnDefs: nextColumns, rowData: nextRows, cellFormatting: nextFormatting });
+        const cb = onChangeRef.current;
+        if (!cb) return;
+        cb({ columnDefs: nextColumns, rowData: nextRows, cellFormatting: nextFormatting });
       },
-      [onChange],
+      [],
     );
 
     const refreshFromInstance = useCallback(() => {
       const ws = getWorksheet();
       if (!ws?.getData) return;
       const matrix: string[][] = ws.getData();
-      const colCount = matrix?.[0]?.length ?? columnDefs.length;
+      const currentColumns = columnDefsRef.current;
+      const currentFormatting = cellFormattingRef.current;
+      const colCount = matrix?.[0]?.length ?? currentColumns.length;
       const nextColumns: ColumnDef[] = Array.from({ length: colCount }, (_v, idx) => ({
         field: `col${idx + 1}`,
         headerName: toColumnLetter(idx),
-        width: columnDefs[idx]?.width ?? 150,
+        width: currentColumns[idx]?.width ?? 150,
       }));
       const nextRows = (matrix || []).map((rowArr) => {
         const row: Record<string, unknown> = {};
@@ -192,8 +222,19 @@ export const SheetEditor = memo(
       });
       setColumnDefs(nextColumns);
       setRowData(nextRows as Record<string, unknown>[]);
-      emitChange(nextColumns, nextRows as Record<string, unknown>[],cellFormatting);
-    }, [columnDefs, emitChange, cellFormatting, getWorksheet]);
+      emitChange(nextColumns, nextRows as Record<string, unknown>[], currentFormatting);
+    }, [emitChange, getWorksheet]);
+
+    // Ensure we persist any in-progress edits when collapsing/unmounting.
+    useEffect(() => {
+      return () => {
+        try {
+          refreshFromInstance();
+        } catch {
+          // Best-effort flush.
+        }
+      };
+    }, [refreshFromInstance]);
 
     
 
@@ -219,16 +260,18 @@ export const SheetEditor = memo(
 
     const handleChange = useCallback(
       (_instance: any, _cell: any, x: number, y: number, value: string) => {
-        const field = columnFields[x];
+        const fields = columnFieldsRef.current;
+        const field = fields[x];
         if (!field) return;
-        const newRowData = [...rowData];
+        const currentRows = rowDataRef.current;
+        const newRowData = [...currentRows];
         const row = { ...(newRowData[y] || {}) };
         row[field] = value;
         newRowData[y] = row;
         setRowData(newRowData);
-        emitChange(columnDefs, newRowData, cellFormatting);
+        emitChange(columnDefsRef.current, newRowData, cellFormattingRef.current);
       },
-      [columnFields, rowData, emitChange, columnDefs, cellFormatting],
+      [emitChange],
     );
 
     const handleSelection = useCallback(

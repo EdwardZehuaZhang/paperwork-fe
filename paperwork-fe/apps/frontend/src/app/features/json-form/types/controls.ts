@@ -113,4 +113,15 @@ export type FormBodyControlElement = Override<
 >;
 export type FormBodyControlProps = ControlProps<Record<string, unknown>, FormBodyControlElement>;
 
+export type LinkedNodeSelectControlElement = Override<
+  BaseControlElement,
+  {
+    type: 'LinkedNodeSelect';
+    options?: {
+      placeholder?: string;
+    };
+  }
+>;
+export type LinkedNodeSelectControlProps = ControlProps<string, LinkedNodeSelectControlElement>;
+
 type BaseControlElement = Override<ControlElement, { rule?: UISchemaRule }>;

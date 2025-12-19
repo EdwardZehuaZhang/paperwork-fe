@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Share2 } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -22,27 +22,42 @@ interface NodeAccess {
   isPublic: boolean
 }
 
+const accessManagedNodeTypes = new Set(['form', 'approval', 'sheet'])
+
 export function BulkAccessDialog() {
   const nodes = useStore((state) => state.nodes)
   const setNodeProperties = useStore((state) => state.setNodeProperties)
-  const [nodeAccess, setNodeAccess] = useState<Record<string, NodeAccess>>(() => {
-    // Initialize with current node access settings
-    const initial: Record<string, NodeAccess> = {}
-    for (const node of nodes) {
-      // Filter to form nodes (nodes with type 'node' that can be forms/sheets)
-      if (node.data?.type === 'node') {
+  const [open, setOpen] = useState(false)
+  const accessManagedNodes = useMemo(
+    () => nodes.filter((node) => accessManagedNodeTypes.has(node.data?.type)),
+    [nodes]
+  )
+
+  const [nodeAccess, setNodeAccess] = useState<Record<string, NodeAccess>>({})
+
+  useEffect(() => {
+    // Keep dialog state in sync with diagram nodes (important when the workflow loads async).
+    // Preserve any unsaved edits already made in the dialog.
+    setNodeAccess((previous) => {
+      const next: Record<string, NodeAccess> = {}
+
+      for (const node of accessManagedNodes) {
         const props = node.data.properties as Record<string, unknown>
-        initial[node.id] = {
+        const existing = previous[node.id]
+
+        next[node.id] = {
           nodeId: node.id,
           nodeLabel: (props?.label as string) || node.id,
-          userIds: (props?.assignedUserIds as string[]) || [],
-          departmentIds: (props?.assignedDepartmentIds as string[]) || [],
-          isPublic: (props?.isPublic as boolean) ?? true, // Default to public if not set
+          userIds: existing?.userIds ?? (props?.assignedUserIds as string[]) ?? [],
+          departmentIds:
+            existing?.departmentIds ?? (props?.assignedDepartmentIds as string[]) ?? [],
+          isPublic: existing?.isPublic ?? ((props?.isPublic as boolean) ?? true),
         }
       }
-    }
-    return initial
-  })
+
+      return next
+    })
+  }, [accessManagedNodes])
 
   const handleSelectionChange = (
     nodeId: string,
@@ -81,28 +96,28 @@ export function BulkAccessDialog() {
 
   if (formNodes.length === 0) {
     return (
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
             type="button"
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8 text-muted-foreground hover:text-foreground"
-            title="Manage node access"
-            aria-label="Manage node access"
+            variant="default"
+            size="sm"
+            className="mx-2"
+            title="Publish Workflow"
+            aria-label="Publish Workflow"
           >
-            <Share2 size={16} />
+            Publish Workflow
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
             <DialogTitle>Manage Access</DialogTitle>
             <DialogDescription>
-              No form or approval nodes available
+              No form, approval, or sheet nodes available
             </DialogDescription>
           </DialogHeader>
           <p className="text-sm text-muted-foreground">
-            Create form or approval nodes to manage their access settings.
+            Add a form, approval, or sheet node to your workflow to manage its access settings.
           </p>
         </DialogContent>
       </Dialog>
@@ -110,24 +125,24 @@ export function BulkAccessDialog() {
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           type="button"
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 text-muted-foreground hover:text-foreground"
-          title="Manage node access"
-          aria-label="Manage node access"
+          variant="default"
+          size="sm"
+          className="mx-2"
+          title="Publish Workflow"
+          aria-label="Publish Workflow"
         >
-          <Share2 size={16} />
+          Publish Workflow
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
           <DialogTitle>Manage Node Access</DialogTitle>
           <DialogDescription>
-            Configure who can access each form node in your workflow
+            Configure who can access each form, approval, and sheet node in your workflow
           </DialogDescription>
         </DialogHeader>
 
@@ -182,8 +197,19 @@ export function BulkAccessDialog() {
         </ScrollArea>
 
         <div className="flex justify-end gap-2 border-t pt-4">
-          <Button variant="outline">Cancel</Button>
-          <Button onClick={handleSave}>Save Changes</Button>
+          <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
+          <Button
+            type="button"
+            onClick={() => {
+              handleSave()
+              setOpen(false)
+              toast.success('Workflow published')
+            }}
+          >
+            Save and Publish
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

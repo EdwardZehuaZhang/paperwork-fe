@@ -15,7 +15,7 @@ const defaultDiagram: DiagramModel = {
             label: 'Start Workflow',
             description: 'Trigger',
             title: 'Trigger',
-            subtitle: 'Initiate workflows',
+            subtitle: 'Special workflow initiations',
             dataSource: 'Time-based Trigger',
           },
           type: 'trigger',
