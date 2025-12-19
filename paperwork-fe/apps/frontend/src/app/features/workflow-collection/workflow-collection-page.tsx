@@ -102,10 +102,15 @@ function SafeWorkflowIcon({
   className,
 }: {
   name: string | undefined;
-  size: 'small' | 'medium';
+  size: 'small' | 'medium' | 'large' | 'extra-large';
   className?: string;
 }) {
-  const fallbackSizeClass = size === 'small' ? 'h-4 w-4' : 'h-5 w-5';
+  const fallbackSizeClass = {
+    'small': 'h-4 w-4',
+    'medium': 'h-5 w-5',
+    'large': 'h-6 w-6',
+    'extra-large': 'h-8 w-8'
+  }[size];
 
   if (!name) {
     return <FileText className={cn(fallbackSizeClass, className)} />;
@@ -261,7 +266,7 @@ export function WorkflowCollectionPage({ onWorkflowSelect, onCreateNew }: Workfl
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-[1400px] space-y-8">
         
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
           <div className="space-y-1">
             <h1 className="text-3xl font-bold tracking-tight">Workflows</h1>
             <p className="text-muted-foreground">
@@ -273,8 +278,6 @@ export function WorkflowCollectionPage({ onWorkflowSelect, onCreateNew }: Workfl
             New Workflow
           </Button>
         </div>
-
-        <Separator />
 
         {/* Toolbar */}
         <WorkflowToolbar 
@@ -359,7 +362,7 @@ function WorkflowToolbar({
   viewMode: ViewMode; setViewMode: (v: ViewMode) => void;
 }) {
   return (
-    <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between bg-muted/30 p-2 rounded-xl border">
+    <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
       <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto flex-1">
         <div className="relative w-full sm:w-64 lg:w-80">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -367,7 +370,7 @@ function WorkflowToolbar({
             placeholder="Search workflows..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9 bg-background border-muted-foreground/20"
+            className="pl-9 bg-background"
           />
         </div>
         
@@ -534,14 +537,14 @@ function WorkflowGrid({ workflows, onSelect, onShare, onRename, onDuplicate, onD
 function WorkflowCard({ workflow, onSelect, onShare, onRename, onDuplicate, onDelete }: any) {
   return (
     <Card 
-      className="group relative overflow-hidden transition-all duration-200 hover:shadow-md hover:border-primary/50 cursor-pointer"
+      className="group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer shadow-none"
       onClick={() => onSelect?.(workflow.id)}
     >
-      <CardHeader className="flex flex-row items-start gap-4 space-y-0 pb-3">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary/15 transition-colors">
-          <SafeWorkflowIcon name={workflow.thumbnailIcon} size="medium" className="text-primary" />
+      <CardHeader className="flex flex-row items-start gap-4 space-y-0 p-5">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-border/50 bg-muted/30 text-primary group-hover:bg-primary/5 transition-colors">
+          <SafeWorkflowIcon name={workflow.thumbnailIcon} size="large" className="text-primary" />
         </div>
-        <div className="flex-1 min-w-0 space-y-1">
+        <div className="flex-1 min-w-0 space-y-1 pt-1">
           <CardTitle className="text-base font-semibold truncate leading-tight">
             {workflow.name}
           </CardTitle>
@@ -551,7 +554,7 @@ function WorkflowCard({ workflow, onSelect, onShare, onRename, onDuplicate, onDe
             <span>{workflow.nodeCount} nodes</span>
           </CardDescription>
         </div>
-        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity focus-within:opacity-100" onClick={e => e.stopPropagation()}>
+        <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
           <Button
             variant="ghost"
             size="icon"
@@ -569,7 +572,7 @@ function WorkflowCard({ workflow, onSelect, onShare, onRename, onDuplicate, onDe
           />
         </div>
       </CardHeader>
-      <CardContent className="pb-3">
+      <CardContent className="p-5 pt-0">
         <div className="flex flex-wrap gap-2">
           {workflow.category && (
             <Badge variant="secondary" className="font-medium">
@@ -613,11 +616,11 @@ function WorkflowList({ workflows, onSelect, onShare, onRename, onDuplicate, onD
 function WorkflowRow({ workflow, onSelect, onShare, onRename, onDuplicate, onDelete }: any) {
   return (
     <Card 
-      className="group flex items-center p-3 gap-4 transition-all hover:shadow-sm hover:border-primary/50 cursor-pointer"
+      className="group flex items-center p-3 gap-4 transition-all cursor-pointer shadow-none"
       onClick={() => onSelect?.(workflow.id)}
     >
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
-        <SafeWorkflowIcon name={workflow.thumbnailIcon} size="small" className="text-primary" />
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border/50 bg-muted/30 text-primary">
+        <SafeWorkflowIcon name={workflow.thumbnailIcon} size="medium" className="text-primary" />
       </div>
       
       <div className="flex-1 min-w-0 grid grid-cols-1 md:grid-cols-4 gap-4 items-center">

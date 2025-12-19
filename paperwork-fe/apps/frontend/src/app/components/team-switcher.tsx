@@ -8,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
@@ -74,7 +75,7 @@ export function TeamSwitcher({
             <DropdownMenuLabel className="text-muted-foreground text-xs">
               Departments
             </DropdownMenuLabel>
-            {departments.map((dept) => (
+            {departments.map((dept, index) => (
               <DropdownMenuItem
                 key={dept.id}
                 onClick={() => onTeamChange?.(dept.id)}
@@ -84,7 +85,7 @@ export function TeamSwitcher({
                   <span className="text-white text-xs font-semibold">{dept.name.slice(0, 1)}</span>
                 </div>
                 {dept.name}
-                {dept.id === currentTeamId && <span className="ml-auto text-xs font-semibold">✓</span>}
+                <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
