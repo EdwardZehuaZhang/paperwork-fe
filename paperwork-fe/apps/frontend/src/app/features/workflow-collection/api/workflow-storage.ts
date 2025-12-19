@@ -18,8 +18,9 @@ export class WorkflowStorageAPI {
 
     try {
       const workflows = JSON.parse(stored);
+
       // Convert date strings back to Date objects
-      return (workflows as unknown[]).map((w) => {
+      const hydrated = (workflows as unknown[]).map((w) => {
         const workflow = w as Record<string, unknown>;
 
         return {
@@ -28,6 +29,13 @@ export class WorkflowStorageAPI {
           dateCreated: new Date(String(workflow.dateCreated)),
         } as Workflow;
       });
+
+      const migrated = this.migrateWorkflows(hydrated);
+      if (migrated.didChange) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated.workflows));
+      }
+
+      return migrated.workflows;
     } catch (error) {
       console.error('Error parsing workflows:', error);
       return this.getSampleWorkflows();
@@ -158,6 +166,44 @@ export class WorkflowStorageAPI {
   private static getRandomIcon(): string {
     const icons = ['Workflow', 'FileText', 'Briefcase', 'Clipboard', 'FolderOpen', 'Database'];
     return icons[Math.floor(Math.random() * icons.length)];
+  }
+
+  private static migrateWorkflows(workflows: Workflow[]): { workflows: Workflow[]; didChange: boolean } {
+    let didChange = false;
+
+    // Ensure the checked-in `sample_1` is present and up-to-date.
+    // This matters when a user has older `localStorage` seeded with the previous sample workflow.
+    const desiredSample1 = this.getSampleWorkflows().find((w) => w.id === 'sample_1');
+    if (!desiredSample1) return { workflows, didChange };
+
+    const sample1Index = workflows.findIndex((w) => w.id === 'sample_1');
+    if (sample1Index === -1) {
+      workflows.unshift(desiredSample1);
+      didChange = true;
+      return { workflows, didChange };
+    }
+
+    const existingSample1 = workflows[sample1Index];
+    const existingName = existingSample1.name;
+    const existingDataName = (existingSample1.data as Partial<IntegrationDataFormat> | undefined)?.name;
+
+    const shouldReplace =
+      existingName === 'Employee Onboarding' ||
+      existingDataName === 'Employee Onboarding' ||
+      existingName !== desiredSample1.name ||
+      existingDataName !== desiredSample1.data.name;
+
+    if (shouldReplace) {
+      workflows[sample1Index] = {
+        ...desiredSample1,
+        // Preserve existing dates if present, so user's list doesn't unexpectedly reorder.
+        dateCreated: existingSample1.dateCreated ?? desiredSample1.dateCreated,
+        dateModified: existingSample1.dateModified ?? desiredSample1.dateModified,
+      };
+      didChange = true;
+    }
+
+    return { workflows, didChange };
   }
 
   /**
