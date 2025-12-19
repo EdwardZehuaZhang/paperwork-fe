@@ -1,10 +1,12 @@
-import type { FormQuestion, FormSignature, FormTime } from './answer-menu';
+import type { FormAddress, FormCurrentTime, FormQuestion, FormSignature, FormTime } from './answer-menu';
 import type { NodeData } from '@workflow-builder/types/node-data';
 
 export interface FormContent {
   questions: FormQuestion[];
   signatures: FormSignature[];
   times: FormTime[];
+  currentTimes: FormCurrentTime[];
+  addresses: FormAddress[];
 }
 
 /**
@@ -16,25 +18,60 @@ export interface FormContent {
  */
 export function extractContentFromNodeData(data?: NodeData): FormContent {
   if (!data?.properties) {
-    return { questions: [], signatures: [], times: [] };
+    return { questions: [], signatures: [], times: [], currentTimes: [], addresses: [] };
   }
 
   const { properties } = data;
   const questions: FormQuestion[] = [];
   const signatures: FormSignature[] = [];
   const times: FormTime[] = [];
+  const currentTimes: FormCurrentTime[] = [];
+  const addresses: FormAddress[] = [];
 
   // Check if this is a form node with formBody
   if ('formBody' in properties && typeof properties.formBody === 'object' && properties.formBody !== null) {
     const formBody = properties.formBody as Record<string, unknown>;
 
+    const getCustomLabel = (fieldKey: string) => {
+      const labelKey = `${fieldKey}Label`;
+      const value = formBody[labelKey];
+      return typeof value === 'string' ? value.trim() : '';
+    };
+
     // Extract all time properties from formBody (time1, time2, ...)
     for (const [key, value] of Object.entries(formBody)) {
       if (/^time\d+$/.test(key) && typeof value === 'string') {
         const timeNumber = key.replace('time', '');
+        const customLabel = getCustomLabel(key);
         times.push({
           id: key,
-          label: `Time ${timeNumber}`,
+          label: customLabel || `Time ${timeNumber}`,
+          format: value,
+        });
+      }
+    }
+
+    // Extract all current time properties from formBody (currentTime1, currentTime2, ...)
+    for (const [key, value] of Object.entries(formBody)) {
+      if (/^currentTime\d+$/.test(key) && typeof value === 'string') {
+        const timeNumber = key.replace('currentTime', '');
+        const customLabel = getCustomLabel(key);
+        currentTimes.push({
+          id: key,
+          label: customLabel || `Current Time ${timeNumber}`,
+          format: value,
+        });
+      }
+    }
+
+    // Extract all address properties from formBody (address1, address2, ...)
+    for (const [key, value] of Object.entries(formBody)) {
+      if (/^address\d+$/.test(key) && typeof value === 'string') {
+        const addressNumber = key.replace('address', '');
+        const customLabel = getCustomLabel(key);
+        addresses.push({
+          id: key,
+          label: customLabel || `Address ${addressNumber}`,
           format: value,
         });
       }
@@ -84,7 +121,7 @@ export function extractContentFromNodeData(data?: NodeData): FormContent {
     }
   }
 
-  return { questions, signatures, times };
+  return { questions, signatures, times, currentTimes, addresses };
 }
 
 // Backwards compatibility - keep the old function name

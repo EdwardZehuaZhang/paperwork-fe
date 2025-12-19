@@ -158,17 +158,23 @@ export function ApprovalFormPreview({ formBody, noteRequirement, notePlaceholder
                 if (field.type === 'time') {
                   const timeNumber = field.key.replace('time', '');
                   const format = typeof field.value === 'string' && field.value ? field.value : 'Date, Month and Year';
-                  return <DateTimeField key={field.key} questionKey={field.key} label={`Date/Time ${timeNumber}`} format={format} />;
+                  const labelKey = `${field.key}Label`;
+                  const customLabel = typeof mergedFormBody[labelKey] === 'string' ? String(mergedFormBody[labelKey]).trim() : '';
+                  const label = customLabel || `Date/Time ${timeNumber}`;
+                  return <DateTimeField key={field.key} questionKey={field.key} label={label} format={format} />;
                 }
 
                 if (field.type === 'currentTime') {
                   const timeNumber = field.key.replace('currentTime', '');
                   const format = typeof field.value === 'string' && field.value ? field.value : 'Date, Month and Year';
+                  const labelKey = `${field.key}Label`;
+                  const customLabel = typeof mergedFormBody[labelKey] === 'string' ? String(mergedFormBody[labelKey]).trim() : '';
+                  const label = customLabel || `Current Time ${timeNumber}`;
                   return (
                     <DateTimeField
                       key={field.key}
                       questionKey={field.key}
-                      label={`Current Time ${timeNumber}`}
+                      label={label}
                       format={format}
                       value={new Date()}
                     />
@@ -182,11 +188,15 @@ export function ApprovalFormPreview({ formBody, noteRequirement, notePlaceholder
                       ? field.value
                       : 'Street Address, City and Postal Code';
 
+                  const labelKey = `${field.key}Label`;
+                  const customLabel = typeof mergedFormBody[labelKey] === 'string' ? String(mergedFormBody[labelKey]).trim() : '';
+                  const label = customLabel || `Address ${addressNumber}`;
+
                   return (
                     <AddressField
                       key={field.key}
                       questionKey={field.key}
-                      label={`Address ${addressNumber}`}
+                      label={label}
                       format={format}
                     />
                   );

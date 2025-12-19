@@ -17,6 +17,18 @@ export interface FormTime {
   format: string; // stored format (e.g., "Date, Month and Year")
 }
 
+export interface FormCurrentTime {
+  id: string; // stable ID linking to the form body property (e.g., "currentTime1", "currentTime2")
+  label: string; // display label (e.g., "Current Time 1", "Current Time 2")
+  format: string; // stored format
+}
+
+export interface FormAddress {
+  id: string; // stable ID linking to the form body property (e.g., "address1", "address2")
+  label: string; // display label (e.g., "Address 1", "Address 2")
+  format: string; // stored format (e.g., "Street Address, City and Postal Code")
+}
+
 /**
  * Generates suggestion menu items for content placeholders (answers and signatures).
  * Each item creates inline content linked to a specific question or signature.
@@ -31,6 +43,8 @@ export const getContentSuggestionItems = (
   questions: FormQuestion[],
   signatures: FormSignature[],
   times: FormTime[] = [],
+  currentTimes: FormCurrentTime[] = [],
+  addresses: FormAddress[] = [],
 ): DefaultReactSuggestionItem[] => {
   const timeItems: DefaultReactSuggestionItem[] = times.map((t, index) => {
     const label = t.label || `Time ${index + 1}`;
@@ -45,6 +59,52 @@ export const getContentSuggestionItems = (
         editor.insertInlineContent([
           {
             type: 'time',
+            props: {
+              format,
+            },
+          },
+          ' ',
+        ]);
+      },
+    };
+  });
+
+  const currentTimeItems: DefaultReactSuggestionItem[] = currentTimes.map((t, index) => {
+    const label = t.label || `Current Time ${index + 1}`;
+    const format = t.format || 'Date, Month and Year';
+
+    return {
+      title: label,
+      group: 'Content',
+      aliases: [label.toLowerCase(), 'current time', 'currenttime', t.id],
+      subtext: `Insert current time placeholder (${format})`,
+      onItemClick: () => {
+        editor.insertInlineContent([
+          {
+            type: 'currentTime',
+            props: {
+              format,
+            },
+          },
+          ' ',
+        ]);
+      },
+    };
+  });
+
+  const addressItems: DefaultReactSuggestionItem[] = addresses.map((a, index) => {
+    const label = a.label || `Address ${index + 1}`;
+    const format = a.format || 'Street Address, City and Postal Code';
+
+    return {
+      title: label,
+      group: 'Content',
+      aliases: [label.toLowerCase(), 'address', a.id],
+      subtext: `Insert address placeholder (${format})`,
+      onItemClick: () => {
+        editor.insertInlineContent([
+          {
+            type: 'address',
             props: {
               format,
             },
@@ -104,5 +164,5 @@ export const getContentSuggestionItems = (
     };
   });
 
-  return [...timeItems, ...questionItems, ...signatureItems];
+  return [...timeItems, ...currentTimeItems, ...addressItems, ...questionItems, ...signatureItems];
 };

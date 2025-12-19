@@ -62,19 +62,21 @@ export const AnswerInline = createReactInlineContentSpec(
           contentEditable={false}
           onMouseDown={selectThisToken}
           onDoubleClick={selectThisToken}
+          className="bg-yellow-200"
           style={{
-            backgroundColor: '#fff3b0',
-            padding: '2px 6px',
-            borderRadius: 4,
-            fontFamily: 'monospace',
-            whiteSpace: 'nowrap',
+            color: '#333',
+            padding: '3px 8px',
+            borderRadius: '4px',
+            fontWeight: '500',
+            border: '1px solid #999',
+            display: 'inline-block',
             fontSize: '0.9em',
-            fontWeight: 500,
+            whiteSpace: 'nowrap',
           }}
           data-answer-placeholder="true"
           data-question-id={questionId}
         >
-          [{`___${label || 'Answer'} Answer___`}]
+          [{`${label || 'Answer'} Answer`}]
         </span>
       );
     },
@@ -85,7 +87,7 @@ export const AnswerInline = createReactInlineContentSpec(
 
       return (
         <span className="answer-placeholder" data-question-id={questionId}>
-          [{`___${label || 'Answer'} Answer___`}]
+          [{`${label || 'Answer'} Answer`}]
         </span>
       );
     },

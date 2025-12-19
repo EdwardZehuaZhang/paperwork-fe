@@ -138,7 +138,7 @@ const WorkflowNodeTemplateComponent = memo(
       } as NodeData;
     }, [data, effectiveFormBody, effectiveLinkedProperties, isApprovalNode]);
 
-    const { questions, signatures, times } = useMemo(
+    const { questions, signatures, times, currentTimes, addresses } = useMemo(
       () => extractContentFromNodeData(contentExtractionData),
       [contentExtractionData],
     );
@@ -275,6 +275,8 @@ const WorkflowNodeTemplateComponent = memo(
                               questions={questions}
                               signatures={signatures}
                               times={times}
+                              currentTimes={currentTimes}
+                              addresses={addresses}
                             />
                           </Suspense>
                         )

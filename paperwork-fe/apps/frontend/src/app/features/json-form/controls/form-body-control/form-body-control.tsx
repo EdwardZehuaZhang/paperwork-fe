@@ -246,10 +246,28 @@ function FormBodyControl(props: FormBodyControlProps) {
     [formBody, handleChange, path],
   );
 
+  const handleFieldLabelChange = useCallback(
+    (fieldKey: string, value: string) => {
+      const labelKey = `${fieldKey}Label`;
+      const updated = { ...formBody };
+      const trimmed = value.trim();
+
+      if (trimmed) {
+        updated[labelKey] = value;
+      } else {
+        delete updated[labelKey];
+      }
+
+      handleChange(path, updated);
+    },
+    [formBody, handleChange, path],
+  );
+
   const handleDeleteTime = useCallback(
     (timeKey: string) => {
       const updated = { ...formBody };
       delete updated[timeKey];
+      delete updated[`${timeKey}Label`];
       handleChange(path, updated);
     },
     [formBody, handleChange, path],
@@ -286,6 +304,7 @@ function FormBodyControl(props: FormBodyControlProps) {
     (currentTimeKey: string) => {
       const updated = { ...formBody };
       delete updated[currentTimeKey];
+      delete updated[`${currentTimeKey}Label`];
       handleChange(path, updated);
     },
     [formBody, handleChange, path],
@@ -322,6 +341,7 @@ function FormBodyControl(props: FormBodyControlProps) {
     (addressKey: string) => {
       const updated = { ...formBody };
       delete updated[addressKey];
+      delete updated[`${addressKey}Label`];
       handleChange(path, updated);
     },
     [formBody, handleChange, path],
@@ -432,7 +452,8 @@ function FormBodyControl(props: FormBodyControlProps) {
                   <div className={styles['times-list']}>
                     {times.map(([timeKey, timeValue]) => {
                       const timeNumber = timeKey.replace('time', '');
-                      const label = `Time ${timeNumber}`;
+                      const customLabel = typeof formBody[`${timeKey}Label`] === 'string' ? String(formBody[`${timeKey}Label`]) : '';
+                      const label = customLabel.trim() ? customLabel : `Time ${timeNumber}`;
 
                       return (
                         <div key={timeKey} className={styles['time-item']}>
@@ -449,6 +470,14 @@ function FormBodyControl(props: FormBodyControlProps) {
                               <Trash className={styles['delete-icon']} />
                             </Button>
                           </div>
+                          <Input
+                            type="text"
+                            value={customLabel}
+                            onChange={(e) => handleFieldLabelChange(timeKey, e.target.value)}
+                            disabled={!enabled}
+                            placeholder="Enter a question"
+                            className={styles['field-question']}
+                          />
                           <Select
                             value={typeof timeValue === 'string' ? timeValue : 'Date, Month and Year'}
                             onValueChange={(value) => handleTimeChange(timeKey, value)}
@@ -473,7 +502,9 @@ function FormBodyControl(props: FormBodyControlProps) {
                   <div className={styles['times-list']}>
                     {currentTimes.map(([currentTimeKey, currentTimeValue]) => {
                       const timeNumber = currentTimeKey.replace('currentTime', '');
-                      const label = `Current Time ${timeNumber}`;
+                      const customLabel =
+                        typeof formBody[`${currentTimeKey}Label`] === 'string' ? String(formBody[`${currentTimeKey}Label`]) : '';
+                      const label = customLabel.trim() ? customLabel : `Current Time ${timeNumber}`;
 
                       return (
                         <div key={currentTimeKey} className={styles['time-item']}>
@@ -490,6 +521,14 @@ function FormBodyControl(props: FormBodyControlProps) {
                               <Trash className={styles['delete-icon']} />
                             </Button>
                           </div>
+                          <Input
+                            type="text"
+                            value={customLabel}
+                            onChange={(e) => handleFieldLabelChange(currentTimeKey, e.target.value)}
+                            disabled={!enabled}
+                            placeholder="Enter a question"
+                            className={styles['field-question']}
+                          />
                           <Select
                             value={typeof currentTimeValue === 'string' ? currentTimeValue : 'Date, Month and Year'}
                             onValueChange={(value) => handleCurrentTimeChange(currentTimeKey, value)}
@@ -514,7 +553,8 @@ function FormBodyControl(props: FormBodyControlProps) {
                   <div className={styles['times-list']}>
                     {addresses.map(([addressKey, addressValue]) => {
                       const addressNumber = addressKey.replace('address', '');
-                      const label = `Address ${addressNumber}`;
+                      const customLabel = typeof formBody[`${addressKey}Label`] === 'string' ? String(formBody[`${addressKey}Label`]) : '';
+                      const label = customLabel.trim() ? customLabel : `Address ${addressNumber}`;
 
                       return (
                         <div key={addressKey} className={styles['time-item']}>
@@ -531,6 +571,14 @@ function FormBodyControl(props: FormBodyControlProps) {
                               <Trash className={styles['delete-icon']} />
                             </Button>
                           </div>
+                          <Input
+                            type="text"
+                            value={customLabel}
+                            onChange={(e) => handleFieldLabelChange(addressKey, e.target.value)}
+                            disabled={!enabled}
+                            placeholder="Enter a question"
+                            className={styles['field-question']}
+                          />
                           <Select
                             value={typeof addressValue === 'string' ? addressValue : 'Street Address, City and Postal Code'}
                             onValueChange={(value) => handleAddressChange(addressKey, value)}

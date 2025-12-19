@@ -27,7 +27,14 @@ import { filterSuggestionItems } from '@blocknote/core';
 
 import styles from './block-note-editor.module.css';
 import { formNodeSchema, type FormNodeEditor } from './schema';
-import { getContentSuggestionItems, type FormQuestion, type FormSignature, type FormTime } from './answer-menu';
+import {
+  getContentSuggestionItems,
+  type FormAddress,
+  type FormCurrentTime,
+  type FormQuestion,
+  type FormSignature,
+  type FormTime,
+} from './answer-menu';
 import useStore from '@/store/store';
 
 type Props = {
@@ -47,6 +54,10 @@ type Props = {
   signatures?: FormSignature[];
   /** Optional array of time fields from the Form Body, used by the Time placeholders */
   times?: FormTime[];
+  /** Optional array of current time fields from the Form Body, used by Current Time placeholders */
+  currentTimes?: FormCurrentTime[];
+  /** Optional array of address fields from the Form Body, used by Address placeholders */
+  addresses?: FormAddress[];
 };
 
 type FormNodeDragHandleMenuProps = Omit<React.ComponentProps<typeof DragHandleMenu>, 'children'>;
@@ -61,7 +72,19 @@ function FormNodeDragHandleMenu(props: FormNodeDragHandleMenuProps) {
 }
 
 export const BlockNoteEditor = memo(
-  ({ nodeId, onChange, initialContent, selected = false, questions = [], signatures = [], times = [] }: Props) => {
+  (
+    {
+      nodeId,
+      onChange,
+      initialContent,
+      selected = false,
+      questions = [],
+      signatures = [],
+      times = [],
+      currentTimes = [],
+      addresses = [],
+    }: Props
+  ) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const initialContentRef = useRef(initialContent);
     const [isEditorFocused, setIsEditorFocused] = useState(false);
@@ -92,14 +115,18 @@ export const BlockNoteEditor = memo(
       async (query: string) => {
         const defaultItems = getDefaultReactSlashMenuItems(editor);
         const contentItems =
-          questions.length > 0 || signatures.length > 0 || times.length > 0
-            ? getContentSuggestionItems(editor, questions, signatures, times)
+          questions.length > 0 ||
+          signatures.length > 0 ||
+          times.length > 0 ||
+          currentTimes.length > 0 ||
+          addresses.length > 0
+            ? getContentSuggestionItems(editor, questions, signatures, times, currentTimes, addresses)
             : [];
         // Put content items BEFORE default items so "Content" section appears at the top
         const allItems = [...contentItems, ...defaultItems];
         return filterSuggestionItems(allItems, query);
       },
-      [editor, questions, signatures, times],
+      [editor, questions, signatures, times, currentTimes, addresses],
     );
 
     useEffect(() => {

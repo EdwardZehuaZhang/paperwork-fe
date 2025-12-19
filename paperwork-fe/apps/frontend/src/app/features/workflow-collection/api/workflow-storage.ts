@@ -1,5 +1,6 @@
 import { Workflow } from '../types';
 import { IntegrationDataFormat } from '@/features/integration/types';
+import { sampleWorkflowStudentLedCommissionProjectAgreement } from './sample-workflows/sample_1.student-led';
 
 const STORAGE_KEY = 'paperwork_workflows';
 
@@ -166,18 +167,15 @@ export class WorkflowStorageAPI {
     return [
       {
         id: 'sample_1',
-        name: 'Employee Onboarding',
+        name: 'Student-Led Commission Project Agreement',
         dateModified: new Date(2025, 11, 10),
         dateCreated: new Date(2025, 10, 15),
-        nodeCount: 8,
+        nodeCount: sampleWorkflowStudentLedCommissionProjectAgreement.nodes.length,
         thumbnailIcon: 'Briefcase',
-        category: 'HR',
-        tags: ['onboarding', 'hr', 'employees'],
+        category: 'Legal',
+        tags: ['agreement', 'commission', 'form'],
         data: {
-          name: 'Employee Onboarding',
-          nodes: [],
-          edges: [],
-          layoutDirection: 'RIGHT',
+          ...sampleWorkflowStudentLedCommissionProjectAgreement,
         },
       },
       {

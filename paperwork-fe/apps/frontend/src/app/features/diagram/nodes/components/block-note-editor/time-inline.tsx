@@ -55,8 +55,8 @@ export const TimeInline = createReactInlineContentSpec(
           contentEditable={false}
           onMouseDown={selectThisToken}
           onDoubleClick={selectThisToken}
+          className="bg-yellow-200"
           style={{
-            backgroundColor: '#e5e5e5',
             color: '#333',
             padding: '3px 8px',
             borderRadius: '4px',

@@ -8,6 +8,8 @@ import {
 import { AnswerInline } from './answer-inline';
 import { SignatureInline } from './signature-inline';
 import { TimeInline } from './time-inline';
+import { CurrentTimeInline } from './current-time-inline';
+import { AddressInline } from './address-inline';
 
 /**
  * Extended BlockNote schema for Form nodes.
@@ -22,6 +24,8 @@ export const formNodeSchema = BlockNoteSchema.create({
     answer: AnswerInline,
     signature: SignatureInline,
     time: TimeInline,
+    currentTime: CurrentTimeInline,
+    address: AddressInline,
   },
   styleSpecs: {
     ...defaultStyleSpecs,

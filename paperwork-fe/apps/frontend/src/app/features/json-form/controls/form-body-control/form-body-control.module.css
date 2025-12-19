@@ -42,6 +42,10 @@
   white-space: nowrap;
 }
 
+.field-question {
+  width: 100%;
+}
+
 .questions-list {
   display: flex;
   flex-direction: column;
