@@ -1,5 +1,10 @@
-import { generateReactHelpers } from "@uploadthing/react";
+// NOTE: UploadThing is not wired in this repo yet.
+// Keep stubs so future integration can replace them.
 
-import type { OurFileRouter } from "./uploadthing-core";
+export async function uploadFiles() {
+	throw new Error('UploadThing is not configured');
+}
 
-export const { uploadFiles, useUploadThing } = generateReactHelpers<OurFileRouter>();
+export function useUploadThing() {
+	throw new Error('UploadThing is not configured');
+}

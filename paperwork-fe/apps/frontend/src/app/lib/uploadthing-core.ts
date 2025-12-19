@@ -1,11 +1,5 @@
-import { createUploadthing, type FileRouter } from "uploadthing/server";
+// NOTE: UploadThing is not wired in this repo yet.
+// This file is kept as a placeholder so future work can re-introduce it without
+// refactoring call sites.
 
-const f = createUploadthing();
-
-export const ourFileRouter = {
-  imageUploader: f({ image: { maxFileSize: "4MB", maxFileCount: 2 } }).onUpload(async ({ file }) => {
-    return { uploadedBy: "FileUploadUploadThingDemo" };
-  }),
-} satisfies FileRouter;
-
-export type OurFileRouter = typeof ourFileRouter;
+export type OurFileRouter = unknown;

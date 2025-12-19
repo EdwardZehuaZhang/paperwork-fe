@@ -7,21 +7,14 @@ import { Button } from "@/components/ui/button";
 import {
   FileUpload,
   FileUploadDropzone,
-  FileUploadItem,
-  FileUploadItemDelete,
-  FileUploadItemMetadata,
-  FileUploadItemPreview,
-  FileUploadItemProgress,
   FileUploadList,
   type FileUploadProps,
   FileUploadTrigger,
 } from "@/components/ui/file-upload";
  
 export function SignatureFileUpload() {
-  const [files, setFiles] = React.useState<File[]>([]);
- 
   const onUpload: NonNullable<FileUploadProps["onUpload"]> = React.useCallback(
-    async (files, { onProgress, onSuccess, onError }) => {
+    async (files, { onProgress }) => {
       try {
         // Process each file individually
         const uploadPromises = files.map(async (file) => {
@@ -45,20 +38,19 @@ export function SignatureFileUpload() {
  
             // Simulate server processing delay
             await new Promise((resolve) => setTimeout(resolve, 500));
-            onSuccess(file);
           } catch (error) {
-            onError(
-              file,
-              error instanceof Error ? error : new Error("Upload failed"),
-            );
+            throw error;
           }
         });
  
         // Wait for all uploads to complete
         await Promise.all(uploadPromises);
+
+        toast('Upload complete');
       } catch (error) {
         // This handles any error that might occur outside the individual upload processes
         console.error("Unexpected error during upload:", error);
+        toast('Upload failed');
       }
     },
     [],
@@ -72,8 +64,6 @@ export function SignatureFileUpload() {
  
   return (
     <FileUpload
-      value={files}
-      onValueChange={setFiles}
       onUpload={onUpload}
       onFileReject={onFileReject}
       maxFiles={2}
@@ -94,22 +84,14 @@ export function SignatureFileUpload() {
           Browse files
         </FileUploadTrigger>
       </FileUploadDropzone>
-      <FileUploadList>
-        {files.map((file, index) => (
-          <FileUploadItem key={index} value={file} className="flex-col">
-            <div className="flex w-full items-center gap-2">
-              <FileUploadItemPreview />
-              <FileUploadItemMetadata />
-              <FileUploadItemDelete asChild>
-                <Button variant="ghost" size="icon" className="size-7">
-                  <X />
-                </Button>
-              </FileUploadItemDelete>
-            </div>
-            <FileUploadItemProgress />
-          </FileUploadItem>
-        ))}
-      </FileUploadList>
+      <div className="mt-4 flex items-center gap-2">
+        <Button type="button" variant="ghost" size="sm" onClick={() => toast('Remove via built-in UI (WIP)')}
+        >
+          <X className="mr-2 h-4 w-4" />
+          Clear
+        </Button>
+      </div>
+      <FileUploadList />
     </FileUpload>
   );
 }
