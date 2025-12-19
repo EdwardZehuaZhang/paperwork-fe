@@ -223,8 +223,6 @@ const WorkflowNodeTemplateComponent = memo(
                             />
                           </Suspense>
                         )
-                      ) : isSheetNode ? (
-                        <SheetPreview sheetContent={sheetContent} />
                       ) : (
                         <FormPreview formBody={formBody} />
                       )}
