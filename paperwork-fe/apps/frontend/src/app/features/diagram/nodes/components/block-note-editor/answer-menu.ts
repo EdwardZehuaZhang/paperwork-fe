@@ -60,6 +60,8 @@ export const getContentSuggestionItems = (
           {
             type: 'time',
             props: {
+              fieldId: t.id,
+              label,
               format,
             },
           },
@@ -83,6 +85,8 @@ export const getContentSuggestionItems = (
           {
             type: 'currentTime',
             props: {
+              fieldId: t.id,
+              label,
               format,
             },
           },
@@ -106,6 +110,8 @@ export const getContentSuggestionItems = (
           {
             type: 'address',
             props: {
+              fieldId: a.id,
+              label,
               format,
             },
           },

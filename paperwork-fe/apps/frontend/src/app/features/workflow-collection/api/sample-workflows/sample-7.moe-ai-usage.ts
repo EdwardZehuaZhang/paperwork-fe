@@ -1,0 +1,100 @@
+import { IntegrationDataFormat } from '@/features/integration/types';
+
+// - This is a checked-in sample workflow used as a demo workflow.
+// - It is intentionally deterministic so fresh installs (and Vercel) see the same sample.
+export const sampleWorkflowMoeAiUsage = {
+  name: 'MOE AI Usage',
+  nodes: [
+    {
+      id: 'dad96bd8-4b62-4a3e-9199-a463638e82e7',
+      type: 'node',
+      position: {
+        x: 1098,
+        y: 720,
+      },
+      data: {
+        segments: [],
+        properties: {
+          label: 'Sheet',
+          description: 'Create a editable data grid',
+          type: 'sheet',
+          status: 'active',
+          formBody: {
+            question1: 'Enter School',
+            question2: 'Enter CET FQ Diploma Full Name',
+            question3: 'Enter Module Full Name',
+            question4: 'Enter Module ID (e.g. NP-013211)',
+            question5: 'Enter Semester Implemented (e.g. 26S1)',
+            question6: 'Enter Brief Description of use of GenAI in T&amp;L for CET',
+            question7: 'Enter Submitter Name',
+          },
+          errors: [],
+        },
+        type: 'sheet',
+        icon: 'Table',
+        sheetContent: {
+          columnDefs: [
+            { field: 'col1', headerName: 'A', width: 150 },
+            { field: 'col2', headerName: 'B', width: 150 },
+            { field: 'col3', headerName: 'C', width: 150 },
+            { field: 'col4', headerName: 'D', width: 150 },
+            { field: 'col5', headerName: 'E', width: 150 },
+            { field: 'col6', headerName: 'F', width: 150 },
+            { field: 'col7', headerName: 'G', width: 150 },
+            { field: 'col8', headerName: 'H', width: 150 },
+            { field: 'col9', headerName: 'I', width: 150 },
+            { field: 'col10', headerName: 'J', width: 150 },
+          ],
+          rowData: [
+            {
+              col1: 'School',
+              col2: 'CET FQ Diploma Full Name',
+              col3: 'Module ID (e.g. NP-013211)',
+              col4: 'Semester Implemented (e.g. 26S1)',
+              col5: 'Brief Description of use of GenAI in T&L for CET',
+              col6: 'Submitted by',
+              col7: '',
+              col8: '',
+              col9: '',
+              col10: '',
+            },
+            {
+              col1: '{question1}',
+              col2: '{question2}',
+              col3: '{question3}',
+              col4: '{question4}',
+              col5: '{question5}',
+              col6: '{question6}',
+              col7: '',
+              col8: '',
+              col9: '',
+              col10: '',
+            },
+            ...Array.from({ length: 28 }).map(() => ({
+              col1: '',
+              col2: '',
+              col3: '',
+              col4: '',
+              col5: '',
+              col6: '',
+              col7: '',
+              col8: '',
+              col9: '',
+              col10: '',
+            })),
+          ],
+          cellFormatting: {},
+        },
+        previewMode: 'editDocument',
+      },
+      selected: true,
+      measured: {
+        width: 1272,
+        height: 982,
+      },
+      dragging: false,
+    },
+  ],
+  edges: [],
+  layoutDirection: 'RIGHT',
+} satisfies IntegrationDataFormat;

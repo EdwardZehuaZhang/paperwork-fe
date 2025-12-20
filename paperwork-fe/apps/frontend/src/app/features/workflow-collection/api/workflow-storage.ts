@@ -1,6 +1,7 @@
 import { Workflow } from '../types';
 import { IntegrationDataFormat } from '@/features/integration/types';
 import { sampleWorkflowStudentLedCommissionProjectAgreement } from './sample-workflows/sample_1.student-led';
+import { sampleWorkflowMoeAiUsage } from './sample-workflows/sample-7.moe-ai-usage';
 
 const STORAGE_KEY = 'paperwork_workflows';
 
@@ -203,6 +204,13 @@ export class WorkflowStorageAPI {
       didChange = true;
     }
 
+    // Add any newly introduced demo samples for existing users.
+    const desiredSample7 = this.getSampleWorkflows().find((w) => w.id === 'sample_7');
+    if (desiredSample7 && !workflows.some((w) => w.id === 'sample_7')) {
+      workflows.push(desiredSample7);
+      didChange = true;
+    }
+
     return { workflows, didChange };
   }
 
@@ -302,6 +310,19 @@ export class WorkflowStorageAPI {
           nodes: [],
           edges: [],
           layoutDirection: 'RIGHT',
+        },
+      },
+      {
+        id: 'sample_7',
+        name: 'MOE AI Usage',
+        dateModified: new Date(2025, 11, 20),
+        dateCreated: new Date(2025, 11, 20),
+        nodeCount: sampleWorkflowMoeAiUsage.nodes.length,
+        thumbnailIcon: 'Database',
+        category: 'Education',
+        tags: ['moe', 'ai', 'sheet', 'grid'],
+        data: {
+          ...sampleWorkflowMoeAiUsage,
         },
       },
     ];

@@ -192,3 +192,17 @@
 :global(.jss_content) {
   cursor: cell;
 }
+
+/*
+ * Column resize in jspreadsheet is initiated by dragging within a very small
+ * hotspot near the header cell edge; without guarding, the browser can start
+ * text selection and/or the sheet can interpret it as a column selection.
+ * Prevent text selection for headers only (tbody editing/selection still works).
+ */
+:global(.jss_worksheet > thead) {
+  user-select: none;
+}
+
+:global(.jss_worksheet > thead > tr > td) {
+  user-select: none;
+}

@@ -1,4 +1,4 @@
-import { DragEventHandler, useCallback, useEffect, useMemo } from 'react';
+import { DragEventHandler, useCallback, useEffect, useMemo, useState } from 'react';
 import useStore from '@/store/store';
 import { diagramStateSelector } from './selectors';
 import styles from './diagram.module.css';
@@ -65,6 +65,30 @@ function DiagramContainerComponent({ edgeTypes = {} }: { edgeTypes?: EdgeTypes }
   const { onDropFromPalette } = usePaletteDrop();
 
   const fitViewOptions: FitViewOptions = useMemo(() => ({ maxZoom: 1 }), []);
+
+  const [isSpreadsheetInteractionActive, setIsSpreadsheetInteractionActive] = useState(false);
+
+  useEffect(() => {
+    // ReactFlow listens globally for delete/backspace to delete selected elements.
+    // When interacting with jspreadsheet, those keys should edit cell content instead.
+    const captureOptions = { capture: true } as const;
+
+    const updateFromEventTarget = (target: EventTarget | null) => {
+      const element = target instanceof Element ? target : null;
+      setIsSpreadsheetInteractionActive(Boolean(element?.closest('.jss')));
+    };
+
+    const onPointerDown = (event: PointerEvent) => updateFromEventTarget(event.target);
+    const onFocusIn = (event: FocusEvent) => updateFromEventTarget(event.target);
+
+    window.addEventListener('pointerdown', onPointerDown, captureOptions);
+    window.addEventListener('focusin', onFocusIn, captureOptions);
+
+    return () => {
+      window.removeEventListener('pointerdown', onPointerDown, captureOptions);
+      window.removeEventListener('focusin', onFocusIn, captureOptions);
+    };
+  }, []);
 
   const onNodeDragStart: OnNodeDrag = useCallback((event, node, nodes) => {
     trackFutureChange('nodeDragStart');
@@ -190,6 +214,7 @@ function DiagramContainerComponent({ edgeTypes = {} }: { edgeTypes?: EdgeTypes }
         onNodeDragStart={onNodeDragStart}
         onNodeDragStop={onNodeDragStop}
         onBeforeDelete={onBeforeDelete}
+        deleteKeyCode={isSpreadsheetInteractionActive ? null : undefined}
         onSelectionChange={handleOnSelectionChange}
         minZoom={0.1}
         snapToGrid={SNAP_IS_ACTIVE}

@@ -1,6 +1,27 @@
 import type { FormAddress, FormCurrentTime, FormQuestion, FormSignature, FormTime } from './answer-menu';
 import type { NodeData } from '@workflow-builder/types/node-data';
 
+function getCustomLabel(fieldId: string, rawValue: unknown, fallbackLabel: string): string {
+  if (typeof rawValue !== 'string') return fallbackLabel;
+
+  const trimmed = rawValue.trim();
+  if (!trimmed) return fallbackLabel;
+
+  // Support values like "question1: Company name" by stripping the prefix.
+  const colonIndex = trimmed.indexOf(':');
+  if (colonIndex > -1) {
+    const prefix = trimmed.slice(0, colonIndex).trim().toLowerCase();
+    const expected = fieldId.trim().toLowerCase();
+
+    if (prefix === expected) {
+      const rest = trimmed.slice(colonIndex + 1).trim();
+      return rest || fallbackLabel;
+    }
+  }
+
+  return trimmed;
+}
+
 export interface FormContent {
   questions: FormQuestion[];
   signatures: FormSignature[];
@@ -32,20 +53,13 @@ export function extractContentFromNodeData(data?: NodeData): FormContent {
   if ('formBody' in properties && typeof properties.formBody === 'object' && properties.formBody !== null) {
     const formBody = properties.formBody as Record<string, unknown>;
 
-    const getCustomLabel = (fieldKey: string) => {
-      const labelKey = `${fieldKey}Label`;
-      const value = formBody[labelKey];
-      return typeof value === 'string' ? value.trim() : '';
-    };
-
     // Extract all time properties from formBody (time1, time2, ...)
     for (const [key, value] of Object.entries(formBody)) {
       if (/^time\d+$/.test(key) && typeof value === 'string') {
         const timeNumber = key.replace('time', '');
-        const customLabel = getCustomLabel(key);
         times.push({
           id: key,
-          label: customLabel || `Time ${timeNumber}`,
+          label: `Time ${timeNumber}`,
           format: value,
         });
       }
@@ -55,10 +69,9 @@ export function extractContentFromNodeData(data?: NodeData): FormContent {
     for (const [key, value] of Object.entries(formBody)) {
       if (/^currentTime\d+$/.test(key) && typeof value === 'string') {
         const timeNumber = key.replace('currentTime', '');
-        const customLabel = getCustomLabel(key);
         currentTimes.push({
           id: key,
-          label: customLabel || `Current Time ${timeNumber}`,
+          label: `Current Time ${timeNumber}`,
           format: value,
         });
       }
@@ -68,10 +81,9 @@ export function extractContentFromNodeData(data?: NodeData): FormContent {
     for (const [key, value] of Object.entries(formBody)) {
       if (/^address\d+$/.test(key) && typeof value === 'string') {
         const addressNumber = key.replace('address', '');
-        const customLabel = getCustomLabel(key);
         addresses.push({
           id: key,
-          label: customLabel || `Address ${addressNumber}`,
+          label: `Address ${addressNumber}`,
           format: value,
         });
       }
@@ -86,30 +98,30 @@ export function extractContentFromNodeData(data?: NodeData): FormContent {
       });
     }
 
-    // Extract all question and signature properties from formBody
+    // Extract all question, money, and signature properties from formBody
     for (const [key, value] of Object.entries(formBody)) {
       if (/^question\d+$/.test(key) && typeof value === 'string') {
         // Extract question number from key (e.g., "question1" -> "1")
         const questionNumber = key.replace('question', '');
-        
+
         questions.push({
           id: key, // Use the property key as stable ID
-          label: `Q${questionNumber}`, // Display as Q1, Q2, etc.
+          label: getCustomLabel(key, value, `Q${questionNumber}`),
         });
       } else if (/^signature\d+$/.test(key) && typeof value === 'string') {
         // Extract signature number from key (e.g., "signature1" -> "1")
         const signatureNumber = key.replace('signature', '');
-        
+
         signatures.push({
           id: key, // Use the property key as stable ID
-          label: `Signature ${signatureNumber}`, // Display as Signature 1, Signature 2, etc.
+          label: `Signature ${signatureNumber}`,
         });
       } else if (/^money\d+$/.test(key) && typeof value === 'string') {
         const moneyNumber = key.replace('money', '');
 
         questions.push({
           id: key,
-          label: `Money ${moneyNumber}`,
+          label: getCustomLabel(key, value, `Money ${moneyNumber}`),
         });
       } else if (key === 'signature' && typeof value === 'string') {
         // Backwards compatibility: legacy `signature` key becomes `signature1`

@@ -3,12 +3,18 @@ import type { MouseEventHandler } from 'react';
 
 /**
  * Custom inline content for address placeholders.
- * Displays the selected address format as: [Address: Street Address, City and Postal Code]
+ * Displays a stable label (e.g., [Address 1]) and carries the selected format for export/replacement.
  */
 export const AddressInline = createReactInlineContentSpec(
   {
     type: 'address',
     propSchema: {
+      fieldId: {
+        default: '',
+      },
+      label: {
+        default: '',
+      },
       format: {
         default: '',
       },
@@ -18,8 +24,8 @@ export const AddressInline = createReactInlineContentSpec(
   },
   {
     render: (props) => {
-      const { format } = props.inlineContent.props;
-      const display = format || 'Address';
+      const { fieldId, label, format } = props.inlineContent.props;
+      const display = label || format || 'Address';
 
       const selectThisToken: MouseEventHandler<HTMLSpanElement> = (event) => {
         event.preventDefault();
@@ -89,6 +95,7 @@ export const AddressInline = createReactInlineContentSpec(
             whiteSpace: 'nowrap',
           }}
           data-address-placeholder="true"
+          data-field-id={fieldId}
         >
           [{display}]
         </span>
@@ -96,11 +103,11 @@ export const AddressInline = createReactInlineContentSpec(
     },
 
     toExternalHTML: (props) => {
-      const { format } = props.inlineContent.props;
-      const display = format || 'Address';
+      const { fieldId, label, format } = props.inlineContent.props;
+      const display = label || format || 'Address';
 
       return (
-        <span className="time-placeholder" data-placeholder-type="address">
+        <span className="time-placeholder" data-placeholder-type="address" data-field-id={fieldId}>
           [{display}]
         </span>
       );

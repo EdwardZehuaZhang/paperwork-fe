@@ -258,6 +258,8 @@ const WorkflowNodeTemplateComponent = memo(
                             questions={questions}
                             signatures={signatures}
                             times={times}
+                            currentTimes={currentTimes}
+                            addresses={addresses}
                           />
                         ) : (
                           <Suspense

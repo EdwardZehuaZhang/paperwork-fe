@@ -192,6 +192,26 @@ export const SheetEditor = memo(
       return ref && Array.isArray(ref) ? ref[0] : ref?.current?.[0] ?? ref?.[0];
     }, [jssInstance]);
 
+    const getColumnWidthFromInstance = useCallback((ws: any, columnIndex: number, fallback: number) => {
+      if (!ws || columnIndex < 0) return fallback;
+
+      try {
+        const w = ws.getWidth?.(columnIndex);
+        if (typeof w === 'number' && Number.isFinite(w) && w > 0) return w;
+      } catch {
+        // ignore
+      }
+
+      try {
+        const w = ws.options?.columns?.[columnIndex]?.width;
+        if (typeof w === 'number' && Number.isFinite(w) && w > 0) return w;
+      } catch {
+        // ignore
+      }
+
+      return fallback;
+    }, []);
+
     const emitChange = useCallback(
       (nextColumns: ColumnDef[], nextRows: Record<string, any>[], nextFormatting: Record<string, Set<string>>) => {
         const cb = onChangeRef.current;
@@ -211,7 +231,7 @@ export const SheetEditor = memo(
       const nextColumns: ColumnDef[] = Array.from({ length: colCount }, (_v, idx) => ({
         field: `col${idx + 1}`,
         headerName: toColumnLetter(idx),
-        width: currentColumns[idx]?.width ?? 150,
+        width: getColumnWidthFromInstance(ws, idx, currentColumns[idx]?.width ?? 150),
       }));
       const nextRows = (matrix || []).map((rowArr) => {
         const row: Record<string, unknown> = {};
@@ -223,7 +243,46 @@ export const SheetEditor = memo(
       setColumnDefs(nextColumns);
       setRowData(nextRows as Record<string, unknown>[]);
       emitChange(nextColumns, nextRows as Record<string, unknown>[], currentFormatting);
-    }, [emitChange, getWorksheet]);
+    }, [emitChange, getWorksheet, getColumnWidthFromInstance]);
+
+    const handleResizeColumn = useCallback(
+      (ws: any, rawColumn: unknown, rawWidth: unknown) => {
+        const currentColumns = columnDefsRef.current;
+        const currentRows = rowDataRef.current;
+        const currentFormatting = cellFormattingRef.current;
+
+        const parseColumnIndex = (value: unknown): number => {
+          if (typeof value === 'number' && Number.isFinite(value)) return value;
+          if (typeof value === 'string') {
+            const trimmed = value.trim().toUpperCase();
+            if (!trimmed) return -1;
+            // A -> 0, B -> 1, ..., AA -> 26, etc.
+            let idx = 0;
+            for (let i = 0; i < trimmed.length; i++) {
+              const code = trimmed.charCodeAt(i);
+              if (code < 65 || code > 90) return -1;
+              idx = idx * 26 + (code - 64);
+            }
+            return idx - 1;
+          }
+          return -1;
+        };
+
+        const columnIndex = parseColumnIndex(rawColumn);
+        if (columnIndex < 0 || columnIndex >= currentColumns.length) return;
+
+        let nextWidth = typeof rawWidth === 'number' ? rawWidth : NaN;
+        if (!Number.isFinite(nextWidth) || nextWidth <= 0) {
+          nextWidth = getColumnWidthFromInstance(ws, columnIndex, currentColumns[columnIndex]?.width ?? 150);
+        }
+        if (!Number.isFinite(nextWidth) || nextWidth <= 0) return;
+
+        const nextColumns = currentColumns.map((col, idx) => (idx === columnIndex ? { ...col, width: nextWidth } : col));
+        setColumnDefs(nextColumns);
+        emitChange(nextColumns, currentRows, currentFormatting);
+      },
+      [emitChange, getColumnWidthFromInstance],
+    );
 
     // Ensure we persist any in-progress edits when collapsing/unmounting.
     useEffect(() => {
@@ -528,6 +587,10 @@ export const SheetEditor = memo(
               columns={columnConfig}
               minDimensions={[columnDefs.length || 1, rowData.length || 1]}
               editable={true}
+              onresizecolumn={(instance: any, columnIndex: number, width: number) => {
+                // Persist column widths into node sheetContent so they survive close/reopen.
+                handleResizeColumn(instance, columnIndex, width);
+              }}
               onevent={(eventName: string, a?: unknown, b?: unknown, c?: unknown, d?: unknown, e?: unknown, f?: unknown) => {
                 console.debug('[SheetEditor] onevent', eventName, { a, b, c, d });
                 if (eventName === 'onselection' || eventName === 'onfocus') {
@@ -538,6 +601,14 @@ export const SheetEditor = memo(
                     console.debug('[SheetEditor] onevent:selection tracked', { eventName, x, y });
                     lastClickedCellRef.current = { x, y };
                   }
+                }
+
+                if (eventName === 'onresizecolumn') {
+                  // Typically: a=instance, b=columnIndex, c=width
+                  const instance = a as any;
+                  const columnIndex = typeof b === 'number' ? b : b;
+                  const width = typeof c === 'number' ? c : typeof d === 'number' ? d : c;
+                  handleResizeColumn(instance, columnIndex, width);
                 }
               }}
               onchange={handleChange}

@@ -26,7 +26,6 @@ import {
 import { CurrencySelect } from '@/components/ui/currency-select';
 import { FieldSet, FieldGroup } from '@/components/ui/field';
 import { Separator } from '@/components/ui/separator';
-import { ControlWrapper } from '../control-wrapper';
 import { Trash, Plus } from '@phosphor-icons/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -246,23 +245,6 @@ function FormBodyControl(props: FormBodyControlProps) {
     [formBody, handleChange, path],
   );
 
-  const handleFieldLabelChange = useCallback(
-    (fieldKey: string, value: string) => {
-      const labelKey = `${fieldKey}Label`;
-      const updated = { ...formBody };
-      const trimmed = value.trim();
-
-      if (trimmed) {
-        updated[labelKey] = value;
-      } else {
-        delete updated[labelKey];
-      }
-
-      handleChange(path, updated);
-    },
-    [formBody, handleChange, path],
-  );
-
   const handleDeleteTime = useCallback(
     (timeKey: string) => {
       const updated = { ...formBody };
@@ -452,8 +434,7 @@ function FormBodyControl(props: FormBodyControlProps) {
                   <div className={styles['times-list']}>
                     {times.map(([timeKey, timeValue]) => {
                       const timeNumber = timeKey.replace('time', '');
-                      const customLabel = typeof formBody[`${timeKey}Label`] === 'string' ? String(formBody[`${timeKey}Label`]) : '';
-                      const label = customLabel.trim() ? customLabel : `Time ${timeNumber}`;
+                      const label = `Time ${timeNumber}`;
 
                       return (
                         <div key={timeKey} className={styles['time-item']}>
@@ -470,14 +451,6 @@ function FormBodyControl(props: FormBodyControlProps) {
                               <Trash className={styles['delete-icon']} />
                             </Button>
                           </div>
-                          <Input
-                            type="text"
-                            value={customLabel}
-                            onChange={(e) => handleFieldLabelChange(timeKey, e.target.value)}
-                            disabled={!enabled}
-                            placeholder="Enter a question"
-                            className={styles['field-question']}
-                          />
                           <Select
                             value={typeof timeValue === 'string' ? timeValue : 'Date, Month and Year'}
                             onValueChange={(value) => handleTimeChange(timeKey, value)}
@@ -502,9 +475,7 @@ function FormBodyControl(props: FormBodyControlProps) {
                   <div className={styles['times-list']}>
                     {currentTimes.map(([currentTimeKey, currentTimeValue]) => {
                       const timeNumber = currentTimeKey.replace('currentTime', '');
-                      const customLabel =
-                        typeof formBody[`${currentTimeKey}Label`] === 'string' ? String(formBody[`${currentTimeKey}Label`]) : '';
-                      const label = customLabel.trim() ? customLabel : `Current Time ${timeNumber}`;
+                      const label = `Current Time ${timeNumber}`;
 
                       return (
                         <div key={currentTimeKey} className={styles['time-item']}>
@@ -521,14 +492,6 @@ function FormBodyControl(props: FormBodyControlProps) {
                               <Trash className={styles['delete-icon']} />
                             </Button>
                           </div>
-                          <Input
-                            type="text"
-                            value={customLabel}
-                            onChange={(e) => handleFieldLabelChange(currentTimeKey, e.target.value)}
-                            disabled={!enabled}
-                            placeholder="Enter a question"
-                            className={styles['field-question']}
-                          />
                           <Select
                             value={typeof currentTimeValue === 'string' ? currentTimeValue : 'Date, Month and Year'}
                             onValueChange={(value) => handleCurrentTimeChange(currentTimeKey, value)}
@@ -553,8 +516,7 @@ function FormBodyControl(props: FormBodyControlProps) {
                   <div className={styles['times-list']}>
                     {addresses.map(([addressKey, addressValue]) => {
                       const addressNumber = addressKey.replace('address', '');
-                      const customLabel = typeof formBody[`${addressKey}Label`] === 'string' ? String(formBody[`${addressKey}Label`]) : '';
-                      const label = customLabel.trim() ? customLabel : `Address ${addressNumber}`;
+                      const label = `Address ${addressNumber}`;
 
                       return (
                         <div key={addressKey} className={styles['time-item']}>
@@ -571,14 +533,6 @@ function FormBodyControl(props: FormBodyControlProps) {
                               <Trash className={styles['delete-icon']} />
                             </Button>
                           </div>
-                          <Input
-                            type="text"
-                            value={customLabel}
-                            onChange={(e) => handleFieldLabelChange(addressKey, e.target.value)}
-                            disabled={!enabled}
-                            placeholder="Enter a question"
-                            className={styles['field-question']}
-                          />
                           <Select
                             value={typeof addressValue === 'string' ? addressValue : 'Street Address, City and Postal Code'}
                             onValueChange={(value) => handleAddressChange(addressKey, value)}
